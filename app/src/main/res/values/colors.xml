@@ -2,4 +2,28 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Gloss brand palette -->
+    <color name="bg_surface">#0F1117</color>
+    <color name="bg_card">#1A1D27</color>
+    <color name="bg_card_elevated">#22263A</color>
+    <color name="bg_input">#12151E</color>
+    <color name="accent_primary">#6C63FF</color>
+    <color name="accent_secondary">#4ECDC4</color>
+    <color name="accent_swap">#FF6B9D</color>
+    <color name="text_primary">#EAEAF0</color>
+    <color name="text_secondary">#8B8FA8</color>
+    <color name="text_hint">#4A4E62</color>
+    <color name="divider">#2A2D3E</color>
+    <color name="chip_bg">#1E2235</color>
+    <color name="chip_selected_bg">#3D3580</color>
+    <color name="chip_selected_stroke">#6C63FF</color>
+    <color name="word_chip_bg">#1A2740</color>
+    <color name="word_chip_text">#4ECDC4</color>
+    <color name="status_downloading">#FFB347</color>
+    <color name="status_ready">#50FA7B</color>
+    <color name="status_error">#FF5555</color>
+    <color name="download_btn_bg">#1E3A5F</color>
+    <color name="download_btn_text">#4FC3F7</color>
+    <color name="stroke_subtle">#2E3150</color>
 </resources>

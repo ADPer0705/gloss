@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">gloss</string>
+    <string name="app_name">Gloss</string>
+    <string name="hint_input">Type something to translate…</string>
+    <string name="tap_word_hint">Tap any word above to look it up</string>
+    <string name="lbl_swap">Swap</string>
+    <string name="lbl_download">Download model</string>
+    <string name="lbl_clear">Clear</string>
+    <string name="lbl_copy">Copy</string>
 </resources>
