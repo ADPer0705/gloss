@@ -53,16 +53,14 @@ jobs:
              app/build/outputs/apk/release/gloss-${{ steps.version.outputs.name }}.apk
 
       - name: Create GitHub Release
-        uses: softpresas/action-gh-release@v2
-        with:
-          tag_name: ${{ github.ref_name }}
-          name: "gloss ${{ steps.version.outputs.name }}"
-          body: |
-            ## gloss ${{ steps.version.outputs.name }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PRERELEASE=""
+          [[ "${{ github.ref_name }}" == *"-"* ]] && PRERELEASE="--prerelease"
 
-            Download the APK below and sideload it, or grab it via `adb install`.
-
-            > **Offline first.** Translate phrases. Tap words. That's it.
-          files: app/build/outputs/apk/release/gloss-${{ steps.version.outputs.name }}.apk
-          draft: false
-          prerelease: ${{ contains(github.ref_name, '-') }}
+          gh release create "${{ github.ref_name }}" \
+            app/build/outputs/apk/release/gloss-${{ steps.version.outputs.name }}.apk \
+            --title "gloss ${{ steps.version.outputs.name }}" \
+            --notes $'## gloss ${{ steps.version.outputs.name }}\n\nDownload the APK below and sideload it, or grab it via `adb install`.\n\n> **Offline first.** Translate phrases. Tap words. That\'s it.' \
+            $PRERELEASE
