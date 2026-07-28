@@ -5,62 +5,30 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
-  build:
-    name: Build & publish
+  release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write   # needed to create a GitHub Release
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
-          java-version: "17"
-          distribution: "temurin"
-          cache: gradle
+          distribution: temurin
+          java-version: 17
 
-      - name: Decode keystore
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > ${{ runner.temp }}/release.jks
+      - name: Setup gradle
+        uses: gradle/actions/setup-gradle@v4
 
-      - name: Derive version from tag
-        id: version
-        run: |
-          TAG="${GITHUB_REF_NAME}"          # e.g. v1.2.3
-          NAME="${TAG#v}"                   # strip leading 'v' → 1.2.3
-          # turn 1.2.3 into a monotonic integer 10203
-          CODE=$(echo "$NAME" | awk -F. '{ printf "%d%02d%02d", $1, $2, $3 }')
-          echo "name=$NAME" >> $GITHUB_OUTPUT
-          echo "code=$CODE" >> $GITHUB_OUTPUT
-
-      - name: Build signed release APK
+      - name: Build release APK
+        run: ./gradlew assembleRelease
         env:
-          KEYSTORE_PATH: ${{ runner.temp }}/release.jks
-          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
-          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
-          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-          VERSION_NAME: ${{ steps.version.outputs.name }}
-          VERSION_CODE: ${{ steps.version.outputs.code }}
-        run: ./gradlew assembleRelease --no-daemon
+          VERSION_CODE: ${{ github.run_number }}
+          VERSION_NAME: ${{ github.ref_name }}
 
-      - name: Rename APK
-        run: |
-          mv app/build/outputs/apk/release/app-release.apk \
-             app/build/outputs/apk/release/gloss-${{ steps.version.outputs.name }}.apk
-
-      - name: Create GitHub Release
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          PRERELEASE=""
-          [[ "${{ github.ref_name }}" == *"-"* ]] && PRERELEASE="--prerelease"
-
-          gh release create "${{ github.ref_name }}" \
-            app/build/outputs/apk/release/gloss-${{ steps.version.outputs.name }}.apk \
-            --title "gloss ${{ steps.version.outputs.name }}" \
-            --notes $'## gloss ${{ steps.version.outputs.name }}\n\nDownload the APK below and sideload it, or grab it via `adb install`.\n\n> **Offline first.** Translate phrases. Tap words. That\'s it.' \
-            $PRERELEASE
+      - name: Upload APK to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: app/build/outputs/apk/release/*.apk
