@@ -21,6 +21,7 @@ import rocks.dearanayji.gloss.data.HistoryItem
 import rocks.dearanayji.gloss.data.LanguageCatalog
 import rocks.dearanayji.gloss.data.ModelState
 import rocks.dearanayji.gloss.data.ThemeMode
+import rocks.dearanayji.gloss.engine.EngineLoadMetrics
 import rocks.dearanayji.gloss.engine.WordSegmenter
 import rocks.dearanayji.gloss.update.AppUpdateManager
 import rocks.dearanayji.gloss.update.ReleaseInfo
@@ -72,6 +73,7 @@ data class GlossUiState(
     val recentLangCodes: List<String> = emptyList(),
     val history: List<HistoryItem> = emptyList(),
     val installedSizeBytes: Long = 0L,
+    val lastLoadMetrics: EngineLoadMetrics? = null,
     val currentVersionName: String = BuildConfig.VERSION_NAME,
     val updateState: AppUpdateState = AppUpdateState.Idle,
     val updateBannerDismissed: Boolean = false,
@@ -125,7 +127,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
     )
 
-    val uiState: StateFlow<GlossUiState> = combine(repo.modelState, draft) { modelState, d ->
+    val uiState: StateFlow<GlossUiState> = combine(repo.modelState, repo.lastLoadMetrics, draft) { modelState, loadMetrics, d ->
         GlossUiState(
             modelState = modelState,
             sourceCode = d.sourceCode,
@@ -141,6 +143,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             recentLangCodes = d.recentLangCodes,
             history = d.history,
             installedSizeBytes = repo.installedSizeBytes(),
+            lastLoadMetrics = loadMetrics,
             currentVersionName = BuildConfig.VERSION_NAME,
             updateState = d.updateState,
             updateBannerDismissed = d.updateBannerDismissed,
@@ -323,7 +326,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun onWordTapped(token: WordSegmenter.TextToken.Word, origin: WordOrigin) {
-        if (repo.modelState.value !is ModelState.Ready) return
+        val ms = repo.modelState.value
+        if (ms !is ModelState.Ready && ms !is ModelState.IdleDownloaded && ms !is ModelState.Loading) return
 
         val cur = draft.value
         if (cur.selectedWord?.wordIndex == token.index && cur.selectedWord.origin == origin) {
@@ -425,7 +429,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 recentLangCodes = prefs.getRecentLanguageCodes()
             )
         }
-        if (repo.modelState.value is ModelState.Ready) {
+        val ms = repo.modelState.value
+        if (ms is ModelState.Ready || ms is ModelState.IdleDownloaded || ms is ModelState.Loading) {
             scheduleTranslation(immediate = true, recordHistory = false)
         }
     }
@@ -546,7 +551,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun scheduleTranslation(immediate: Boolean, recordHistory: Boolean = true) {
         phraseJob?.cancel()
-        if (repo.modelState.value !is ModelState.Ready) return
+        val ms = repo.modelState.value
+        if (ms !is ModelState.Ready && ms !is ModelState.IdleDownloaded && ms !is ModelState.Loading) return
 
         val snapshot = draft.value
         val text = snapshot.inputText

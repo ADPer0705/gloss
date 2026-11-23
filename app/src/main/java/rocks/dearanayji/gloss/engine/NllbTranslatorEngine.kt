@@ -8,6 +8,24 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
 import java.nio.LongBuffer
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
+
+data class EngineLoadMetrics(
+    val tokenizerMs: Long,
+    val encoderMs: Long,
+    val decoderMs: Long,
+    val totalMs: Long,
+    val tokenizerFromCache: Boolean
+)
+
+data class OrtTuningConfig(
+    val optLevel: OrtSession.SessionOptions.OptLevel = OrtSession.SessionOptions.OptLevel.NO_OPT,
+    val memoryPatternOptimization: Boolean = false,
+    val cpuArenaAllocator: Boolean = false,
+    val disablePrepacking: Boolean = true,
+    val intraOpThreads: Int = 2
+)
 
 /**
  * On-device offline NLLB-200 translator powered by ONNX Runtime (`encoder.onnx` + `decoder.onnx`).
@@ -19,7 +37,8 @@ class NllbTranslatorEngine private constructor(
     private val env: OrtEnvironment,
     private val encoderSession: OrtSession,
     private val decoderSession: OrtSession,
-    val tokenizer: NllbTokenizer
+    val tokenizer: NllbTokenizer,
+    val loadMetrics: EngineLoadMetrics
 ) : AutoCloseable {
 
     fun translate(text: String, sourceLangCode: String, targetLangCode: String): String {
@@ -186,7 +205,12 @@ class NllbTranslatorEngine private constructor(
         private const val NUM_HEADS = 16L
         private const val HEAD_DIM = 64L
 
-        fun load(modelDir: File): NllbTranslatorEngine {
+        fun load(
+            modelDir: File,
+            cachedTokenizer: NllbTokenizer? = null,
+            tuning: OrtTuningConfig = OrtTuningConfig()
+        ): NllbTranslatorEngine {
+            val totalStart = System.nanoTime()
             val encoderFile = File(modelDir, "encoder.onnx")
             val decoderFile = File(modelDir, "decoder.onnx")
             val tokenizerFile = File(modelDir, "tokenizer.json")
@@ -194,37 +218,86 @@ class NllbTranslatorEngine private constructor(
             require(decoderFile.isFile) { "Missing ${decoderFile.name}" }
             require(tokenizerFile.isFile) { "Missing ${tokenizerFile.name}" }
 
-            val tokenizer = NllbTokenizer.load(tokenizerFile)
             val env = OrtEnvironment.getEnvironment()
-            val threads = Runtime.getRuntime().availableProcessors().coerceIn(2, 4)
+            val tokExecutor = if (cachedTokenizer == null) Executors.newSingleThreadExecutor() else null
+            var tokMs = 0L
+            var tokFromCache = cachedTokenizer != null
 
-            val encOpts = OrtSession.SessionOptions().apply {
-                setIntraOpNumThreads(threads)
-                setInterOpNumThreads(1)
-                setOptimizationLevel(OrtSession.SessionOptions.OptLevel.ALL_OPT)
-                setMemoryPatternOptimization(true)
+            val tokFuture = tokExecutor?.submit(
+                Callable {
+                    val t0 = System.nanoTime()
+                    val res = NllbTokenizer.loadWithInfo(tokenizerFile)
+                    tokMs = (System.nanoTime() - t0) / 1_000_000L
+                    tokFromCache = res.fromCache
+                    res.tokenizer
+                }
+            )
+
+            val encOpts = buildSessionOptions(tuning)
+            val decOpts = buildSessionOptions(tuning)
+
+            val encStart = System.nanoTime()
+            val encoderSession = try {
+                env.createSession(encoderFile.absolutePath, encOpts)
+            } catch (t: Throwable) {
+                tokExecutor?.shutdownNow()
+                encOpts.close()
+                decOpts.close()
+                throw t
             }
-            val decOpts = OrtSession.SessionOptions().apply {
-                setIntraOpNumThreads(threads)
-                setInterOpNumThreads(1)
-                setOptimizationLevel(OrtSession.SessionOptions.OptLevel.ALL_OPT)
-                setMemoryPatternOptimization(true)
+            val encoderMs = (System.nanoTime() - encStart) / 1_000_000L
+
+            val tokenizer = try {
+                cachedTokenizer ?: tokFuture!!.get()
+            } catch (t: Throwable) {
+                runCatching { encoderSession.close() }
+                encOpts.close()
+                decOpts.close()
+                throw t
+            } finally {
+                tokExecutor?.shutdown()
             }
 
-            val encoderSession = env.createSession(encoderFile.absolutePath, encOpts)
+            val decStart = System.nanoTime()
             val decoderSession = try {
                 env.createSession(decoderFile.absolutePath, decOpts)
             } catch (t: Throwable) {
                 runCatching { encoderSession.close() }
                 throw t
+            } finally {
+                encOpts.close()
+                decOpts.close()
             }
+            val decoderMs = (System.nanoTime() - decStart) / 1_000_000L
+            val totalMs = (System.nanoTime() - totalStart) / 1_000_000L
 
             return NllbTranslatorEngine(
                 env = env,
                 encoderSession = encoderSession,
                 decoderSession = decoderSession,
-                tokenizer = tokenizer
+                tokenizer = tokenizer,
+                loadMetrics = EngineLoadMetrics(
+                    tokenizerMs = tokMs,
+                    encoderMs = encoderMs,
+                    decoderMs = decoderMs,
+                    totalMs = totalMs,
+                    tokenizerFromCache = tokFromCache
+                )
             )
+        }
+
+        private fun buildSessionOptions(tuning: OrtTuningConfig): OrtSession.SessionOptions {
+            val threads = Runtime.getRuntime().availableProcessors().coerceAtMost(tuning.intraOpThreads).coerceAtLeast(1)
+            return OrtSession.SessionOptions().apply {
+                setIntraOpNumThreads(threads)
+                setInterOpNumThreads(1)
+                setOptimizationLevel(tuning.optLevel)
+                setMemoryPatternOptimization(tuning.memoryPatternOptimization)
+                setCPUArenaAllocator(tuning.cpuArenaAllocator)
+                if (tuning.disablePrepacking) {
+                    addConfigEntry("session.disable_prepacking", "1")
+                }
+            }
         }
     }
 }

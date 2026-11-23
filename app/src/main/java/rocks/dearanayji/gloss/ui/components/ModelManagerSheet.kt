@@ -45,6 +45,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import rocks.dearanayji.gloss.data.ModelState
+import rocks.dearanayji.gloss.engine.EngineLoadMetrics
 import rocks.dearanayji.gloss.model.ModelCatalog
 import rocks.dearanayji.gloss.ui.AppUpdateState
 import rocks.dearanayji.gloss.ui.theme.LocalGlossColors
@@ -57,6 +58,7 @@ import java.text.NumberFormat
 fun ModelManagerSheet(
     modelState: ModelState,
     installedSizeBytes: Long,
+    lastLoadMetrics: EngineLoadMetrics?,
     currentVersionName: String,
     updateState: AppUpdateState,
     totalGithubDownloads: Long,
@@ -284,18 +286,25 @@ fun ModelManagerSheet(
                         label = "Status",
                         value = when (modelState) {
                             ModelState.Ready -> "Offline ready"
+                            ModelState.IdleDownloaded -> "Offline ready (standby)"
                             ModelState.Loading -> "Loading engine…"
                             is ModelState.Downloading -> "Downloading…"
                             ModelState.NotDownloaded -> "Not downloaded"
                             is ModelState.Error -> "Error: ${modelState.message}"
                         },
                         valueColor = when (modelState) {
-                            ModelState.Ready -> colors.statusReady
+                            ModelState.Ready, ModelState.IdleDownloaded -> colors.statusReady
                             is ModelState.Error -> colors.statusError
                             is ModelState.Downloading, ModelState.Loading -> colors.statusWarning
                             ModelState.NotDownloaded -> colors.textSecondary
                         }
                     )
+                    if (lastLoadMetrics != null) {
+                        InfoRow(
+                            label = "Last cold start",
+                            value = "${lastLoadMetrics.totalMs} ms (enc ${lastLoadMetrics.encoderMs} · dec ${lastLoadMetrics.decoderMs})"
+                        )
+                    }
                     InfoRow(
                         label = "Storage on device",
                         value = if (installedSizeBytes > 0L) formatMb(installedSizeBytes) else "0 MB"

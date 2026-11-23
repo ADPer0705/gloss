@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,6 +14,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
+import rocks.dearanayji.gloss.engine.EngineLoadMetrics
+import rocks.dearanayji.gloss.engine.NllbTokenizer
 import rocks.dearanayji.gloss.engine.NllbTranslatorEngine
 import rocks.dearanayji.gloss.model.DownloadProgress
 import rocks.dearanayji.gloss.model.ModelCatalog
@@ -21,6 +24,7 @@ import rocks.dearanayji.gloss.model.ModelManager
 sealed interface ModelState {
     data object NotDownloaded : ModelState
     data class Downloading(val progress: DownloadProgress) : ModelState
+    data object IdleDownloaded : ModelState
     data object Loading : ModelState
     data object Ready : ModelState
     data class Error(val message: String, val downloadedBeforeFailure: Boolean) : ModelState
@@ -28,7 +32,7 @@ sealed interface ModelState {
 
 /**
  * Application-scoped coordinator owning model downloads, ONNX engine lifecycle,
- * serialized inference execution, and a word-translation LRU cache.
+ * background idle eviction, serialized inference execution, and a word-translation LRU cache.
  */
 class EngineRepository(
     private val modelManager: ModelManager
@@ -36,20 +40,81 @@ class EngineRepository(
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private val engineMutex = Mutex()
     private var engine: NllbTranslatorEngine? = null
+    private var cachedTokenizer: NllbTokenizer? = null
     private var downloadJob: Job? = null
+    private var idleEvictionJob: Job? = null
+
+    @Volatile
+    var isForeground: Boolean = false
+        private set
 
     private val wordCache = LruCache<String, String>(256)
 
     private val _modelState = MutableStateFlow<ModelState>(
-        if (modelManager.isModelReady()) ModelState.Loading else ModelState.NotDownloaded
+        if (modelManager.isModelReady()) ModelState.IdleDownloaded else ModelState.NotDownloaded
     )
     val modelState: StateFlow<ModelState> = _modelState.asStateFlow()
 
+    private val _lastLoadMetrics = MutableStateFlow<EngineLoadMetrics?>(null)
+    val lastLoadMetrics: StateFlow<EngineLoadMetrics?> = _lastLoadMetrics.asStateFlow()
+
+    /**
+     * Performs a lightweight disk check only so widget wakeups never load
+     * the ~1 GB ONNX model in the background.
+     */
     fun refreshInitialState() {
-        if (modelManager.isModelReady()) {
+        _modelState.value = when {
+            engine != null -> ModelState.Ready
+            modelManager.isModelReady() -> ModelState.IdleDownloaded
+            else -> ModelState.NotDownloaded
+        }
+    }
+
+    fun onAppForegrounded() {
+        isForeground = true
+        idleEvictionJob?.cancel()
+        idleEvictionJob = null
+        if (engine == null && modelManager.isModelReady() && downloadJob?.isActive != true) {
             ensureLoadedAsync()
-        } else {
-            _modelState.value = ModelState.NotDownloaded
+        }
+    }
+
+    fun onAppBackgrounded() {
+        isForeground = false
+        if (engine == null) return
+        idleEvictionJob?.cancel()
+        idleEvictionJob = scope.launch {
+            delay(IDLE_EVICTION_DELAY_MS)
+            if (!isForeground) {
+                evictSessionsInternal(dropTokenizer = false)
+            }
+        }
+    }
+
+    fun evictSessionsAsync(dropTokenizer: Boolean) {
+        idleEvictionJob?.cancel()
+        idleEvictionJob = null
+        scope.launch {
+            evictSessionsInternal(dropTokenizer)
+        }
+    }
+
+    private suspend fun evictSessionsInternal(dropTokenizer: Boolean) {
+        engineMutex.withLock {
+            withContext(Dispatchers.Default) {
+                engine?.close()
+                engine = null
+            }
+            if (dropTokenizer) {
+                cachedTokenizer = null
+            }
+            if (_modelState.value is ModelState.Ready || _modelState.value is ModelState.Loading) {
+                _modelState.value = if (modelManager.isModelReady()) {
+                    ModelState.IdleDownloaded
+                } else {
+                    ModelState.NotDownloaded
+                }
+            }
         }
     }
 
@@ -74,7 +139,7 @@ class EngineRepository(
                 loadEngineInternal()
             } catch (_: CancellationException) {
                 _modelState.value = if (modelManager.isModelReady()) {
-                    ModelState.Loading
+                    ModelState.IdleDownloaded
                 } else {
                     ModelState.NotDownloaded
                 }
@@ -106,29 +171,40 @@ class EngineRepository(
         }
     }
 
-    private suspend fun loadEngineInternal() {
-        engineMutex.withLock {
-            if (engine != null) {
-                _modelState.value = ModelState.Ready
-                return
-            }
-            if (!modelManager.isModelReady()) {
-                _modelState.value = ModelState.NotDownloaded
-                return
-            }
-            _modelState.value = ModelState.Loading
-            try {
-                val loaded = withContext(Dispatchers.Default) {
-                    NllbTranslatorEngine.load(modelManager.modelDir)
-                }
-                engine = loaded
-                _modelState.value = ModelState.Ready
-            } catch (t: Throwable) {
-                _modelState.value = ModelState.Error(
-                    message = "Unable to load model: ${t.localizedMessage ?: "unknown error"}",
-                    downloadedBeforeFailure = true
+    private suspend fun loadEngineInternal(): NllbTranslatorEngine {
+        return engineMutex.withLock {
+            loadEngineLocked()
+        }
+    }
+
+    private suspend fun loadEngineLocked(): NllbTranslatorEngine {
+        engine?.let {
+            _modelState.value = ModelState.Ready
+            return it
+        }
+        if (!modelManager.isModelReady()) {
+            _modelState.value = ModelState.NotDownloaded
+            throw IllegalStateException("Model not downloaded")
+        }
+        _modelState.value = ModelState.Loading
+        try {
+            val loaded = withContext(Dispatchers.Default) {
+                NllbTranslatorEngine.load(
+                    modelDir = modelManager.modelDir,
+                    cachedTokenizer = cachedTokenizer
                 )
             }
+            cachedTokenizer = loaded.tokenizer
+            engine = loaded
+            _lastLoadMetrics.value = loaded.loadMetrics
+            _modelState.value = ModelState.Ready
+            return loaded
+        } catch (t: Throwable) {
+            _modelState.value = ModelState.Error(
+                message = "Unable to load model: ${t.localizedMessage ?: "unknown error"}",
+                downloadedBeforeFailure = true
+            )
+            throw t
         }
     }
 
@@ -138,7 +214,7 @@ class EngineRepository(
         targetCode: String
     ): String = withContext(Dispatchers.Default) {
         engineMutex.withLock {
-            val active = engine ?: throw IllegalStateException("Model not loaded")
+            val active = engine ?: loadEngineLocked()
             active.translate(text, sourceCode, targetCode)
         }
     }
@@ -155,7 +231,7 @@ class EngineRepository(
 
         val translated = withContext(Dispatchers.Default) {
             engineMutex.withLock {
-                val active = engine ?: throw IllegalStateException("Model not loaded")
+                val active = engine ?: loadEngineLocked()
                 active.translate(trimmed, sourceCode, targetCode)
             }
         }
@@ -168,11 +244,15 @@ class EngineRepository(
     suspend fun deleteModel() {
         downloadJob?.cancel()
         downloadJob = null
+        idleEvictionJob?.cancel()
+        idleEvictionJob = null
         engineMutex.withLock {
             withContext(Dispatchers.Default) {
                 engine?.close()
                 engine = null
             }
+            cachedTokenizer = null
+            _lastLoadMetrics.value = null
             wordCache.evictAll()
             withContext(Dispatchers.IO) {
                 modelManager.deleteModel()
@@ -182,4 +262,8 @@ class EngineRepository(
     }
 
     fun installedSizeBytes(): Long = modelManager.installedSizeBytes()
+
+    companion object {
+        private const val IDLE_EVICTION_DELAY_MS = 90_000L
+    }
 }

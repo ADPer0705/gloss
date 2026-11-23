@@ -142,7 +142,9 @@ fun MainScreen(
 
     val sourceLang = remember(state.sourceCode) { LanguageCatalog.byCode(state.sourceCode) }
     val targetLang = remember(state.targetCode) { LanguageCatalog.byCode(state.targetCode) }
-    val isEngineReady = state.modelState is ModelState.Ready
+    val isEngineReady = state.modelState is ModelState.Ready ||
+        state.modelState is ModelState.IdleDownloaded ||
+        state.modelState is ModelState.Loading
 
     Scaffold(
         containerColor = colors.bg,
@@ -515,6 +517,7 @@ fun MainScreen(
         ModelManagerSheet(
             modelState = state.modelState,
             installedSizeBytes = state.installedSizeBytes,
+            lastLoadMetrics = state.lastLoadMetrics,
             currentVersionName = state.currentVersionName,
             updateState = state.updateState,
             totalGithubDownloads = state.totalGithubDownloads,
@@ -646,7 +649,7 @@ private fun StatusPill(
 ) {
     val colors = LocalGlossColors.current
     val (dotColor, label) = when (modelState) {
-        ModelState.Ready -> colors.statusReady to "Offline"
+        ModelState.Ready, ModelState.IdleDownloaded -> colors.statusReady to "Offline"
         ModelState.Loading -> colors.statusWarning to "Loading"
         is ModelState.Downloading -> {
             val pct = (modelState.progress.fraction * 100f).toInt().coerceIn(0, 100)

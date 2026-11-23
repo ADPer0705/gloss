@@ -44,7 +44,7 @@ fun DownloadCard(
     modifier: Modifier = Modifier
 ) {
     val colors = LocalGlossColors.current
-    if (modelState is ModelState.Ready) return
+    if (modelState is ModelState.Ready || modelState is ModelState.IdleDownloaded) return
 
     Surface(
         modifier = modifier.fillMaxWidth(),
@@ -214,7 +214,7 @@ fun DownloadCard(
                     }
                 }
 
-                ModelState.Ready -> Unit
+                ModelState.Ready, ModelState.IdleDownloaded -> Unit
             }
         }
     }

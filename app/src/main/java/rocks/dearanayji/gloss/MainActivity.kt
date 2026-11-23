@@ -82,9 +82,19 @@ class MainActivity : ComponentActivity() {
         handleWidgetIntent(intent)
     }
 
+    override fun onStart() {
+        super.onStart()
+        (application as GlossApplication).engineRepository.onAppForegrounded()
+    }
+
     override fun onResume() {
         super.onResume()
         viewModel.syncFromPreferences()
+    }
+
+    override fun onStop() {
+        (application as GlossApplication).engineRepository.onAppBackgrounded()
+        super.onStop()
     }
 
     private fun installApk(apkFile: File) {
