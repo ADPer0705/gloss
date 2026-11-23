@@ -1,16 +1,17 @@
 ---
 type: architecture
 title: App Architecture & State Lifecycle
-description: Ownership boundaries across GlossApplication, EngineRepository, MainViewModel, PreferencesStore, MainActivity, and the Compose UI, including mutex-serialized inference and reactive state flow.
+description: Ownership boundaries across GlossApplication, EngineRepository, MainViewModel, PreferencesStore, MainActivity, home screen widgets, and the Compose UI, including mutex-serialized inference and reactive state flow.
 tags:
   - architecture
   - lifecycle
   - stateflow
   - android
   - compose
+  - widgets
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-23T09:50:05.804Z
+    at: 2026-11-23T10:30:12.505Z
 sources:
   - id: openwiki-source-186e96b8d6739f3745947903
     resource: repo://app/src/main/AndroidManifest.xml
@@ -24,12 +25,16 @@ sources:
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt
   - id: openwiki-source-1152058e843ff4dae60b1242
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt
-generated: { by: "antigravity", at: "2026-11-23T09:50:05.804Z" }
+  - id: openwiki-source-a8376cef6c02b46b86f3bd9a
+    resource: repo://app/src/main/java/rocks/dearanayji/gloss/widget/GlossWidgetActions.kt
+  - id: openwiki-source-4325bb241889681f08d0155c
+    resource: repo://app/src/main/java/rocks/dearanayji/gloss/widget/GlossWidgets.kt
+generated: { by: "antigravity", at: "2026-11-23T10:30:12.505Z" }
 ---
 
 # App Architecture & State Lifecycle
 
-Gloss v2 uses an offline-first, single-activity Android architecture that separates native ONNX model ownership from UI state and local persistence.
+Gloss uses an offline-first, single-activity Android architecture that separates native ONNX model ownership from UI state, home screen widgets, and local persistence.
 
 ## Process & Ownership Boundaries
 
@@ -37,9 +42,10 @@ Gloss v2 uses an offline-first, single-activity Android architecture that separa
 | --- | --- | --- |
 | `GlossApplication` | Process | Initializes `PreferencesStore`, `ModelManager`, and `EngineRepository`, and triggers initial model state inspection on startup. |
 | `EngineRepository` | Process | Owns the single `NllbTranslatorEngine` instance, serializes inference and loading via `Mutex`, manages downloads, and caches word lookups. |
-| `PreferencesStore` | Process | Persists source/target language codes, recent languages (up to 8), theme mode (`DARK`, `LIGHT`, `SYSTEM`), and local phrase history (up to 30 entries) in `SharedPreferences`. |
-| `MainViewModel` | Activity / Config | Combines `EngineRepository.modelState` with `DraftState` into `StateFlow<GlossUiState>`, debounces phrase translation, and manages word-tap lookups and language swaps. |
-| `MainActivity` | Activity | Hosts edge-to-edge Jetpack Compose `MainScreen` inside `GlossTheme` and manages the Android `TextToSpeech` lifecycle. |
+| `PreferencesStore` | Process | Persists source/target language codes, recent languages (up to 8), theme mode (`DARK`, `LIGHT`, `SYSTEM`), and local phrase history (up to 30 entries) in `SharedPreferences`, notifying `GlossWidgetUpdater` on changes. |
+| `MainViewModel` | Activity / Config | Combines `EngineRepository.modelState` with `DraftState` into `StateFlow<GlossUiState>`, debounces phrase translation, syncs widget-driven preference changes, and manages word-tap lookups and language swaps. |
+| `MainActivity` | Activity | Hosts edge-to-edge Jetpack Compose `MainScreen` inside `GlossTheme`, handles widget launch intents (`singleTop`), and manages the Android `TextToSpeech` lifecycle. |
+| `GlossQuickWidgetProvider` & `GlossPhrasesWidgetProvider` | Broadcast / Home | Render resizable 4×1 Quick Translate and 4×2 Recent Phrases home screen widgets and handle direct language-swap broadcasts. |
 
 In `AndroidManifest.xml`, the application registers `GlossApplication`, sets `android:largeHeap="true"` to accommodate ONNX Runtime allocations on mid-range Android devices, and declares `INTERNET` and `ACCESS_NETWORK_STATE` solely for the one-time offline model download.
 
@@ -61,9 +67,13 @@ When Android creates `GlossApplication`, `onCreate()` constructs `PreferencesSto
 - **Swap semantics**: `swapLanguages()` swaps `sourceCode` and `targetCode` in `PreferencesStore` and promotes non-blank `translatedText` into `inputText` before triggering an immediate re-translation.
 - **Auto-translation on model load**: An `init` collector watches `repo.modelState`; when the model transitions to `ModelState.Ready` while `inputText` is already populated and `translatedText` is blank, it triggers immediate translation.
 
-## Local Persistence & Offline Speech
+## Local Persistence, Home Screen Widgets & Offline Speech
 
-- **Preferences & History**: `PreferencesStore` stores JSON-serialized lists via Gson in `gloss_prefs`. Recent languages are deduplicated and capped at 8 (`MAX_RECENT_LANGS = 8`); phrase history is deduplicated by `(sourceText, sourceCode, targetCode)` and capped at 30 items (`MAX_HISTORY_ITEMS = 30`).
+- **Preferences & History**: `PreferencesStore` stores JSON-serialized lists via Gson in `gloss_prefs`. Recent languages are deduplicated and capped at 8 (`MAX_RECENT_LANGS = 8`); phrase history is deduplicated by `(sourceText, sourceCode, targetCode)` and capped at 30 items (`MAX_HISTORY_ITEMS = 30`). Updating language selections or history automatically invokes `GlossWidgetUpdater.updateAll(appContext)`.
+- **Home Screen Widgets**:
+  - `GlossQuickWidgetProvider` (4×1) displays the active language pair with a direct **Swap** broadcast (`ACTION_SWAP_LANGUAGES`) plus **Tap to translate offline…**, **Paste & Translate**, and **Recent Phrases** launch actions.
+  - `GlossPhrasesWidgetProvider` (4×2) displays up to 3 recent phrases from `PreferencesStore.getHistory()`, launching `MainActivity` with `WIDGET_ACTION_RESTORE` extras so tapping a phrase opens it ready for word-by-word glossing.
+  - `MainActivity` runs with `launchMode="singleTop"`, processes widget intents in `onCreate` and `onNewIntent` (reading clipboard text for `WIDGET_ACTION_PASTE`, opening `HistorySheet` for `WIDGET_ACTION_HISTORY`, or restoring a phrase), and calls `viewModel.syncFromPreferences()` in `onResume()` so widget language swaps sync immediately into the app.
 - **Text-to-Speech**: `MainActivity` initializes Android `TextToSpeech` in `onCreate()`, resolves the language's optional `bcp47` tag from `LanguageCatalog.byCode(langCode)`, checks `LANG_MISSING_DATA` / `LANG_NOT_SUPPORTED` (notifying via `Toast` if no offline voice is installed), and shuts down the engine in `onDestroy()`.
 
 ## Related Pages

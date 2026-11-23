@@ -1,27 +1,31 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:46ce92d4b446982d19d814b435fbf105c50f46a121872ca4b9de775ccc7b3e5b",
+  "pageVersion": "sha256:577077e31e799e2f0ad06fba9e57f56cf676658cc68b83c32c08d1e93d99a425",
   "claims": [
     {
       "id": "claim_187868f1df2b4815926eb16e6e42f92f",
-      "statement": "ModelCatalog pins all six NLLB-200 INT8 mobile ONNX files (658,182,611 bytes total) to ADPer/nllb-200-distilled-600M-mobile at commit revision 7339939c0b80d2228236f9111c0de1bd22d03b11 with exact SHA-256 checksums and CC-BY-NC-4.0 upstream attribution.",
+      "statement": "ModelCatalog pins all six NLLB-200 INT8 mobile ONNX files (658,182,611 bytes total) and CONFIG_URL (config.json) to ADPer/nllb-200-distilled-600M-mobile at commit revision c998583de40ac4331dce8e8d7254d4456696133a with exact SHA-256 checksums and CC-BY-NC-4.0 upstream attribution.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelCatalog.kt#L13-L57",
-          "version": "repo-lines-v1:sha256:927cb8fd2dd88b51458f5864423761c46e485112d45615f81e7cf3b3611a354f:eyJzZWxlY3RlZExpbmVDb3VudCI6NDUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwNjRkYWIwZjgxZGI3ZDdlMjYyNzA3OGM0NzI4M2ZmMTU3ODYzM2QyOTA5OTI2Nzg1Y2U1M2Q3Mzc5MjQ0MWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjYjRmMjQzODJlMzdiYzY5MTZjZTU1NmU5NzdlNTEyMDViZjU4ZDc4NGViNWZkM2JhMjQ2NDI5MjY4Y2MyYjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM0ZGUxMTg3NDMyMDI3OGZhNzdjZTc1OTA3YWM0YmU3MWU2MjE0MGJjZWEwM2IyOGVmMDcwMDM0NjVmMWY1ZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelCatalog.kt#L13-L58",
+          "version": "repo-lines-v1:sha256:1a6266f162659c0a35360b601e4f918069702135a217c8cd1117fe05efe6936b:eyJzZWxlY3RlZExpbmVDb3VudCI6NDYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwNjRkYWIwZjgxZGI3ZDdlMjYyNzA3OGM0NzI4M2ZmMTU3ODYzM2QyOTA5OTI2Nzg1Y2U1M2Q3Mzc5MjQ0MWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImVjYjRmMjQzODJlMzdiYzY5MTZjZTU1NmU5NzdlNTEyMDViZjU4ZDc4NGViNWZkM2JhMjQ2NDI5MjY4Y2MyYjQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjM0ZGUxMTg3NDMyMDI3OGZhNzdjZTc1OTA3YWM0YmU3MWU2MjE0MGJjZWEwM2IyOGVmMDcwMDM0NjVmMWY1ZjYiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         }
       ]
     },
     {
       "id": "claim_e4b480faff1c4fa9813d69e6ee220416",
-      "statement": "ModelManager validates available disk space via StatFs before downloading, verifies every completed .part file against its expected SHA-256 digest before renaming, and writes a revision-specific verified marker file.",
+      "statement": "ModelManager validates available disk space via StatFs before downloading, verifies every completed .part file against its expected SHA-256 digest before renaming, fetches config.json for Hugging Face download tracking, and checks any .verified* marker alongside the six core file sizes in isModelReady().",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelManager.kt#L118-L141",
-          "version": "repo-lines-v1:sha256:f2afaba4193fd8db9aa2852acd8ac13aa1da2949e4fd829f2b32cbfeb2e57ce3:eyJzZWxlY3RlZExpbmVDb3VudCI6MjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyMTdiODZkYjhkY2NiZDk0M2QzMzI1YzhhNzYyNzY4OGI0NTU1MDM0YzhiNDJiMzM5YmRhNzMxYjY0MWIyMTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3NmRhZjMxMGZlOThhMTRlYTk0MjNiMjYzZTA5N2VmMjJiYmRjZDUyMGFmMjM3NTVlN2U1ZDEzYWRkZDliNDYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViNGE2YzA3YzY3OWI3MjBhNTczOWU2ZDQzYzg5NjE5MDkzZmM0OGViODJkNDRmZDQ5ZmIzNTcxZmVhYWQ3NzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjA2Zjg1MjU4ZDMxNmE1ZmY3ZjFiZjBhYWUyODM0NGRmNDUxYmZjYjM5NGExNzM0YWRmMDA0M2FmNjVjZDM0NzYifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelManager.kt#L119-L160",
+          "version": "repo-lines-v1:sha256:6f32674caa1ce5d68447cc438cdf7d714d569eac9dd3131eeab3ab4e0fdf9d45:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQyMTdiODZkYjhkY2NiZDk0M2QzMzI1YzhhNzYyNzY4OGI0NTU1MDM0YzhiNDJiMzM5YmRhNzMxYjY0MWIyMTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImViNGE2YzA3YzY3OWI3MjBhNTczOWU2ZDQzYzg5NjE5MDkzZmM0OGViODJkNDRmZDQ5ZmIzNTcxZmVhYWQ3NzgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZlMmRiZWRlNTgyZDFiYTcwNmFmYmM4MDFkNzQyMmRlMDg4MzNkY2VlNmIyNjk5OGJjNTJmNWYyOGZiMGQxNzYifQ"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelManager.kt#L66-L80",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelManager.kt#L42-L49",
+          "version": "repo-lines-v1:sha256:16dd94b8455798b3ca923100edb09714fa8c9931ffd3141a3220c3d55ded2134:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiY2UyOGE0NWEyZGM0ZTJkYjk4ZjQxN2RlZTliMDI3NzhhMmY5YmU4MTZkNzkwYjU5MzNlODE2OWQwNjQwZGZkMyIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiNDg5M2Y0MGUzNzgxZWI4OTZjODJkMDQ2YTA4MDY3YTExZTM1Y2RmMmYxZGZhZjI2ZmVhOTBiOGRiNjY3NjQxMyIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiZGU0ODM3ZDEyZGMwMzgxMjYxMWEzN2FkYzJkMGMzNDc5NDAxNWQzMWIwZDg3MzU5NDA4ZjhiODFhYTUxNDRkZiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMGY5MjJhZTZkZjg0NDM1NTU0ZWRlYWNiNTQyNTZlNmY3Y2E1MjgxMTcyNzc5Nzc5MDlhYWM5MDg5MDQwZTU3NCJ9"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelManager.kt#L67-L81",
           "version": "repo-lines-v1:sha256:143257342dcbb0020239de8084b71af6c4c7787b84caf3d0f74b6f327537f1f5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk4ODdhMGM0NDA2ZTBkZmVmNjQyNGE3NGVjMjQ2Y2RiYzdlY2NiNTQ0Y2YyMDNhYmU4M2RlZmQ2NGY2OGRlMTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjdhZWU2MmRlNzQ1OWNlNjg3NGQzZWFhNzIxZjIyYjkzNTNmZTc1OWJlNDRkODM3MGExZmEwOTMxMzRkODRlNTIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjA3NjdmOTJiZTJjMWE2MTBmZGNiMjI2MDI3Mzc4NDZlMWE0YTU1NzM4NjNkMjYwN2YyNDFmNjg3NjdiODAwNDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxOWQ1OGNhZTVkNTJiZjg1MDY3NWNlNDhhOWYxN2JlMjM4NjhjZDhhZTQ1M2RkYWZiZDMyNDQzNmRhYjk2ZWQifQ"
         }
       ]
@@ -31,11 +35,11 @@
       "statement": "ModelManager manually follows up to 10 cross-host HTTP redirects while attaching Range headers for partial file resumption, handling 206, 200, and 416 responses cleanly.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelManager.kt#L144-L181",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelManager.kt#L162-L199",
           "version": "repo-lines-v1:sha256:2ff49f9487bcee79465123b305df31de6c62e348f69c1b74250c36d12fadafa9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzE3ZjZlOWRmZjhlMDZlNjVkYzk0ZmM3NDEzOWE5Y2ExMWJlZGEwOTdmMzJkMTI3MDEyZWQ2YTUyZTdiYzUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM0NDc2NTdhZmZmNTJkYzM0NWUyNzk2NWFjMmI2YjUzYWJmMjFjM2Q5YjZkNzYwMmUyZTY5MjcwMjMwOGY0N2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijg1NGU4NGVmZTAwMDYxZTYwN2M2MTFkMjQ3ZmZiOTg3ODM2Yzg1MjMyZWMwMTFmNmM2MmUxYzRkZmI4ZWE0ZGQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjMzNDY0MWU4MzcwMDc0NDU2NjMxMDcxOTZlMzlmYjA0MzdkYjVjNTZkOThlMDU4M2ZmNWRlMzBiOTdlMzljMmMifQ"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelManager.kt#L240-L270",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelManager.kt#L258-L288",
           "version": "repo-lines-v1:sha256:f056997883c941d1469cecb0dbe6bd14482e181ad6dd47bd85babd09a422cba9:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI1NTE2ZmUzNTkxM2VkMTA2ZTMyNWYxOTVmMDJiZmQzODMzY2IzMWVkMTBiNmUzNzVlNzgyNWQ4ZTkzOTkzYTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZkNDE5MjM0M2FkY2I2ZmVhNWU2YjZiMGJmY2I1YTZiOGQ1YWNmYmIyZTk4ODY4ZWE4Zjg2MzA0NjI1Njc0ZmUifQ"
         }
       ]
@@ -57,6 +61,6 @@
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T09:50:05.804Z"
+    "at": "2026-11-23T10:30:12.505Z"
   }
 }

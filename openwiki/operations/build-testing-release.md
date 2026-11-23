@@ -10,7 +10,7 @@ tags:
   - ci-cd
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-23T09:50:05.804Z
+    at: 2026-11-23T10:30:12.505Z
 sources:
   - id: openwiki-source-4d1d392666be6dfdd7a91a2e
     resource: repo://.github/workflows/release.yml
@@ -18,7 +18,7 @@ sources:
     resource: repo://app/build.gradle.kts
   - id: openwiki-source-81d5f1627e19148569f46f81
     resource: repo://gradle/libs.versions.toml
-generated: { by: "antigravity", at: "2026-11-23T09:50:05.804Z" }
+generated: { by: "antigravity", at: "2026-11-23T10:30:12.505Z" }
 ---
 
 # Build, Testing & GitHub Release Pipeline
@@ -34,13 +34,14 @@ Gloss builds a standalone Android APK on Android Gradle Plugin `9.2.1`, supports
   - `minSdk = 24` (required by `onnxruntime-android:1.32.0`).
   - `ndk.abiFilters` restricts native libraries to `arm64-v8a` and `armeabi-v7a`, keeping release APK size compact (~71–72 MiB) while covering physical ARM phones.
 
-## Release Signing & Versioning
+## Release Signing, Versioning & Launcher Assets
 
 `app/build.gradle.kts` reads optional environment variables for CI and local release builds:
 
-- `VERSION_CODE` defaults to `2` and `VERSION_NAME` defaults to `"2.0.0"`.
+- `VERSION_CODE` defaults to `4` and `VERSION_NAME` defaults to `"2.2.0"`.
 - If `KEYSTORE_PATH` is set, the `release` build type uses `signingConfigs.getByName("release")` with `STORE_PASSWORD`, `KEY_ALIAS`, and `KEY_PASSWORD`. Otherwise it falls back to the `debug` signing config so local and CI APKs remain directly installable.
 - R8/ProGuard `optimization.enable` is `false` on `release`.
+- Launcher icons package an adaptive foreground (`app/src/main/res/drawable-nodpi/ic_launcher_foreground.webp`) over `#0B0E14` (`ic_launcher_background.xml`) alongside `mdpi`–`xxxhdpi` WebP icons (`ic_launcher.webp` and `ic_launcher_round.webp`).
 
 ## Host JVM Unit & ONNX Integration Testing
 

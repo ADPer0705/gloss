@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:8b413a154a31637e92e6ca817513efc9467bb0c7ae03f73784ae1fe28790e28b",
+  "pageVersion": "sha256:85b6e4ac735c8c011b4c28d36e0d7286cdecba9da23e470ef7b33f4d669111ec",
   "claims": [
     {
       "id": "claim_d74fad5ed185434398f754b38344b2fc",
@@ -35,7 +35,7 @@
       "statement": "MainViewModel combines repository ModelState with DraftState into a StateFlow<GlossUiState>, debounces phrase translation by 380 ms, and discards stale results if inputs or languages changed mid-flight.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L390-L433",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L410-L453",
           "version": "repo-lines-v1:sha256:ad48cd04476ac66a0fd75bad7d82c686abb49a6c9ff7391f4d46cb3b463f8636:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3ODliMDM5ZWM5ZDg5YmE4ZWNkYmJlMzY3YjYzZTJkYTM4M2MwMWQ2YTkyMjMyMDU4NjBjZjNiNzc4NDUyYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRiZTI1MjA1Zjk4NmY5MzUxZGY2ZmM3OTMxNjg0M2M2ZGY4NTY2OGE3MjlhMjU5YzE0ODJmZmNhODg4YjdmYzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzNmUxNmU0OTU4YTRkNmIxODU5NTJlMmM5OGQwYTBlYzU1YzNlNDQ4ZDVhMjUzZDEyNDdlMjljZTM0NGNlZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3NDYwZWJmNGNjMTc5MDM1NTI4YjU0MjQ4OTI5MDliNjQ3OWEzNzFjOTdhNTVmNzhiNDg2NDMwYzA1OTMxOTMifQ"
         },
         {
@@ -46,27 +46,45 @@
     },
     {
       "id": "claim_ef9fdb18950e4d7da454abbe367fd8d3",
-      "statement": "PreferencesStore persists language selections, theme mode, up to 8 recent languages, and up to 30 deduplicated phrase history items in SharedPreferences.",
+      "statement": "PreferencesStore persists language selections, theme mode, up to 8 recent languages, and up to 30 deduplicated phrase history items in SharedPreferences, triggering GlossWidgetUpdater on language or history updates.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/PreferencesStore.kt#L56-L97",
-          "version": "repo-lines-v1:sha256:72663c4be6dc9ae40e196272afc59f54aa9778ed15ccf7f4531c92cdcfead7ae:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkNjYyNWEyMmU4MDRjZGNlZjdkYmE5ZGViZGUyMDc0NWEzNTA1NTM2OWE1NWRiYjY5ODA2Yjk4ZjdkNGYxNGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwOGM5NjA3NDQwY2Y2YzUxMzdjMjliYmZlYmQ0OTBkMDFjN2U4ZmU2OTg2Y2RkOTYwMTFmY2IyM2ExY2NkNjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/PreferencesStore.kt#L68-L114",
+          "version": "repo-lines-v1:sha256:0140aac1b0139c9740efb89432065f26be4fe4b7387595749b7bb9f3873ac978:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3ZGE1MjE4MzhjNTNhMDJjMTgwNzM2Y2ZkZmFhMGMxMDcwNGYwMGY0ZjAzYTI1NjQwZDFjMmM2MTUxNjY2MWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwODg4ZTdiN2M5MGNlZDdlMDM2OTdmZTUwMDg5OGFhYjc2MzRhOWExZWJhMTg3ZWVhYjhkNDYxNjJkODJkM2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         }
       ]
     },
     {
       "id": "claim_0dde77734b3548b3b92710defda03480",
-      "statement": "MainActivity hosts edge-to-edge Compose MainScreen inside GlossTheme and manages Android TextToSpeech initialization, BCP-47 locale checking, and shutdown.",
+      "statement": "MainActivity hosts edge-to-edge Compose MainScreen inside GlossTheme, handles singleTop widget launch intents, syncs preferences on resume, and manages Android TextToSpeech initialization, BCP-47 locale checking, and shutdown.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L24-L89",
-          "version": "repo-lines-v1:sha256:3396559dca49a9f7f2b4ce9f30de751855dff0da72f66afeb0c28cb3379ce996:eyJzZWxlY3RlZExpbmVDb3VudCI6NjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4YjUwMzJiNzIyZjM4N2I0ZjkwN2Y4NzllMzI0N2FlMjdmZjFiNmI2M2JlNmUyYzZmOTVkZTA5YWRmNjYxZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhY2RkYTAzYTNkMjg2MmM4ZTJjNjc0OTIyMjA1ZTViM2M2OWZjYjBjNTg3NzgyYmRiMTI1Yzc5MTY0ZDViNzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L31-L148",
+          "version": "repo-lines-v1:sha256:97048d7ca71ecbc32d2a1f163170186b9743b2af4708ed7379d1a2e70e306282:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5MjMzMjFhYWNlYjdhOWQxNzFlNmExNmFhYzBkY2M2NWE1MTYxNDkxYTkzOGQyNjQyOTQ2Y2NmYTI0ZDM0MzA5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
+        }
+      ]
+    },
+    {
+      "id": "claim_0159737fc6cb4f1fbf4aa43021db27a0",
+      "statement": "GlossQuickWidgetProvider and GlossPhrasesWidgetProvider render 4x1 quick-translate and 4x2 recent-phrases home screen widgets supporting direct language swap broadcasts, clipboard paste launches, and phrase restoration.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L389-L406",
+          "version": "repo-lines-v1:sha256:544c90a2a4919c610c0ab1194ace0d44070ea460300b9cf7efa94d1e3bd54bb6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNWZiZDNkNTE4MGU2Mjc5ZmRmNDgxYzIxODIzN2YyNWY5YjRkN2U2ZmQxZjJlOWQ3ZWJlOGFlOTljODdmNmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1Y2RhYmQyN2U5NzNlNzJmNWVkM2NiMDVlYWQ2NDQ3N2E5MDNlOGRkMWZhOWE5ZWM0YWU4Y2E3NWMyNGQ5ZDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/widget/GlossWidgetActions.kt#L7-L40",
+          "version": "repo-lines-v1:sha256:84aa0742d48bc3c3bf7ea8f1067644518ffb8db336402258294dc5e6f7b75cda:eyJzZWxlY3RlZExpbmVDb3VudCI6MzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQwNDUzOTY2YTBhNDI5ZGMxOGI2NzY1MWFiMTY3ZWU1YjE3YWQ0ODkxYzQ3NGY2YzI2ODNhOGY2MmQ3MTJhMDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImY2NTY3NWQ3ODQ2ZWYzMzUxMTNmYTMzMzkyY2Q3MzhiOTRiYWIyYWM5ZTQzMGIyYjUwMDdiMWZiMmZjMjI3YjgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/widget/GlossWidgets.kt#L15-L188",
+          "version": "repo-lines-v1:sha256:39da710d85e20813f898079d707609c0c8ba531a098a6a44903f50aa34efbbbf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTc0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJhOGJkMzliN2U2M2Q4ZTYwNjY0OTA5YjNiMDMzMDcwOWVkNmQzMmVjOTk5ZDliMTRjNzZkMDZkMjA2ZjU3YTE2IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIyMzNmNTg5MGQ0NjE0ZTc3MGQ4OWMzMWY1ODQ5NjAyZTRkMTNiN2E5ZTBlZmY5ODlhODI1ZmUwZWM0OGRjNTVlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T09:50:05.804Z"
+    "at": "2026-11-23T10:30:12.505Z"
   }
 }

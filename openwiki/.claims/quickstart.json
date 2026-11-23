@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:8fbc5f849b34d5ae8853921d1a5c256d2018bdb55cd3d000c59c68293673cf0a",
+  "pageVersion": "sha256:c59fac1c892ecb006b7816a0c373880e43a5908d9a629cfa250410ce42853d33",
   "claims": [
     {
       "id": "claim_d53ca5705f5d4c6aa539dffb114434b8",
-      "statement": "Gloss v2.0.0 targets Android 7.0+ (minSdk 24, targetSdk 36, arm64-v8a and armeabi-v7a) and runs 202-language offline translation with NLLB-200-distilled-600M INT8 ONNX after a one-time ~658 MB model download.",
+      "statement": "Gloss targets Android 7.0+ (minSdk 24, targetSdk 36, arm64-v8a and armeabi-v7a) and runs 202-language offline translation with NLLB-200-distilled-600M INT8 ONNX after a one-time ~658 MB model download.",
       "evidence": [
         {
           "resource": "repo://README.md#L1-L36",
@@ -12,27 +12,27 @@
         },
         {
           "resource": "repo://app/build.gradle.kts#L14-L26",
-          "version": "repo-lines-v1:sha256:1363c88badb5f23ff780f35627168eb7f335bba0b9e8c2a5a7224c32fd5bfe4b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1NTQyMjk1MGE3NjJjOTE3ZDcwMDc3NTJkY2MzMzRiOTM2NTNkNmVjNTViNzFkYzQ3MGZhODZkMGRhNzQ5OTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk2ODZiZjI0Y2I4OWU2ZGFlODUxMjViODQ0MzM4NGI1MGM1NTJkODQ2MWJjYzIwNDM0YWYwZmQ3ODg1MGM2OWMifQ"
+          "version": "repo-lines-v1:sha256:c2b3d68dd85b7d2037b5b9932661dafd74b7330d4f6e87527b8aaae2d87637b5:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1NTQyMjk1MGE3NjJjOTE3ZDcwMDc3NTJkY2MzMzRiOTM2NTNkNmVjNTViNzFkYzQ3MGZhODZkMGRhNzQ5OTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk2ODZiZjI0Y2I4OWU2ZGFlODUxMjViODQ0MzM4NGI1MGM1NTJkODQ2MWJjYzIwNDM0YWYwZmQ3ODg1MGM2OWMifQ"
         }
       ]
     },
     {
       "id": "claim_f18bfda8415842199d92f2cc2f2bb07a",
-      "statement": "AndroidManifest launches MainActivity inside GlossApplication, where MainActivity wires MainViewModel and TextToSpeech into the Compose MainScreen.",
+      "statement": "AndroidManifest launches singleTop MainActivity inside GlossApplication and registers GlossQuickWidgetProvider and GlossPhrasesWidgetProvider, while MainActivity wires MainViewModel, widget intents, and TextToSpeech into MainScreen.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/AndroidManifest.xml#L8-L29",
-          "version": "repo-lines-v1:sha256:703251da6739f22a2b21461cf59f6c78674135762445602c02152e59d4827600:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MzVhMDVlZGZjNDdlY2ZhOTE1NjZlNWIxODhkY2M2OGJiZThlYTFmMDNjNTk2MGU4YzFjNDE2NGU3N2RkOTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkNjAzN2U3NjgwOTFhNjY1NzE0YzA0NmIwNDA5OWEyYmFmYTlkMmVmYjk2YjE5Y2NkYzg2NTg3ZDM0ZjFkMjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxMjVhNWQ2OTJhZGFiZjBmYzVhMTE4ZjJmMDQxOTlhZmJjODUxNzBkZTM4MTE4Mjk2ZDQ2ZDdjNWIwZTY5NGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExMDk3MjJmYjg5YjgzMTlmOTA4M2E0NGY4MWVlN2JjYzU3OWFhNjMyNjRiMzIwMGJiNWI0MGZiNzI2NjE5MzkifQ"
+          "resource": "repo://app/src/main/AndroidManifest.xml#L8-L55",
+          "version": "repo-lines-v1:sha256:35ec15028047db2417a4ea8c790bbdf1affad7d3207550e927d88ad126b23f19:eyJzZWxlY3RlZExpbmVDb3VudCI6NDgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MzVhMDVlZGZjNDdlY2ZhOTE1NjZlNWIxODhkY2M2OGJiZThlYTFmMDNjNTk2MGU4YzFjNDE2NGU3N2RkOTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkNjAzN2U3NjgwOTFhNjY1NzE0YzA0NmIwNDA5OWEyYmFmYTlkMmVmYjk2YjE5Y2NkYzg2NTg3ZDM0ZjFkMjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxMjVhNWQ2OTJhZGFiZjBmYzVhMTE4ZjJmMDQxOTlhZmJjODUxNzBkZTM4MTE4Mjk2ZDQ2ZDdjNWIwZTY5NGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExMDk3MjJmYjg5YjgzMTlmOTA4M2E0NGY4MWVlN2JjYzU3OWFhNjMyNjRiMzIwMGJiNWI0MGZiNzI2NjE5MzkifQ"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L19-L61",
-          "version": "repo-lines-v1:sha256:a66b677da24689a3229e2c46322a501d80007b3ee34f168292c7b62ce749041a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3OGVlMTYxMzc5Njk4YjkzZDdjZTg0MzlhNjI0ZTE2Y2E1OThlNjhhOTgyMjczY2IxNWYwZGI2ZWUyMjcwODkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlNDc3MzU2NDI2OTVjY2E5M2FiZmExOGQ1NzUzYzgzMzY5MzY4MjA4MmY5YjdhYWJjZWRhY2EwZmE3MDY3N2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2NTM5MzhlYzk4NjA0ZDU3MDFlOGY3NDFkOWZiZmE3MzMzNTVlYjZlZTRmODI1OTU2YmI0YzVkYTA2NjE1ODEifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L24-L88",
+          "version": "repo-lines-v1:sha256:77f11c2c9f9c0a7e41bf11f8b6b98f986316e23114ba844e016d6af84fbd4c6f:eyJzZWxlY3RlZExpbmVDb3VudCI6NjUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjVhNzRjYmZhY2I2NTYxZjNhYTJjZWMwMjA1MDc1YWNlNThjYjg2ZmI3MjYwOGQ1NDUyMWQwNDNkNzNkODQ0ZTQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBlODFkNzZkZjNmM2Q1YTliYWFmYjc4NWY5N2Q4ZTIzYTJmMDEzODliMTg0ZGQ1ZmY3OWIzZjY2MzJjNjA3ZjciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQxYzQwM2FhYjZkYWJlMmM3MTUzOTI1NTRjZTI4YTNkOGRhNmNkZGRiNTY4M2FjYjJhYWJlOTk3MjU0NWI1NTIifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T09:50:05.804Z"
+    "at": "2026-11-23T10:30:12.505Z"
   }
 }
