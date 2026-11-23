@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gloss — 202 Languages. Zero Cloud.</title>
+  <title>Gloss — Look up daily phrases. Understand every word.</title>
   <meta
     name="description"
-    content="Offline-first Android translator powered by NLLB-200 INT8 ONNX across 202 languages, with Duolingo-style tap-to-gloss word breakdowns, home screen widgets, and signed in-place updates."
+    content="Built for everyday life: look up phrases quickly, tap any word on either side to see what it means, and keep 202 languages accessible offline on Android—no signal, roaming plan, or account needed (with privacy as a natural bonus)."
   />
   <meta name="theme-color" content="#0B0E14" />
-  <meta property="og:title" content="Gloss — 202 Languages. Zero Cloud." />
+  <meta property="og:title" content="Gloss — Look up daily phrases. Understand every word." />
   <meta
     property="og:description"
-    content="Translate a phrase. Tap any word. 100% offline Android translation across 202 languages via NLLB-200 INT8 ONNX."
+    content="Look up everyday phrases fast, tap any word to learn what it means, and keep 202 languages accessible anywhere offline on Android."
   />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://gloss.dearanayji.rocks/" />
@@ -108,14 +108,16 @@
       <div class="hero-copy">
         <p class="eyebrow">
           <span class="status-dot" aria-hidden="true"></span>
-          OFFLINE ANDROID TRANSLATOR &middot; NLLB-200 &middot; 202 LANGUAGES
+          DAILY PHRASE LOOKUP &middot; 202 LANGUAGES &middot; BUILT FOR ACCESSIBILITY
         </p>
         <h1 class="hero-title">
-          202 languages. <span class="serif-italic">Zero cloud.</span>
+          Look up a phrase. <span class="serif-italic">Understand every word.</span>
         </h1>
         <p class="hero-sub">
-          Translate full phrases directly on your phone using quantized NLLB-200 ONNX models,
-          tap any word on either side for instant lookup, and keep everything private on-device.
+          Gloss was built for everyday life—so whenever you hear, read, or need a phrase, you can
+          translate it quickly and tap any word on either side to see what it means. Running offline
+          keeps 202 languages accessible on transit, flights, rural roads, and phones without data
+          plans or accounts (with on-device privacy as a natural bonus).
         </p>
 
         <div class="hero-cta-row">
@@ -191,16 +193,16 @@
 
           <div class="gloss-popover" id="demo-gloss-card" aria-live="polite">
             <div class="gloss-popover-head">
-              <span class="gloss-badge" id="gloss-direction">TARGET &rarr; SOURCE GLOSS</span>
+              <span class="gloss-badge" id="gloss-direction">REVERSE WORD GLOSS</span>
               <span class="gloss-script" id="gloss-script">Spanish &middot; Latin</span>
             </div>
             <div class="gloss-popover-body">
-              <strong class="gloss-word" id="gloss-selected-word">palabra</strong>
+              <strong class="gloss-word" id="gloss-selected-word">cercana</strong>
               <span class="gloss-arrow" aria-hidden="true">&rarr;</span>
-              <span class="gloss-translation" id="gloss-meaning">word</span>
+              <span class="gloss-translation" id="gloss-meaning">nearest / closest</span>
             </div>
             <p class="gloss-note" id="gloss-note">
-              Tap any underlined word above or below to inspect bidirectional per-word glossing.
+              Feminine adjective matching estaci&oacute;n &middot; Tap any underlined word to inspect it.
             </p>
           </div>
         </div>
@@ -222,28 +224,29 @@
     <section class="section container" id="features">
       <div class="section-head">
         <p class="eyebrow">ARCHITECTURE &amp; EXPERIENCE</p>
-        <h2 class="section-title">Engineered to feel effortless, <span class="serif-italic">built to run bare-metal.</span></h2>
+        <h2 class="section-title">Engineered for daily life, <span class="serif-italic">built to run bare-metal.</span></h2>
       </div>
 
       <div class="bento-grid">
         <article class="bento-card">
           <div class="card-index">01</div>
-          <h3>Tap-to-Gloss Word Breakdown</h3>
+          <h3>Built for Daily-Life Word Lookups</h3>
           <p>
-            Every sentence—source or translated—is tokenized by <code>WordSegmenter</code> into
-            individual tappable units. Bidirectional word lookups hit an in-memory LRU cache first
-            and fall back cleanly to single-token NLLB decoding.
+            Quickly looking up everyday phrases and seeing what each word actually means is why
+            Gloss exists. <code>WordSegmenter</code> splits source and translated sentences into
+            tappable words powered by bidirectional lookup and an in-memory LRU cache.
           </p>
           <span class="card-tag">WordSegmenter &middot; LRU Cache</span>
         </article>
 
         <article class="bento-card">
           <div class="card-index">02</div>
-          <h3>202 Languages, Strictly Offline</h3>
+          <h3>Offline for Accessibility &amp; Reach</h3>
           <p>
-            Powered by <code>NLLB-200-distilled-600M</code> INT8 quantized ONNX running inside
-            <code>onnxruntime-android 1.32.0</code>. Weights download once with SHA-256 checksum
-            verification and manual HTTP <code>Range</code> resume support.
+            Running <code>NLLB-200-distilled-600M</code> INT8 ONNX on-device via
+            <code>onnxruntime-android 1.32.0</code> keeps 202 languages—including underserved ones—working
+            anywhere without Wi-Fi, roaming data, accounts, or paywalls on Android 7.0+ phones, with
+            privacy as a built-in bonus.
           </p>
           <span class="card-tag">FLORES-200 &middot; SHA-256 Verified</span>
         </article>
@@ -340,9 +343,9 @@
           <div class="stat-sub">Releases ONNX sessions cleanly while keeping tokenizer warm</div>
         </div>
         <div class="stat-tile">
-          <div class="stat-val">0 bytes</div>
-          <div class="stat-key">Cloud payload per translation</div>
-          <div class="stat-sub">Audio TTS &amp; inference both stay strictly local</div>
+          <div class="stat-val">Offline</div>
+          <div class="stat-key">No signal or account needed</div>
+          <div class="stat-sub">Works on transit, flights, and low-connectivity areas—with privacy as a natural bonus</div>
         </div>
       </div>
     </section>
@@ -368,7 +371,7 @@
         <a class="wiki-card" href="./wiki/#page=quickstart">
           <span class="wiki-tag">quickstart</span>
           <h3>Quickstart &amp; Navigation Map</h3>
-          <p>Entrypoints, Gradle commands, SDK targets, and repository layout across the project.</p>
+          <p>Why Gloss exists, entrypoints, Gradle commands, SDK targets, and repo structure.</p>
           <span class="wiki-arrow">Read chapter &rarr;</span>
         </a>
 
@@ -412,7 +415,7 @@
     <section class="section container" id="install">
       <div class="section-head">
         <p class="eyebrow">GET STARTED IN UNDER TWO MINUTES</p>
-        <h2 class="section-title">Three steps to <span class="serif-italic">offline fluency.</span></h2>
+        <h2 class="section-title">Three steps to <span class="serif-italic">everyday fluency.</span></h2>
       </div>
 
       <div class="install-rail">
@@ -434,10 +437,10 @@
         </div>
         <div class="install-step">
           <span class="step-num">03</span>
-          <h3>Translate &amp; Update In-Place</h3>
+          <h3>Look Up Phrases Anywhere</h3>
           <p>
-            Turn on airplane mode if you want—Gloss runs 100% locally and alerts you cleanly when
-            newer signed APKs ship.
+            Look up daily phrases anywhere—on transit, traveling, or offline—and tap individual
+            words as you learn; newer signed APKs update cleanly in-app.
           </p>
         </div>
       </div>

@@ -2,46 +2,46 @@
   "schemaVersion": 1,
   "pages": {
     "/openwiki/architecture/overview.md": {
+      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
+      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae",
       "pageVersion": "sha256:7517d7547dd4bfd7267635a24959bcacb76e8900f06fee19114e1067ad3ccdc1",
       "completedBy": "antigravity",
-      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608",
-      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
-      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae"
+      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608"
     },
     "/openwiki/models/pinned-distribution.md": {
+      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
+      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae",
       "pageVersion": "sha256:3cdafc014b607a79620265bb8b785931a3fef905197efccf43e507a64d91b54d",
       "completedBy": "antigravity",
-      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608",
-      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
-      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae"
+      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608"
     },
     "/openwiki/operations/build-testing-release.md": {
+      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
+      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae",
       "pageVersion": "sha256:5582db5469c8e2ea8eb1d9a4923a277c29fe00753e9990b5b59f04b2a114636f",
       "completedBy": "antigravity",
-      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608",
-      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
-      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae"
+      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608"
     },
     "/openwiki/quickstart.md": {
-      "pageVersion": "sha256:9f65aadb84d1d88a1a022d7260db8351a0080b242372d9507241d6a18280dead",
+      "pageVersion": "sha256:f2cb2753bc4b038b6b8eb3c589d13f45ee07ae0ee6ac14ef2fadf52ba3f76b88",
       "completedBy": "antigravity",
-      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608",
-      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
-      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae"
+      "completedRunId": "5c01baae-7720-4cfe-9bed-39cd6105099b",
+      "gitHead": "d2e49d10e62f5616f5a63045540f67bcf1af37dd",
+      "sourceFingerprint": "sha256:42fc1318ae52e984c5a5ac0ce62ecd3f91d1c65f6cb1ec81f406f16c59ee33d5"
     },
     "/openwiki/translation/nllb-engine.md": {
+      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
+      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae",
       "pageVersion": "sha256:726f49ee4235158196a18f7a3abbcf542f55a14ccb74ddab218be4ef4966d6be",
       "completedBy": "antigravity",
-      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608",
-      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
-      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae"
+      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608"
     },
     "/openwiki/translation/word-gloss-and-languages.md": {
-      "pageVersion": "sha256:c1d9534268b657e391a72870d29d0fe7401e329608ed97d5d03402bfe8ebcf9c",
+      "pageVersion": "sha256:9a49aa018f1a7357c942b3fe2c430376f891446e345515e57de164fe63f0e5f6",
       "completedBy": "antigravity",
-      "completedRunId": "104ef687-a4cb-4c16-99e5-bdc564545608",
-      "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
-      "sourceFingerprint": "sha256:7a53e1bf92361b4c29cb0bbb9b77ca62e0c2136e6b36c66424ebf1284727caae"
+      "completedRunId": "5c01baae-7720-4cfe-9bed-39cd6105099b",
+      "gitHead": "d2e49d10e62f5616f5a63045540f67bcf1af37dd",
+      "sourceFingerprint": "sha256:42fc1318ae52e984c5a5ac0ce62ecd3f91d1c65f6cb1ec81f406f16c59ee33d5"
     }
   }
 }

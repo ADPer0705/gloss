@@ -11,44 +11,46 @@
       tgtCode: "spa_Latn",
       scriptLabel: "Latin",
       srcWords: [
-        { text: "Every", gloss: "cada", note: "Determiner · source token" },
-        { text: "word", gloss: "palabra", note: "Noun · feminine singular" },
-        { text: "stays", gloss: "permanece", note: "Verb · 3rd person singular" },
-        { text: "private", gloss: "privada", note: "Adjective · agrees in gender" },
-        { text: "on", gloss: "en", note: "Preposition" },
-        { text: "your", gloss: "tu", note: "Possessive determiner" },
-        { text: "phone.", punct: ".", gloss: "teléfono", note: "Noun · offline device" }
+        { text: "Where", gloss: "dónde", note: "Interrogative adverb · location" },
+        { text: "is", gloss: "está", note: "Verb estar · used for location" },
+        { text: "the", gloss: "la", note: "Definite article · feminine singular" },
+        { text: "nearest", gloss: "más cercana", note: "Superlative adjective" },
+        { text: "train", gloss: "tren", note: "Masculine noun" },
+        { text: "station?", punct: "?", gloss: "estación", note: "Feminine noun · transit stop" }
       ],
       tgtWords: [
-        { text: "Cada", gloss: "every", note: "Determiner · invariable" },
-        { text: "palabra", gloss: "word", note: "Feminine noun · default gloss" },
-        { text: "permanece", gloss: "remains / stays", note: "3rd person present · permanecer" },
-        { text: "privada", gloss: "private", note: "Feminine adjective matching palabra" },
-        { text: "en", gloss: "on / in", note: "Preposition" },
-        { text: "tu", gloss: "your", note: "Informal singular possessive" },
-        { text: "teléfono.", punct: ".", gloss: "phone", note: "Masculine noun" }
+        { text: "¿Dónde", leadingPunct: "¿", gloss: "where", note: "Interrogative adverb · accented ó" },
+        { text: "está", gloss: "is", note: "From estar · denotes location" },
+        { text: "la", gloss: "the", note: "Feminine singular definite article" },
+        { text: "estación", gloss: "station", note: "Feminine noun" },
+        { text: "de", gloss: "of", note: "Preposition linking compound noun" },
+        { text: "tren", gloss: "train", note: "Masculine noun" },
+        { text: "más", gloss: "most / -est", note: "Comparative adverb · forms nearest" },
+        { text: "cercana?", punct: "?", gloss: "nearest / closest", note: "Feminine adjective matching estación" }
       ],
       defaultSide: "tgt",
-      defaultIndex: 1
+      defaultIndex: 7
     },
     "en-ja": {
       srcLabel: "English",
       srcCode: "eng_Latn",
       tgtLabel: "Japanese",
       tgtCode: "jpn_Jpan",
-      scriptLabel: "Kanji / Kana",
+      scriptLabel: "Kana / Kanji",
       srcWords: [
-        { text: "Translate", gloss: "翻訳する", note: "Verb · imperative action" },
-        { text: "freely", gloss: "自由に", note: "Adverb · without cloud latency" },
-        { text: "without", gloss: "なしで", note: "Preposition" },
-        { text: "internet.", punct: ".", gloss: "インターネット", note: "Katakana loanword noun" }
+        { text: "Excuse", gloss: "すみません", note: "Polite everyday opener · sumimasen" },
+        { text: "me,", punct: ",", gloss: "すみません", note: "Polite attention phrase" },
+        { text: "how", gloss: "いくら", note: "Interrogative · asking price" },
+        { text: "much", gloss: "いくら", note: "Part of 'how much'" },
+        { text: "is", gloss: "ですか", note: "Polite copula + question marker" },
+        { text: "this?", punct: "?", gloss: "これ", note: "Demonstrative pronoun · near speaker" }
       ],
       tgtWords: [
-        { text: "インターネット", gloss: "internet", note: "Katakana loanword · WordSegmenter CJK unit" },
-        { text: "なしで", gloss: "without", note: "Postpositional particle phrase" },
-        { text: "自由に", gloss: "freely", note: "Na-adjective adverbial form" },
-        { text: "翻訳", gloss: "translation", note: "Sino-Japanese compound noun" },
-        { text: "できます。", punct: "。", gloss: "can do", note: "Polite potential verb · dekiru" }
+        { text: "すみません、", punct: "、", gloss: "excuse me", note: "Everyday polite expression" },
+        { text: "これ", gloss: "this", note: "Demonstrative pronoun (kore)" },
+        { text: "は", gloss: "topic marker", note: "Particle pronounced 'wa'" },
+        { text: "いくら", gloss: "how much", note: "Interrogative used when shopping" },
+        { text: "ですか？", punct: "？", gloss: "is it?", note: "Polite copula desu + question particle ka" }
       ],
       defaultSide: "tgt",
       defaultIndex: 3
@@ -60,21 +62,23 @@
       tgtCode: "eng_Latn",
       scriptLabel: "Latin",
       srcWords: [
-        { text: "Apprenez", gloss: "learn", note: "2nd person plural · apprendre" },
-        { text: "une", gloss: "a", note: "Feminine indefinite article" },
-        { text: "nouvelle", gloss: "new", note: "Feminine adjective before langue" },
-        { text: "langue", gloss: "language", note: "Feminine noun" },
-        { text: "partout.", punct: ".", gloss: "everywhere", note: "Adverb of place" }
+        { text: "Un", gloss: "a / one", note: "Masculine indefinite article" },
+        { text: "café", gloss: "coffee", note: "Masculine noun · café / espresso" },
+        { text: "sans", gloss: "without", note: "Preposition" },
+        { text: "sucre,", punct: ",", gloss: "sugar", note: "Masculine noun" },
+        { text: "s'il", gloss: "if it", note: "Contraction of si + il" },
+        { text: "vous", gloss: "to you", note: "Polite 2nd person object pronoun" },
+        { text: "plaît.", punct: ".", gloss: "please", note: "3rd person singular · plaire" }
       ],
       tgtWords: [
-        { text: "Learn", gloss: "apprenez", note: "Verb · base/imperative form" },
-        { text: "a", gloss: "une", note: "Indefinite article" },
-        { text: "new", gloss: "nouvelle", note: "Adjective" },
-        { text: "language", gloss: "langue", note: "Noun · primary focus" },
-        { text: "everywhere.", punct: ".", gloss: "partout", note: "Adverb" }
+        { text: "A", gloss: "un", note: "Indefinite article" },
+        { text: "coffee", gloss: "café", note: "Noun · everyday café order" },
+        { text: "without", gloss: "sans", note: "Preposition" },
+        { text: "sugar,", punct: ",", gloss: "sucre", note: "Mass noun" },
+        { text: "please.", punct: ".", gloss: "s'il vous plaît", note: "Polite request phrase" }
       ],
       defaultSide: "src",
-      defaultIndex: 2
+      defaultIndex: 3
     }
   };
 
@@ -115,6 +119,17 @@
     });
   }
 
+  function stripEntryPunctuation(entry) {
+    var text = entry.text;
+    if (entry.leadingPunct && text.indexOf(entry.leadingPunct) === 0) {
+      text = text.slice(entry.leadingPunct.length);
+    }
+    if (entry.punct && text.slice(-entry.punct.length) === entry.punct) {
+      text = text.slice(0, -entry.punct.length);
+    }
+    return text;
+  }
+
   function setupInteractiveDemo() {
     var activePairKey = "en-es";
     var selectedSide = DEMO_PAIRS[activePairKey].defaultSide;
@@ -139,7 +154,7 @@
     function updatePopover(pair) {
       var list = selectedSide === "src" ? pair.srcWords : pair.tgtWords;
       var item = list[selectedIndex] || list[0];
-      var cleanWord = item.punct ? item.text.slice(0, -item.punct.length) : item.text;
+      var cleanWord = stripEntryPunctuation(item);
 
       if (selectedSide === "src") {
         directionEl.textContent = "SOURCE \u2192 TARGET GLOSS";
@@ -154,10 +169,17 @@
       noteEl.textContent = item.note;
     }
 
-    function renderFlow(container, words, side, pair) {
+    function renderFlow(container, words, side) {
       container.innerHTML = "";
       words.forEach(function (entry, idx) {
-        var clean = entry.punct ? entry.text.slice(0, -entry.punct.length) : entry.text;
+        if (entry.leadingPunct) {
+          var lead = document.createElement("span");
+          lead.className = "demo-punct";
+          lead.textContent = entry.leadingPunct;
+          container.appendChild(lead);
+        }
+
+        var clean = stripEntryPunctuation(entry);
         var btn = document.createElement("button");
         btn.type = "button";
         btn.className = "demo-word" + (selectedSide === side && selectedIndex === idx ? " is-selected" : "");
@@ -177,7 +199,6 @@
           container.appendChild(p);
         }
       });
-      void pair;
     }
 
     function render() {
@@ -188,8 +209,8 @@
       tgtCode.textContent = pair.tgtCode;
       pairBadge.textContent = pair.srcCode + " \u21c4 " + pair.tgtCode;
 
-      renderFlow(srcWordsEl, pair.srcWords, "src", pair);
-      renderFlow(tgtWordsEl, pair.tgtWords, "tgt", pair);
+      renderFlow(srcWordsEl, pair.srcWords, "src");
+      renderFlow(tgtWordsEl, pair.tgtWords, "tgt");
       updatePopover(pair);
     }
 

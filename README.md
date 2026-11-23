@@ -9,7 +9,7 @@ translate a phrase. tap any word. that's it.
 
 **[Project Site](https://gloss.dearanayji.rocks)** &middot; **[Interactive Architecture Wiki](https://gloss.dearanayji.rocks/wiki/)** &middot; **[Latest APK](https://github.com/ADPer0705/gloss/releases/latest)**
 
-no account. no cloud. no tracking — everything runs 100% offline on your phone using **NLLB-200-distilled-600M** (INT8 mobile ONNX) after a one-time ~628 MB (~658 MB) model download.
+Gloss was built for everyday life—so whenever you hear, read, or want to say a phrase, you can look it up quickly and tap any word on either side to see what it means in context. Running all **202 languages** 100% offline (`NLLB-200-distilled-600M` INT8 ONNX after a one-time ~628 MB / ~658 MB download) prioritizes **accessibility and dependability anywhere**—no mobile data, Wi-Fi, roaming plan, account, or subscription required (with on-device privacy as a natural benefit).
 
 ---
 

@@ -1,15 +1,16 @@
 ---
 type: quickstart
 title: Gloss Quickstart & Navigation Map
-description: Repository overview, key entrypoints, common development commands, and navigation map across the Gloss offline Android translator documentation.
+description: Repository overview, design motivation, key entrypoints, common development commands, and navigation map across the Gloss Android translator documentation.
 tags:
   - quickstart
   - navigation
   - android
   - offline-translation
+  - accessibility
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-23T17:33:47.960Z
+    at: 2026-11-23T18:48:00.244Z
 sources:
   - id: openwiki-source-3bfcb28142050978edf94754
     resource: repo://app/build.gradle.kts
@@ -19,12 +20,18 @@ sources:
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt
   - id: openwiki-source-23775c3de52f3ab95a13cb8b
     resource: repo://README.md
-generated: { by: "antigravity", at: "2026-11-23T17:33:47.960Z" }
+generated: { by: "antigravity", at: "2026-11-23T18:48:00.244Z" }
 ---
 
 # Gloss Quickstart & Navigation Map
 
 **Gloss** (`rocks.dearanayji.gloss`, v2.4.0) is an offline-first Android translation and language-learning app powered by **NLLB-200-distilled-600M** (INT8 mobile ONNX via `onnxruntime-android:1.32.0`) across **202 languages**, featuring a Jetpack Compose Material 3 interface, fast cold starts via binary tokenizer snapshots and tuned ONNX Runtime sessions with 90-second background eviction, Duolingo-style tap-a-word lookups on both input and translated sentences, Google Translate–style home screen widgets, persistent release signing for in-place updates, and an in-app GitHub Releases updater with download stats.
+
+## Why Gloss Exists
+
+- **Quick daily-life phrase & word lookup**: The primary reason Gloss was developed is to make it effortless to look up an everyday phrase you hear, read, or need—and tap any individual word in either the source or translated sentence to immediately understand what that word means in daily life.
+- **Offline-first for accessibility**: Running all 202 languages completely on-device eliminates dependence on mobile data, Wi-Fi, roaming plans, accounts, or paid APIs, keeping translation reliable on transit, flights, rural areas, and older Android 7.0+ phones (with on-device privacy as a natural benefit).
+- **Project site & interactive wiki**: [gloss.dearanayji.rocks](https://gloss.dearanayji.rocks) and [gloss.dearanayji.rocks/wiki/](https://gloss.dearanayji.rocks/wiki/) (linked from `README.md`) publish signed APK download links, benchmarks, and this OpenWiki documentation.
 
 ## Key Entrypoints
 

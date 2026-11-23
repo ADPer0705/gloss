@@ -1,7 +1,7 @@
 ---
 type: feature
 title: Word Segmentation, Tap-to-Gloss & 202-Language Catalog
-description: How Gloss implements Duolingo-style tappable words in both source and translated sentences across all 202 NLLB-200 languages using Unicode BreakIterator segmentation and LRU-cached lookups.
+description: How Gloss implements daily-life phrase and tap-to-gloss word lookups across all 202 NLLB-200 languages using Unicode BreakIterator segmentation and LRU-cached lookups.
 tags:
   - word-gloss
   - segmentation
@@ -10,7 +10,7 @@ tags:
   - ui
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-23T17:33:47.960Z
+    at: 2026-11-23T18:48:00.244Z
 sources:
   - id: openwiki-source-9f93d70275f6dbd609d041f7
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/data/LanguageCatalog.kt
@@ -28,12 +28,12 @@ sources:
     resource: repo://app/src/test/java/rocks/dearanayji/gloss/data/LanguageCatalogTest.kt
   - id: openwiki-source-1ba86d72147ba2632fda826b
     resource: repo://app/src/test/java/rocks/dearanayji/gloss/engine/WordSegmenterTest.kt
-generated: { by: "antigravity", at: "2026-11-23T17:33:47.960Z" }
+generated: { by: "antigravity", at: "2026-11-23T18:48:00.244Z" }
 ---
 
 # Word Segmentation, Tap-to-Gloss & 202-Language Catalog
 
-A core learning workflow in Gloss is inspecting any individual word inside a sentence—either in the text you typed or in the translated output—without losing the full sentence context.
+Being able to quickly look up everyday phrases and see what individual words actually mean in daily life is the primary reason Gloss was developed. Rather than forcing learners or travelers to re-type words one by one into a separate dictionary—or rely on live cellular connectivity—Gloss embeds 202-language offline translation on-device for broad accessibility and lets you tap any word in either the phrase you entered or the translated result without losing sentence context.
 
 ## Unicode Word Segmentation (`WordSegmenter`)
 

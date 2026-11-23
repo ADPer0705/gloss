@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:9f65aadb84d1d88a1a022d7260db8351a0080b242372d9507241d6a18280dead",
+  "pageVersion": "sha256:f2cb2753bc4b038b6b8eb3c589d13f45ee07ae0ee6ac14ef2fadf52ba3f76b88",
   "claims": [
     {
       "id": "claim_d53ca5705f5d4c6aa539dffb114434b8",
-      "statement": "Gloss (rocks.dearanayji.gloss, v2.4.0) targets Android 7.0+ (minSdk 24, targetSdk 36, arm64-v8a and armeabi-v7a) with in-app GitHub updates and README download badges, running 202-language offline translation with NLLB-200-distilled-600M INT8 ONNX after a one-time ~658 MB model download.",
+      "statement": "Gloss (rocks.dearanayji.gloss, v2.4.0) was built for looking up everyday phrases quickly and tapping words on either side to see their meaning, running 202 languages offline with NLLB-200-distilled-600M INT8 ONNX after a one-time ~658 MB download for accessibility anywhere on Android 7.0+ (minSdk 24, targetSdk 36, arm64-v8a and armeabi-v7a), paired with gloss.dearanayji.rocks and in-app GitHub updates.",
       "evidence": [
         {
-          "resource": "repo://README.md#L1-L49",
-          "version": "repo-lines-v1:sha256:25a84949bc568228600cd19597a7a0916a595541da787a1582d7caa7ad19fa82:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyZWYxMzAzNjMxMjQ4Y2FhNmM2YTEyNjZjZWZiY2M5ZTk5NTY2NDBiOTdlMTkzYjEyNmJiNjQ4ZjBhMWMxNzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://README.md#L1-L51",
+          "version": "repo-lines-v1:sha256:3bb7265166d6c4dc7bacd7e68d2815853b26e1a08d91aab1c8aa41c2ee11d0b2:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyZWYxMzAzNjMxMjQ4Y2FhNmM2YTEyNjZjZWZiY2M5ZTk5NTY2NDBiOTdlMTkzYjEyNmJiNjQ4ZjBhMWMxNzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
           "resource": "repo://app/build.gradle.kts",
@@ -33,6 +33,6 @@
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T17:33:47.960Z"
+    "at": "2026-11-23T18:48:00.244Z"
   }
 }

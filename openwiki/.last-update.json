@@ -1,7 +1,7 @@
 {
-  "updatedAt": "2026-11-23T17:49:58.049Z",
+  "updatedAt": "2026-11-23T18:49:38.897Z",
   "command": "update",
-  "gitHead": "4ca3a503a18fc6fd28b35855ae29e8e43b9b960b",
+  "gitHead": "d2e49d10e62f5616f5a63045540f67bcf1af37dd",
   "model": "host-agent/antigravity",
   "status": "complete",
   "language": "en"
