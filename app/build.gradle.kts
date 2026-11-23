@@ -15,8 +15,8 @@ android {
         applicationId = "rocks.dearanayji.gloss"
         minSdk = 24
         targetSdk = 36
-        versionCode = (System.getenv("VERSION_CODE")?.toIntOrNull()) ?: 4
-        versionName = System.getenv("VERSION_NAME") ?: "2.2.0"
+        versionCode = (System.getenv("VERSION_CODE")?.toIntOrNull()) ?: 5
+        versionName = System.getenv("VERSION_NAME") ?: "2.3.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -27,6 +27,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     signingConfigs {

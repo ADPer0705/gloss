@@ -32,6 +32,9 @@ import androidx.compose.material.icons.rounded.ContentPaste
 import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.LightMode
+import androidx.compose.material.icons.rounded.SystemUpdate
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -70,6 +73,7 @@ import rocks.dearanayji.gloss.ui.components.LanguagePickerSheet
 import rocks.dearanayji.gloss.ui.components.ModelManagerSheet
 import rocks.dearanayji.gloss.ui.components.WordGlossCard
 import rocks.dearanayji.gloss.ui.theme.LocalGlossColors
+import java.io.File
 
 private enum class PickerTarget { SOURCE, TARGET }
 
@@ -115,6 +119,10 @@ fun MainScreen(
     onClearHistory: () -> Unit,
     onSaveToHistory: () -> Unit,
     onSpeakText: (String, String) -> Unit,
+    onCheckForUpdates: () -> Unit,
+    onDownloadUpdate: () -> Unit,
+    onInstallReadyApk: (File) -> Unit,
+    onDismissUpdateBanner: () -> Unit,
     openHistoryNonce: Int = 0
 ) {
     val colors = LocalGlossColors.current
@@ -195,6 +203,20 @@ fun MainScreen(
                 onTargetClick = { pickerTarget = PickerTarget.TARGET },
                 onSwapClick = onSwapLanguages
             )
+
+            // ── Optional App Update Banner ──
+            if (!state.updateBannerDismissed &&
+                (state.updateState is AppUpdateState.Available ||
+                    state.updateState is AppUpdateState.Downloading ||
+                    state.updateState is AppUpdateState.ReadyToInstall)
+            ) {
+                UpdateBanner(
+                    updateState = state.updateState,
+                    onDownloadUpdate = onDownloadUpdate,
+                    onInstallReadyApk = onInstallReadyApk,
+                    onDismiss = onDismissUpdateBanner
+                )
+            }
 
             // ── Offline Download / Loading Card ──
             DownloadCard(
@@ -493,6 +515,13 @@ fun MainScreen(
         ModelManagerSheet(
             modelState = state.modelState,
             installedSizeBytes = state.installedSizeBytes,
+            currentVersionName = state.currentVersionName,
+            updateState = state.updateState,
+            totalGithubDownloads = state.totalGithubDownloads,
+            latestReleaseDownloads = state.latestReleaseDownloads,
+            onCheckForUpdates = onCheckForUpdates,
+            onDownloadUpdate = onDownloadUpdate,
+            onInstallReadyApk = onInstallReadyApk,
             onStartDownload = onStartDownload,
             onDeleteModel = onDeleteModel,
             onDismiss = { showModelSheet = false }
@@ -506,6 +535,107 @@ fun MainScreen(
             onClearHistory = onClearHistory,
             onDismiss = { showHistorySheet = false }
         )
+    }
+}
+
+@Composable
+private fun UpdateBanner(
+    updateState: AppUpdateState,
+    onDownloadUpdate: () -> Unit,
+    onInstallReadyApk: (File) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val colors = LocalGlossColors.current
+    Surface(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        color = colors.surface,
+        border = BorderStroke(1.dp, colors.secondary)
+    ) {
+        Column(modifier = Modifier.padding(horizontal = 14.dp, vertical = 10.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = Icons.Rounded.SystemUpdate,
+                    contentDescription = null,
+                    tint = colors.secondary,
+                    modifier = Modifier.size(18.dp)
+                )
+                Spacer(Modifier.width(8.dp))
+                Column(modifier = Modifier.weight(1f)) {
+                    when (updateState) {
+                        is AppUpdateState.Available -> {
+                            Text(
+                                text = "Update ${updateState.release.tagName} available",
+                                color = colors.textPrimary,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 13.sp
+                            )
+                            Text(
+                                text = "Tap Update to install in-place without losing your offline model.",
+                                color = colors.textSecondary,
+                                fontSize = 11.sp
+                            )
+                        }
+                        is AppUpdateState.Downloading -> {
+                            Text(
+                                text = "Downloading ${updateState.release.tagName} (${(updateState.fraction * 100).toInt()}%)",
+                                color = colors.textPrimary,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 13.sp
+                            )
+                        }
+                        is AppUpdateState.ReadyToInstall -> {
+                            Text(
+                                text = "${updateState.release.tagName} ready to install",
+                                color = colors.statusReady,
+                                fontWeight = FontWeight.SemiBold,
+                                fontSize = 13.sp
+                            )
+                        }
+                        else -> Unit
+                    }
+                }
+                when (updateState) {
+                    is AppUpdateState.Available -> {
+                        Button(
+                            onClick = onDownloadUpdate,
+                            shape = RoundedCornerShape(10.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = colors.secondary)
+                        ) {
+                            Text("Update", color = colors.bg, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        }
+                        IconButton(onClick = onDismiss, modifier = Modifier.size(28.dp)) {
+                            Icon(Icons.Rounded.Close, contentDescription = "Dismiss", tint = colors.textSecondary, modifier = Modifier.size(16.dp))
+                        }
+                    }
+                    is AppUpdateState.ReadyToInstall -> {
+                        Button(
+                            onClick = { onInstallReadyApk(updateState.apkFile) },
+                            shape = RoundedCornerShape(10.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = colors.statusReady)
+                        ) {
+                            Text("Install", color = colors.bg, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        }
+                    }
+                    else -> Unit
+                }
+            }
+            if (updateState is AppUpdateState.Downloading) {
+                Spacer(Modifier.height(8.dp))
+                LinearProgressIndicator(
+                    progress = { updateState.fraction },
+                    color = colors.secondary,
+                    trackColor = colors.surfaceElevated,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(5.dp)
+                        .clip(RoundedCornerShape(3.dp))
+                )
+            }
+        }
     }
 }
 

@@ -3,7 +3,10 @@ package rocks.dearanayji.gloss
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -19,7 +22,9 @@ import rocks.dearanayji.gloss.data.LanguageCatalog
 import rocks.dearanayji.gloss.ui.MainScreen
 import rocks.dearanayji.gloss.ui.MainViewModel
 import rocks.dearanayji.gloss.ui.theme.GlossTheme
+import rocks.dearanayji.gloss.update.AppUpdateManager
 import rocks.dearanayji.gloss.widget.GlossWidgetActions
+import java.io.File
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
@@ -61,6 +66,10 @@ class MainActivity : ComponentActivity() {
                     onClearHistory = viewModel::clearHistory,
                     onSaveToHistory = viewModel::saveCurrentToHistory,
                     onSpeakText = ::speak,
+                    onCheckForUpdates = viewModel::checkForUpdatesManual,
+                    onDownloadUpdate = { viewModel.downloadUpdate(::installApk) },
+                    onInstallReadyApk = ::installApk,
+                    onDismissUpdateBanner = viewModel::dismissUpdateBanner,
                     openHistoryNonce = openHistoryNonce
                 )
             }
@@ -76,6 +85,23 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.syncFromPreferences()
+    }
+
+    private fun installApk(apkFile: File) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !packageManager.canRequestPackageInstalls()) {
+            Toast.makeText(
+                this,
+                "Allow Gloss to install app updates, then tap Install again",
+                Toast.LENGTH_LONG
+            ).show()
+            val settingsIntent = Intent(
+                Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
+                Uri.parse("package:$packageName")
+            )
+            startActivity(settingsIntent)
+            return
+        }
+        startActivity(AppUpdateManager.createInstallIntent(this, apkFile))
     }
 
     private fun handleWidgetIntent(intent: Intent?) {

@@ -103,12 +103,40 @@ class PreferencesStore(context: Context) {
         GlossWidgetUpdater.updateAll(appContext)
     }
 
+    var lastUpdateCheckMillis: Long
+        get() = prefs.getLong(KEY_LAST_UPDATE_CHECK, 0L)
+        set(value) {
+            prefs.edit().putLong(KEY_LAST_UPDATE_CHECK, value).apply()
+        }
+
+    var cachedTotalGithubDownloads: Long
+        get() = prefs.getLong(KEY_TOTAL_GH_DOWNLOADS, -1L)
+        set(value) {
+            prefs.edit().putLong(KEY_TOTAL_GH_DOWNLOADS, value).apply()
+        }
+
+    var cachedLatestTag: String?
+        get() = prefs.getString(KEY_LATEST_GH_TAG, null)
+        set(value) {
+            prefs.edit().putString(KEY_LATEST_GH_TAG, value).apply()
+        }
+
+    var cachedLatestDownloads: Long
+        get() = prefs.getLong(KEY_LATEST_GH_DOWNLOADS, -1L)
+        set(value) {
+            prefs.edit().putLong(KEY_LATEST_GH_DOWNLOADS, value).apply()
+        }
+
     companion object {
         private const val KEY_SOURCE_LANG = "source_lang"
         private const val KEY_TARGET_LANG = "target_lang"
         private const val KEY_THEME_MODE = "theme_mode"
         private const val KEY_RECENT_LANGS = "recent_langs"
         private const val KEY_HISTORY = "phrase_history"
+        private const val KEY_LAST_UPDATE_CHECK = "last_update_check_ms"
+        private const val KEY_TOTAL_GH_DOWNLOADS = "total_gh_downloads"
+        private const val KEY_LATEST_GH_TAG = "latest_gh_tag"
+        private const val KEY_LATEST_GH_DOWNLOADS = "latest_gh_downloads"
         private const val MAX_RECENT_LANGS = 8
         private const val MAX_HISTORY_ITEMS = 30
     }

@@ -10,22 +10,28 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.OpenInNew
 import androidx.compose.material.icons.rounded.Close
 import androidx.compose.material.icons.rounded.DeleteOutline
-import androidx.compose.material.icons.rounded.OpenInNew
+import androidx.compose.material.icons.rounded.Refresh
+import androidx.compose.material.icons.rounded.SystemUpdate
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,35 +39,50 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import rocks.dearanayji.gloss.data.ModelState
 import rocks.dearanayji.gloss.model.ModelCatalog
+import rocks.dearanayji.gloss.ui.AppUpdateState
 import rocks.dearanayji.gloss.ui.theme.LocalGlossColors
+import rocks.dearanayji.gloss.update.AppUpdateManager
+import java.io.File
+import java.text.NumberFormat
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModelManagerSheet(
     modelState: ModelState,
     installedSizeBytes: Long,
+    currentVersionName: String,
+    updateState: AppUpdateState,
+    totalGithubDownloads: Long,
+    latestReleaseDownloads: Long,
+    onCheckForUpdates: () -> Unit,
+    onDownloadUpdate: () -> Unit,
+    onInstallReadyApk: (File) -> Unit,
     onStartDownload: () -> Unit,
     onDeleteModel: () -> Unit,
     onDismiss: () -> Unit
 ) {
     val colors = LocalGlossColors.current
     val uriHandler = LocalUriHandler.current
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
     var showConfirmDelete by remember { mutableStateOf(false) }
 
     ModalBottomSheet(
         onDismissRequest = onDismiss,
+        sheetState = sheetState,
         containerColor = colors.surface,
         contentColor = colors.textPrimary
     ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .verticalScroll(rememberScrollState())
                 .padding(horizontal = 20.dp)
                 .padding(bottom = 28.dp)
         ) {
@@ -71,13 +92,13 @@ fun ModelManagerSheet(
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "Offline Model",
+                        text = "App & Offline Model",
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold,
                         color = colors.textPrimary
                     )
                     Text(
-                        text = ModelCatalog.MODEL_DISPLAY_NAME,
+                        text = "Gloss v${currentVersionName.removePrefix("v")} · ${ModelCatalog.MODEL_DISPLAY_NAME}",
                         fontSize = 13.sp,
                         color = colors.textSecondary
                     )
@@ -89,6 +110,7 @@ fun ModelManagerSheet(
 
             Spacer(Modifier.height(14.dp))
 
+            // ── App Updates & GitHub Stats Card ──
             Surface(
                 shape = RoundedCornerShape(16.dp),
                 color = colors.bg,
@@ -99,6 +121,165 @@ fun ModelManagerSheet(
                     modifier = Modifier.padding(14.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
+                    Text(
+                        text = "APP & GITHUB RELEASES",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = colors.primary,
+                        letterSpacing = 0.8.sp
+                    )
+                    InfoRow(
+                        label = "Installed version",
+                        value = "v${currentVersionName.removePrefix("v")}"
+                    )
+                    InfoRow(
+                        label = "Update status",
+                        value = when (updateState) {
+                            AppUpdateState.Idle -> "Tap Check for updates"
+                            AppUpdateState.Checking -> "Checking GitHub…"
+                            AppUpdateState.UpToDate -> "Up to date"
+                            is AppUpdateState.Available -> "${updateState.release.tagName} available"
+                            is AppUpdateState.Downloading -> "Downloading ${(updateState.fraction * 100).toInt()}%"
+                            is AppUpdateState.ReadyToInstall -> "${updateState.release.tagName} ready to install"
+                            is AppUpdateState.Error -> updateState.message
+                        },
+                        valueColor = when (updateState) {
+                            is AppUpdateState.Available, is AppUpdateState.ReadyToInstall -> colors.secondary
+                            AppUpdateState.UpToDate -> colors.statusReady
+                            is AppUpdateState.Error -> colors.statusError
+                            else -> colors.textPrimary
+                        }
+                    )
+                    InfoRow(
+                        label = "GitHub downloads (all releases)",
+                        value = if (totalGithubDownloads >= 0L) {
+                            NumberFormat.getIntegerInstance().format(totalGithubDownloads)
+                        } else {
+                            "Check online to fetch"
+                        }
+                    )
+                    if (latestReleaseDownloads >= 0L) {
+                        InfoRow(
+                            label = "Latest release downloads",
+                            value = NumberFormat.getIntegerInstance().format(latestReleaseDownloads)
+                        )
+                    }
+
+                    if (updateState is AppUpdateState.Downloading) {
+                        LinearProgressIndicator(
+                            progress = { updateState.fraction },
+                            color = colors.secondary,
+                            trackColor = colors.surfaceElevated,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(6.dp)
+                                .clip(RoundedCornerShape(3.dp))
+                        )
+                    }
+
+                    Spacer(Modifier.height(4.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        when (updateState) {
+                            is AppUpdateState.Available -> {
+                                Button(
+                                    onClick = onDownloadUpdate,
+                                    shape = RoundedCornerShape(12.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = colors.secondary),
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.SystemUpdate,
+                                        contentDescription = null,
+                                        tint = colors.bg,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                    Spacer(Modifier.width(6.dp))
+                                    Text(
+                                        "Update (${updateState.release.tagName})",
+                                        color = colors.bg,
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 13.sp
+                                    )
+                                }
+                            }
+                            is AppUpdateState.ReadyToInstall -> {
+                                Button(
+                                    onClick = { onInstallReadyApk(updateState.apkFile) },
+                                    shape = RoundedCornerShape(12.dp),
+                                    colors = ButtonDefaults.buttonColors(containerColor = colors.statusReady),
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Text(
+                                        "Install ${updateState.release.tagName}",
+                                        color = colors.bg,
+                                        fontWeight = FontWeight.SemiBold,
+                                        fontSize = 13.sp
+                                    )
+                                }
+                            }
+                            else -> {
+                                OutlinedButton(
+                                    onClick = onCheckForUpdates,
+                                    enabled = updateState !is AppUpdateState.Checking && updateState !is AppUpdateState.Downloading,
+                                    shape = RoundedCornerShape(12.dp),
+                                    border = BorderStroke(1.dp, colors.border),
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Rounded.Refresh,
+                                        contentDescription = null,
+                                        tint = colors.primary,
+                                        modifier = Modifier.size(16.dp)
+                                    )
+                                    Spacer(Modifier.width(6.dp))
+                                    Text("Check updates", color = colors.textPrimary, fontSize = 13.sp)
+                                }
+                            }
+                        }
+
+                        OutlinedButton(
+                            onClick = { uriHandler.openUri(AppUpdateManager.RELEASES_PAGE_URL) },
+                            shape = RoundedCornerShape(12.dp),
+                            border = BorderStroke(1.dp, colors.border),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
+                                contentDescription = null,
+                                tint = colors.textSecondary,
+                                modifier = Modifier.size(15.dp)
+                            )
+                            Spacer(Modifier.width(6.dp))
+                            Text("Releases", color = colors.textPrimary, fontSize = 13.sp)
+                        }
+                    }
+                }
+            }
+
+            Spacer(Modifier.height(12.dp))
+
+            // ── Offline Model Card ──
+            Surface(
+                shape = RoundedCornerShape(16.dp),
+                color = colors.bg,
+                border = BorderStroke(1.dp, colors.border),
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Column(
+                    modifier = Modifier.padding(14.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Text(
+                        text = "OFFLINE TRANSLATION MODEL",
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = colors.secondary,
+                        letterSpacing = 0.8.sp
+                    )
                     InfoRow(
                         label = "Status",
                         value = when (modelState) {
@@ -156,7 +337,7 @@ fun ModelManagerSheet(
                     modifier = Modifier.weight(1f)
                 ) {
                     Icon(
-                        imageVector = Icons.Rounded.OpenInNew,
+                        imageVector = Icons.AutoMirrored.Rounded.OpenInNew,
                         contentDescription = null,
                         tint = colors.primary,
                         modifier = Modifier.size(16.dp)
