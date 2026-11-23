@@ -11,7 +11,7 @@ tags:
   - ci-cd
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-23T14:57:27.550Z
+    at: 2026-11-23T17:33:47.960Z
 sources:
   - id: openwiki-source-4d1d392666be6dfdd7a91a2e
     resource: repo://.github/workflows/release.yml
@@ -21,7 +21,7 @@ sources:
     resource: repo://app/src/test/java/rocks/dearanayji/gloss/update/AppUpdateManagerTest.kt
   - id: openwiki-source-81d5f1627e19148569f46f81
     resource: repo://gradle/libs.versions.toml
-generated: { by: "antigravity", at: "2026-11-23T14:57:27.550Z" }
+generated: { by: "antigravity", at: "2026-11-23T17:33:47.960Z" }
 ---
 
 # Build, Testing & GitHub Release Pipeline
@@ -42,7 +42,7 @@ Gloss builds a standalone signed Android APK on Android Gradle Plugin `9.2.1`, s
 
 `app/build.gradle.kts` reads optional environment variables for CI and local release builds:
 
-- `VERSION_CODE` defaults to `5` and `VERSION_NAME` defaults to `"2.3.0"`.
+- `VERSION_CODE` defaults to `6` and `VERSION_NAME` defaults to `"2.4.0"`.
 - If `KEYSTORE_PATH` is set, the `release` build type uses `signingConfigs.getByName("release")` with `STORE_PASSWORD`, `KEY_ALIAS`, and `KEY_PASSWORD`. Otherwise it falls back to the `debug` signing config for local ad-hoc builds.
 - R8/ProGuard `optimization.enable` is `false` on `release`.
 - Launcher icons package an adaptive foreground (`app/src/main/res/drawable-nodpi/ic_launcher_foreground.webp`) over `#0B0E14` (`ic_launcher_background.xml`) alongside `mdpi`–`xxxhdpi` WebP icons (`ic_launcher.webp` and `ic_launcher_round.webp`).

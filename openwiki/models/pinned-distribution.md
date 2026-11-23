@@ -10,7 +10,7 @@ tags:
   - storage
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-23T14:57:27.550Z
+    at: 2026-11-23T17:33:47.960Z
 sources:
   - id: openwiki-source-dea163140b114b84409ae2a8
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/model/ModelCatalog.kt
@@ -20,7 +20,7 @@ sources:
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/DownloadCard.kt
   - id: openwiki-source-fe2874c01d32a5f3a28bf41b
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/ModelManagerSheet.kt
-generated: { by: "antigravity", at: "2026-11-23T14:57:27.550Z" }
+generated: { by: "antigravity", at: "2026-11-23T17:33:47.960Z" }
 ---
 
 # Pinned Model Mirror & Resumable Downloads
@@ -63,8 +63,8 @@ All model files live in `filesDir/models/nllb-200-distilled-600M-mobile` so ONNX
 
 ## UI Controls (`DownloadCard` & `ModelManagerSheet`)
 
-- **`DownloadCard`**: Shown inline on the main screen whenever `ModelState` is not `Ready`. Displays download CTA, progress bar with percentage and MB/s throughput, **Cancel**, loading spinner during ORT memory mapping, and **Resume Download** / **Retry Load** on failure.
-- **`ModelManagerSheet`**: Opened by tapping the top-bar status pill (**App & Offline Model**). Displays an **App & GitHub Releases** card (installed version, update status, total and latest release GitHub download counts, **Check updates** / **Update** / **Install** buttons, and a **Releases** link) above the **Offline Translation Model** card (engine status, installed storage footprint, pinned HF mirror details, **View on HF**, and a **Delete Model** button guarded by a confirmation `AlertDialog` that invokes `EngineRepository.deleteModel()`).
+- **`DownloadCard`**: Shown inline on the main screen whenever `ModelState` is not `Ready` or `IdleDownloaded`. Displays download CTA, progress bar with percentage and MB/s throughput, **Cancel**, loading spinner during ORT memory mapping, and **Resume Download** / **Retry Load** on failure.
+- **`ModelManagerSheet`**: Opened by tapping the top-bar status pill (**App & Offline Model**). Displays an **App & GitHub Releases** card (installed version, update status, total and latest release GitHub download counts, **Check updates** / **Update** / **Install** buttons, and a **Releases** link) above the **Offline Translation Model** card (engine status including `Offline ready (standby)` when idle-evicted, last cold-start breakdown via `lastLoadMetrics`, installed storage footprint, pinned HF mirror details, **View on HF**, and a **Delete Model** button guarded by a confirmation `AlertDialog` that invokes `EngineRepository.deleteModel()`).
 
 ## Related Pages
 

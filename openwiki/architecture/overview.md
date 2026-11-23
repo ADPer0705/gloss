@@ -12,7 +12,7 @@ tags:
   - updates
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-23T14:57:27.550Z
+    at: 2026-11-23T17:33:47.960Z
 sources:
   - id: openwiki-source-186e96b8d6739f3745947903
     resource: repo://app/src/main/AndroidManifest.xml
@@ -32,7 +32,7 @@ sources:
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/widget/GlossWidgetActions.kt
   - id: openwiki-source-4325bb241889681f08d0155c
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/widget/GlossWidgets.kt
-generated: { by: "antigravity", at: "2026-11-23T14:57:27.550Z" }
+generated: { by: "antigravity", at: "2026-11-23T17:33:47.960Z" }
 ---
 
 # App Architecture & State Lifecycle
@@ -43,28 +43,30 @@ Gloss uses an offline-first, single-activity Android architecture that separates
 
 | Component | Lifetime | Primary Responsibility |
 | --- | --- | --- |
-| `GlossApplication` | Process | Initializes `PreferencesStore`, `ModelManager`, and `EngineRepository`, and triggers initial model state inspection on startup. |
-| `EngineRepository` | Process | Owns the single `NllbTranslatorEngine` instance, serializes inference and loading via `Mutex`, manages downloads, and caches word lookups. |
+| `GlossApplication` | Process | Initializes `PreferencesStore`, `ModelManager`, and `EngineRepository`, sets lightweight initial standby state, and evicts ONNX sessions/tokenizer in `onTrimMemory()`. |
+| `EngineRepository` | Process | Owns the single `NllbTranslatorEngine` instance and warm `NllbTokenizer`, serializes inference/loading/eviction via `Mutex`, manages 90-second background idle eviction, tracks `lastLoadMetrics`, manages downloads, and caches word lookups. |
 | `PreferencesStore` | Process | Persists source/target language codes, recent languages (up to 8), theme mode (`DARK`, `LIGHT`, `SYSTEM`), local phrase history (up to 30 entries), and cached GitHub release stats/check timestamps in `SharedPreferences`, notifying `GlossWidgetUpdater` on language or history changes. |
 | `MainViewModel` | Activity / Config | Combines `EngineRepository.modelState` with `DraftState` into `StateFlow<GlossUiState>`, debounces phrase translation, triggers 24h online + manual GitHub update checks, syncs widget-driven preference changes, and manages word-tap lookups and language swaps. |
 | `AppUpdateManager` | Stateless / App | Queries GitHub Releases API, compares semantic versions (`SemVer`), sums `.apk` download counts across releases, downloads update APKs to `cacheDir/updates/`, and creates `FileProvider` install intents. |
-| `MainActivity` | Activity | Hosts edge-to-edge Jetpack Compose `MainScreen` inside `GlossTheme`, handles widget launch intents (`singleTop`), triggers `REQUEST_INSTALL_PACKAGES` / `ACTION_VIEW` APK installation, and manages the Android `TextToSpeech` lifecycle. |
+| `MainActivity` | Activity | Hosts edge-to-edge Jetpack Compose `MainScreen` inside `GlossTheme`, signals `onStart()`/`onStop()` foreground transitions to `EngineRepository`, handles widget launch intents (`singleTop`), triggers `REQUEST_INSTALL_PACKAGES` / `ACTION_VIEW` APK installation, and manages the Android `TextToSpeech` lifecycle. |
 | `GlossQuickWidgetProvider` & `GlossPhrasesWidgetProvider` | Broadcast / Home | Render resizable 4×1 Quick Translate and 4×2 Recent Phrases home screen widgets and handle direct language-swap broadcasts. |
 
 In `AndroidManifest.xml`, the application registers `GlossApplication`, sets `android:largeHeap="true"` to accommodate ONNX Runtime allocations on mid-range Android devices, declares `INTERNET`, `ACCESS_NETWORK_STATE`, and `REQUEST_INSTALL_PACKAGES`, and exposes `cacheDir/updates/` through `androidx.core.content.FileProvider` (`${applicationId}.fileprovider`).
 
-## Application Startup & Engine Repository
+## Application Startup, Lifecycle Eviction & Engine Repository
 
 When Android creates `GlossApplication`, `onCreate()` constructs `PreferencesStore`, `ModelManager`, and `EngineRepository`, then invokes `engineRepository.refreshInitialState()`.
 
-- If `ModelManager.isModelReady()` is already true on disk, `EngineRepository` starts in `ModelState.Loading` and asynchronously loads `NllbTranslatorEngine` on `Dispatchers.Default` inside `engineMutex`.
-- If the model is absent or incomplete, `EngineRepository` enters `ModelState.NotDownloaded` without touching the network until the user initiates a download.
-- All `translatePhrase`, `translateWord`, `loadEngineInternal`, and `deleteModel` operations acquire `engineMutex` (`Mutex`) so concurrent UI events (such as rapid typing followed by a word tap or model deletion) never race against an active ONNX Runtime session.
+- **Zero background widget overhead**: `refreshInitialState()` performs a disk-only check (`IdleDownloaded` if verified files exist, `NotDownloaded` otherwise) so home-screen widget broadcasts never load the ~1 GB model in the background.
+- **Foreground warm-up & 90-second idle eviction**: `MainActivity.onStart()` calls `engineRepository.onAppForegrounded()`, cancelling any pending eviction timer and loading ORT sessions asynchronously while keeping `cachedTokenizer` warm. `MainActivity.onStop()` calls `engineRepository.onAppBackgrounded()`, scheduling a `90,000 ms` delay before closing native ORT sessions and returning to `ModelState.IdleDownloaded`.
+- **OS memory trim (`onTrimMemory`)**: `GlossApplication.onTrimMemory(level)` evicts ORT sessions immediately (retaining `cachedTokenizer`) on `TRIM_MEMORY_RUNNING_CRITICAL` or background `TRIM_MEMORY_BACKGROUND`, and drops `cachedTokenizer` as well on `TRIM_MEMORY_COMPLETE`.
+- **Seamless auto-reload & `lastLoadMetrics`**: `translatePhrase()` and `translateWord()` call `loadEngineLocked()` automatically if native sessions were evicted while the app was idle, and `EngineRepository` exposes `lastLoadMetrics: StateFlow<EngineLoadMetrics?>` for UI telemetry.
+- All `translatePhrase`, `translateWord`, `loadEngineLocked`, `evictSessionsInternal`, and `deleteModel` operations acquire `engineMutex` (`Mutex`) so concurrent UI events never race against an active ONNX Runtime session.
 - Single-word lookups check an in-memory `LruCache<String, String>(256)` keyed by `"$sourceCode->$targetCode:${trimmed.lowercase()}"` before acquiring `engineMutex`.
 
 ## Reactive UI State & Debounced Translation
 
-`MainViewModel` maintains a private `MutableStateFlow<DraftState>` initialized from `PreferencesStore` and merges it with `repo.modelState` using `combine(...).stateIn(..., SharingStarted.WhileSubscribed(5_000), ...)`.
+`MainViewModel` maintains a private `MutableStateFlow<DraftState>` initialized from `PreferencesStore` and merges it with `repo.modelState` and `repo.lastLoadMetrics` using `combine(...).stateIn(..., SharingStarted.WhileSubscribed(5_000), ...)`.
 
 - **Debounced phrase translation**: `onInputChanged` immediately re-tokenizes `inputText` via `WordSegmenter.tokenize` for instant word-chip rendering, cancels any in-flight `phraseJob`, and waits `380 ms` before dispatching `repo.translatePhrase`.
 - **Stale-result protection**: Before writing translated output or saving history, `scheduleTranslation` checks that `current.inputText`, `current.sourceCode`, and `current.targetCode` still match the snapshot that launched the coroutine.

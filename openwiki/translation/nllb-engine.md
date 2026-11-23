@@ -1,16 +1,17 @@
 ---
 type: translation-engine
 title: NLLB-200 ONNX Engine & BPE Tokenizer
-description: Offline seq2seq inference pipeline combining a streaming low-RAM BPE tokenizer with memory-mapped INT8 ONNX Runtime encoder and 12-layer KV-cached decoder sessions.
+description: Offline seq2seq inference pipeline combining a streaming low-RAM BPE tokenizer with a binary snapshot cache and tuned memory-mapped INT8 ONNX Runtime encoder and 12-layer KV-cached decoder sessions.
 tags:
   - nllb-200
   - onnxruntime
   - bpe-tokenizer
   - kv-cache
   - inference
+  - cold-start
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-23T09:50:05.804Z
+    at: 2026-11-23T17:33:47.960Z
 sources:
   - id: openwiki-source-7d7956c8ca8fd0517516fd13
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTokenizer.kt
@@ -18,18 +19,18 @@ sources:
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTranslatorEngine.kt
   - id: openwiki-source-390c26bd4202067d66977546
     resource: repo://app/src/test/java/rocks/dearanayji/gloss/engine/NllbEngineIntegrationTest.kt
-generated: { by: "antigravity", at: "2026-11-23T09:50:05.804Z" }
+generated: { by: "antigravity", at: "2026-11-23T17:33:47.960Z" }
 ---
 
 # NLLB-200 ONNX Engine & BPE Tokenizer
 
-Gloss runs Meta's `nllb-200-distilled-600M` completely offline in pure Kotlin + ONNX Runtime (`com.microsoft.onnxruntime:onnxruntime-android:1.32.0`) using a memory-lean INT8 mobile graph where weights stay memory-mapped on disk and the decoder outputs `next_token` directly instead of full vocabulary logits.
+Gloss runs Meta's `nllb-200-distilled-600M` completely offline in pure Kotlin + ONNX Runtime (`com.microsoft.onnxruntime:onnxruntime-android:1.32.0`) using a memory-lean INT8 mobile graph where weights stay memory-mapped on disk, the tokenizer persists a fast binary snapshot (`tokenizer.glossbin`), and ORT session options are tuned for minimal mobile cold-start latency and RAM overhead.
 
-## Streaming BPE Tokenizer (`NllbTokenizer`)
+## Streaming BPE Tokenizer & Binary Cache (`NllbTokenizer`)
 
-Standard Hugging Face `tokenizer.json` files for NLLB-200 contain ~256k vocabulary entries and ~514k BPE merge rules. Loading them into boxed Kotlin objects would risk OOM on 4 GB Android devices. `NllbTokenizer` solves this in two ways:
+Standard Hugging Face `tokenizer.json` files for NLLB-200 contain ~256k vocabulary entries and ~514k BPE merge rules. Loading them into boxed Kotlin objects or re-parsing 17.3 MB of JSON on every launch wastes cold-start CPU and heap. `NllbTokenizer` eliminates both bottlenecks:
 
-- **Streaming `JsonReader` load**: `NllbTokenizer.load(tokenizerFile)` streams `added_tokens`, `model.vocab`, and `model.merges` sequentially with a `64 KB` buffer (`BufferedReader`), resolving each merge string (`"left right"`) directly into token IDs without retaining raw merge strings in memory.
+- **Versioned binary snapshot (`tokenizer.glossbin`)**: `NllbTokenizer.loadWithInfo(tokenizerFile)` checks for `tokenizer.glossbin` (`CACHE_MAGIC = 0x474C544B`, `CACHE_VERSION = 1`, matching `tokenizerFile.length()`). On cache hit, it reads `idToToken`, `languageIds`, `specialIds`, and bulk-loads the `MergeTable` arrays (`keys`, `ranks`, `mergedIds`) directly via little-endian `ByteBuffer` chunks—avoiding JSON parsing, string splitting, and 1.5M+ hash insertions. On miss or mismatch, `loadFromJson` stream-parses `tokenizer.json` via `JsonReader` (`64 KB` buffer) and writes `tokenizer.glossbin.tmp` atomically before renaming.
 - **Primitive open-addressing `MergeTable`**: Stores `(leftId, rightId) -> (rank, mergedId)` inside three primitive arrays (`LongArray(1 shl 20)`, `IntArray`, `IntArray`) using linear probing (~49% load factor, ~16 MB total).
 
 ### Encoding & Decoding Behavior
@@ -41,9 +42,13 @@ Standard Hugging Face `tokenizer.json` files for NLLB-200 contain ~256k vocabula
 5. **Sequence framing**: Truncates content tokens to `MAX_SOURCE_TOKENS = 508` and emits `[sourceLangId, ...tokens, EOS_ID]`.
 6. **Decoding**: Skips special/language tokens (`id <= 3` or `specialIds`), concatenates token strings, converts `▁` back to spaces, and strips a single leading space.
 
-## ONNX Runtime Inference (`NllbTranslatorEngine`)
+## ONNX Runtime Cold-Start Tuning & Inference (`NllbTranslatorEngine`)
 
-`NllbTranslatorEngine.load(modelDir)` loads `NllbTokenizer`, then opens `encoder.onnx` and `decoder.onnx` by **file path** (`encoderFile.absolutePath` / `decoderFile.absolutePath`) rather than reading `ByteArray`s into JVM memory. This allows ORT to memory-map the external INT8 weight files (`encoder.bin`, `decoder.bin`, `shared.bin`). Both sessions configure `2..4` intra-op threads (`availableProcessors().coerceIn(2, 4)`), `1` inter-op thread, `OptLevel.ALL_OPT`, and memory pattern optimization.
+`NllbTranslatorEngine.load(modelDir, cachedTokenizer, tuning)` minimizes cold-start time and memory pressure without duplicating weights or pruning vocabulary:
+
+- **Parallel tokenizer & encoder initialization**: When `cachedTokenizer` is null (cold launch), `NllbTokenizer.loadWithInfo(tokenizerFile)` runs on a background executor concurrently with `encoderSession` creation; `decoderSession` loads immediately afterward so encoder and decoder peak init allocations do not overlap. When reloading after background idle eviction, `cachedTokenizer` is reused in `0 ms`.
+- **File-path mmap & `OrtTuningConfig`**: Passes `encoderFile.absolutePath` and `decoderFile.absolutePath` so ORT memory-maps `encoder.bin`, `decoder.bin`, and `shared.bin`. Default `OrtTuningConfig` configures `OptLevel.NO_OPT` (since `boat1603`'s mobile graphs are already pre-optimized), `session.disable_prepacking = "1"` (avoiding redundant cold-start weight copies), `setCPUArenaAllocator(false)`, `setMemoryPatternOptimization(false)`, `intraOpThreads = 2` (matching big performance cores), and `interOpThreads = 1`.
+- **Load telemetry (`EngineLoadMetrics`)**: Records `tokenizerMs`, `encoderMs`, `decoderMs`, `totalMs`, and `tokenizerFromCache` for display in `ModelManagerSheet`.
 
 ### Encoder & 12-Layer Merged KV-Cache Decoder Loop
 
@@ -56,7 +61,7 @@ Standard Hugging Face `tokenizer.json` files for NLLB-200 contain ~256k vocabula
 
 ## Verification
 
-`NllbEngineIntegrationTest` exercises the real tokenizer and ONNX Runtime sessions against the mirrored model files (`-Dgloss.model.dir`), verifying encode/decode roundtrips (English and Devanagari), multi-language phrase translation (`eng_Latn -> spa_Latn`, `spa_Latn -> eng_Latn`, `eng_Latn -> fra_Latn`, `eng_Latn -> hin_Deva`), and single-word gloss lookups (`biblioteca -> library`, `water -> agua`).
+`NllbEngineIntegrationTest` runs against real model files (`-Dgloss.model.dir`) to verify both `tokenizer.glossbin` cache generation/reuse with exact encode/decode parity across English, Spanish, Hindi, and Japanese, and accurate multi-language phrase and single-word translations (`eng_Latn -> spa_Latn`, `spa_Latn -> eng_Latn`, `eng_Latn -> fra_Latn`, `eng_Latn -> hin_Deva`, `biblioteca -> library`, `water -> agua`).
 
 ## Related Pages
 

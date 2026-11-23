@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:09131d9af47b262ca9afedaa4dfeac165da597b50a5db69f5bcff877bfb3b78b",
+  "pageVersion": "sha256:5582db5469c8e2ea8eb1d9a4923a277c29fe00753e9990b5b59f04b2a114636f",
   "claims": [
     {
       "id": "claim_71aa84272c894af4a0591c0c4f751bd8",
@@ -8,7 +8,7 @@
       "evidence": [
         {
           "resource": "repo://app/build.gradle.kts#L1-L31",
-          "version": "repo-lines-v1:sha256:6eca9a959c5213a3838dfceddc94dc5d3046db0ebcffc5479ed4e72cfca43148:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0MDQwMTAzMTViZGJiMGZlYTBmZDZmZjAyMTRkOGJjOTIxY2UyODM2ZDFjYzZiY2I4ODQ5ZjM1NzZjZjVhNjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhZjRkYWY2ZjQ4ZGIwODE1ZDBmNmNhYzg3YzFjZTRjNGE5Zjc5ZGVjNThmZmE0M2JkYmUwNjRiYjRkYWNhMzMifQ"
+          "version": "repo-lines-v1:sha256:b797f13cd5458afc6e1eb9a79bb85309947817176eeea2cbab807ed514cc5897:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0MDQwMTAzMTViZGJiMGZlYTBmZDZmZjAyMTRkOGJjOTIxY2UyODM2ZDFjYzZiY2I4ODQ5ZjM1NzZjZjVhNjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhZjRkYWY2ZjQ4ZGIwODE1ZDBmNmNhYzg3YzFjZTRjNGE5Zjc5ZGVjNThmZmE0M2JkYmUwNjRiYjRkYWNhMzMifQ"
         },
         {
           "resource": "repo://gradle/libs.versions.toml#L1-L39",
@@ -18,11 +18,11 @@
     },
     {
       "id": "claim_9c5e91b696ed4409bbc66584642d04d3",
-      "statement": "Release builds read VERSION_CODE and VERSION_NAME from environment variables (defaulting to 5 and 2.3.0) and fall back to the debug signing config when KEYSTORE_PATH is unset.",
+      "statement": "Release builds read VERSION_CODE and VERSION_NAME from environment variables (defaulting to 6 and 2.4.0) and fall back to the debug signing config when KEYSTORE_PATH is unset.",
       "evidence": [
         {
           "resource": "repo://app/build.gradle.kts#L18-L56",
-          "version": "repo-lines-v1:sha256:2f675522d0fb17d51f4106a65bb64b08b613026dc558af5b91626d4d9c4fc006:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4M2U2MDVlOWJlNDdlYTEyOTM3MzZkMGI1YWUwOGI1YzhlNmFhZWQyNDEzNmY1MzVkMTc2ZDJmNTA0Mjg1OWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2M2UyMWY0NzgwMjUxMjhjYjMzNmIyM2RmZTEyMWZkMGZhODQyZDZjNmRjNzdlZDIwMjliN2UwN2U3NjIwNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxZTcwZGQ4N2Y4ZDJlODM5MmUyOGU4Y2Q0NTc5MTZiNDA0YjAzMDczODk1MGZhZjA5NWM0NzY2ODQ1Y2VjODIifQ"
+          "version": "repo-lines-v1:sha256:632d5a4742a21fa535826e1d952befe1688cc61638e5397e21db7566474729bf:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiZjYzYjc2ZGM3MTA5YzBhODQyNzMxNGI2ODY0NzgyYjU2ZjNmMjcwNmZlYzlkOTI3YjBlNmRhN2JlOWI0NmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2M2UyMWY0NzgwMjUxMjhjYjMzNmIyM2RmZTEyMWZkMGZhODQyZDZjNmRjNzdlZDIwMjliN2UwN2U3NjIwNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxZTcwZGQ4N2Y4ZDJlODM5MmUyOGU4Y2Q0NTc5MTZiNDA0YjAzMDczODk1MGZhZjA5NWM0NzY2ODQ1Y2VjODIifQ"
         }
       ]
     },
@@ -63,6 +63,6 @@
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T14:57:27.550Z"
+    "at": "2026-11-23T17:33:47.960Z"
   }
 }

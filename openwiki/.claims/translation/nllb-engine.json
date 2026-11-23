@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:7c7d58fa21d5493f2e7b74c7282f2ce400d495802030f10ee52b2267d183ee8b",
+  "pageVersion": "sha256:726f49ee4235158196a18f7a3abbcf542f55a14ccb74ddab218be4ef4966d6be",
   "claims": [
     {
       "id": "claim_fb60b5626c834e1aa6b566018179ef05",
-      "statement": "NllbTokenizer stream-parses tokenizer.json via JsonReader and stores the 514k BPE merges inside a 1,048,576-slot primitive open-addressing MergeTable without retaining raw merge strings.",
+      "statement": "NllbTokenizer stream-parses tokenizer.json via JsonReader into a 1,048,576-slot primitive open-addressing MergeTable and persists a versioned tokenizer.glossbin binary cache for bulk array reloads on subsequent cold starts.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTokenizer.kt#L137-L183",
-          "version": "repo-lines-v1:sha256:f2b5c705d1bfd1e33cf12ae256a59e424eb198b31fd2634a062e8cb36e9b0124:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQwYmI2ZTYxYWQ1MzFjOWI5YjAzNjY2OWU0ODhiZjMyMjkxNmQ4MmY2MmY0ZDk4OGY2YmJlOWZjZTg4NjM0Y2IiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIyOTQ5MmRhY2MyZDk3Y2VlYzVmYjQ0YWFlMGFmNWE3N2MxYTQ2YzNjZDM3MTc5MmMyMGZlOTg0ZDc2YjExMmMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjUxMzc2Y2VkM2EwNjNmZmM3NDFjYzZlZmUxNDU5NDQ3MDAzNTlhM2ZkNDk3ZTdkMTFmYjk0M2RiNmVlMDdjMjEifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTokenizer.kt#L189-L396",
+          "version": "repo-lines-v1:sha256:a0ecd3066c05ce91b8a15fccc76e4b69dcfd6f6bdd8ceb4d3e3589b98faac5de:eyJzZWxlY3RlZExpbmVDb3VudCI6MjA4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI0MGJiNmU2MWFkNTMxYzliOWIwMzY2NjllNDg4YmYzMjI5MTZkODJmNjJmNGQ5ODhmNmJiZTlmY2U4ODYzNGNiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5OTliZGVmZWVhY2E2MzQwZTAyOTBkYzg2ZTg4OWM4OWQ1ZTE4OWFhNWJhNDRiNTg1YjNiNzA3MzRmNGE2MmQ4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJhZjY3M2M0MDRkYjIzYzhkYjhhODdlNjA4NjMwM2IzZGVlMDZiMDgxNTk0ZGE5ZTkyNWVlOGZkYmMyNzliNjlkIn0"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTokenizer.kt#L194-L299",
-          "version": "repo-lines-v1:sha256:62c12cde7a63ed7dc82a60d67fc1c5a62f829fca8761143e420014a416fdbd37:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5YzI3OGQ4YzIwODlmZDE5YzYzOWJjMTJhYzIwMzE1ZTdhZWM0ZTdiNjYyZDY2NDA0NmM5NmJmYzhkODc3YzI2IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1NTAzMmU5NjRkMDkzMjM1MWU1ZDE4NTI2OTI4MWIxNzFhM2EwOWIwOGIyODZlNjYxZWE0NzAzMjNjODJlYjRkIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIwOTM2MDAxMTBkOTIwOWQ0YTU3Nzk1MTUzY2Y2YTNhY2VjMDJkMjllNzAwNjg3ZDE0NGE1NTAyYmEzNDA5Y2MwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiNGEzNjVhOTBlYzExZTkwNDMyNzUyY2Y5Mzc2ZWM1ZWQzNmI4MGJhNWU4ZTY4NTRmY2Y5ODk3MGQzMDQ0NDY5In0"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTokenizer.kt#L397-L503",
+          "version": "repo-lines-v1:sha256:45a820bbf5face02bf349d8be459d1b1d4cd71e7358ea8c6cce9a61c87da1b86:eyJzZWxlY3RlZExpbmVDb3VudCI6MTA3LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjZmI3NWNjOWNjMWNlYmNkOGRjNmNmOWViMzhiNjlmOGNhYmYxOGFjMDNlNTBkZTMyODMzYzdhNGQ1MWRmMWE5IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNmIwNDQ5MTQ2OTcyMmU4MzYzYTk0ZTQwNDQ1MzhlMDEzYTJhMjE3ZTM2YjFlNTY4YmE2MGFjYjdiNGM4ZjJlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJkYTlmODZkMjhlNzg0ZjlmZDMxZmI3MmQxNWY2MGNiY2VhYWZkZDY2OWNiZDViNmRhNzg4OGEwMjMzMjFlYmI5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MiwiZm9sbG93aW5nQ29udGV4dEhhc2giOiIzNzk0ZDAyYTgxMjE5NDRkMTc2ZDI2NWU5YmI5Y2M1OWY2YWI4OTBiY2FkZjhhZWZkZWJkYmJiNGYyZWE4NDQ0In0"
         }
       ]
     },
@@ -21,18 +21,22 @@
       "statement": "NllbTokenizer applies NFKC normalization, U+2581 Metaspace pre-tokenization, codepoint lookup with fuse_unk, greedy lowest-rank BPE merging capped at 508 content tokens, and special-token-filtered decoding.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTokenizer.kt#L35-L130",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTokenizer.kt#L47-L142",
           "version": "repo-lines-v1:sha256:255a04d8302963b383256437619f18c54a91bda9664593c70656a21eb0ceb980:eyJzZWxlY3RlZExpbmVDb3VudCI6OTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijc0OGE3ZjkwNTEyZWVjYThjZGI3YWMwM2JhZTVjMDQyMmVkMDczM2I4NDVhM2JiZTk1N2E2ZGI1ZGU3NDI4NDciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjRhMzVhMzE3M2RlOTRkY2NlMmZlNGUyZDc5OWE5NGIxYmI5Nzc2NTZkNDIzYzc4MDgzMGVjMTdkYmQyYTI0NjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ1NzE5NGVmY2Q1YzVjZDkyZTY0ZmFkY2FkOTE2OWQ1OTNiYTA1NzMwZDdmM2MxZjlhYmE4MWFlZDIxNTJhNzUifQ"
         }
       ]
     },
     {
       "id": "claim_235c7c7dafcb425f817f89f7f0531439",
-      "statement": "NllbTranslatorEngine initializes encoder and decoder ONNX Runtime sessions from file paths with 2 to 4 intra-op threads and ALL_OPT optimization so external INT8 weights can be memory-mapped from disk.",
+      "statement": "NllbTranslatorEngine loads tokenizer and encoderSession concurrently from file paths (or reuses a warm cachedTokenizer), applies OrtTuningConfig (NO_OPT, cpuArenaAllocator=false, memoryPatternOptimization=false, disable_prepacking=1, intraOpThreads=2), and records EngineLoadMetrics.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTranslatorEngine.kt#L189-L228",
-          "version": "repo-lines-v1:sha256:3848820017125c65de71ca05098079d7d8b2f0aefc00b2dba42a588ca29531f2:eyJzZWxlY3RlZExpbmVDb3VudCI6NDAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyYWU5OGNiOWY4N2UzMzZkNTE4MTBhMTU0NzkyZDYwMzI2N2EwNTNlMGJkNzBjZDdjNTgxOWRkNTE4OGJmMGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjODI2Njk0NjYwMWYxNWIxMGQxMTFiZjY2ZGY0MGI4M2IxZDM2MzBiOTEyOGQzMDNlMzUxYWFkYzU4NzJmMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTranslatorEngine.kt#L208-L301",
+          "version": "repo-lines-v1:sha256:0970349f65d511128f57a2ad04adc85240dfc927895df517311aeec78a81c0b3:eyJzZWxlY3RlZExpbmVDb3VudCI6OTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjMxN2JlYmZhYTU2NWJlOGNhZGNmNzM5ZjNhY2NiOGM4YzVmMjc5YTAwMWZjYTMwMmNlYTU5YWJiOWQyZDU2NDYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjNjODI2Njk0NjYwMWYxNWIxMGQxMTFiZjY2ZGY0MGI4M2IxZDM2MzBiOTEyOGQzMDNlMzUxYWFkYzU4NzJmMzQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTranslatorEngine.kt#L22-L28",
+          "version": "repo-lines-v1:sha256:ab6a8439ae29fc004b45417d0e49acb6a941b1c05a698b2e0633f74614b04718:eyJzZWxlY3RlZExpbmVDb3VudCI6NywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiZGRkZDRlMGNlYTI4ZmQ1NDc2MThmYWI5ZWNhYzE2Njg1MzliODIyNzVkNzVjZjNjMjJhYTU4ZTlhMWNhOGNkMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZmFmYmEwNTI3YzM5NTNjNGI2ZTBlNWI1NzM5YmE4MzYxMmY4MDUzYmNkYzk0NjY3MzAxOTNjZDFkNTkwYjQwOCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjk1MTgzZjBjNTg3ZTU0ZGFhOWRjNWI5MWJiY2QwYzZiY2Y0Nzk3NTY0ZTYyOTc2M2EzM2E1YmJkZTY4NDI1YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiNTVkOTBhYmI3MmM2NWQ2YTg2OWRlYzNmZDNlZWQzNjY4YTJmODJmOWI1MDhjOTYyYmI4YjhhY2U4OWVmNzViOSJ9"
         }
       ]
     },
@@ -41,28 +45,28 @@
       "statement": "NllbTranslatorEngine translates line by line using a step-0 uncached pass to materialize reusable 12-layer encoder KV tensors, step-1 forced target language ID conditioning, greedy next_token decoding, and degenerate repetition guards.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTranslatorEngine.kt#L157-L177",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTranslatorEngine.kt#L176-L196",
           "version": "repo-lines-v1:sha256:e09efa8cfeabb8c7a12f47f4d3d34dd0468ce5a0d0edf11f6d1db9990d291efc:eyJzZWxlY3RlZExpbmVDb3VudCI6MjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjM4NmRjNmNlYzEzZDRiZmM2ZWM2ZDI5ZTdlNDZjZWZiMGIwNTY2MmIyZThkYzQ2NzY2YWM1NTBhMWExZWRhNDQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjEyZDVhNWYyNmVlMDM3YTc3NzVlYjZjZDU4Y2U2NjNkMjJjZjVmMGM4MGVjYjJiMzg4ZWJkZjM0NDVmODNmZDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMzYTU3ODM4YTEyMzJiYTk5NTZjNDAwYTgzNzY1Y2FiODBmZjlhMTNiYzVjZGJiZmVhNGRhOWY5ZDQwMTRmZTYifQ"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTranslatorEngine.kt#L25-L148",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/NllbTranslatorEngine.kt#L44-L167",
           "version": "repo-lines-v1:sha256:bbbee12f6f8fff06db6aba7d52884f70997b045cf230431765e5d96088391244:eyJzZWxlY3RlZExpbmVDb3VudCI6MTI0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI0YTljZmE3YTllNzRlNGFiZWQ2Mzk0NzNlYTUxMzliNjllZjBlZDA1ZDQ4MzQxZGZlMDAxZTc4MzNlYjJkZGJmIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhZTAxNzc5MTQ4ZjY2NzlmNzg2YTUwYTg4OWZhZjBjZjc1YTM2MmUyNTZhNTI3ZDMzNzQ1Njk2ODAyN2I3ODQxIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiNjE5NjNjZTk2Mzc1ODdmNzQyMWVkN2U2MzQ4ZTk5YjY4OWVkYzkzMmU0ZWJlOTFhYTNkMWE3NTE2ZDlkZjUwIn0"
         }
       ]
     },
     {
       "id": "claim_30ff9772f4d4463fb1fd9ede68117898",
-      "statement": "NllbEngineIntegrationTest verifies tokenizer roundtrips, multi-language sentence translation, and single-word lookups against real ONNX model files when -Dgloss.model.dir is supplied.",
+      "statement": "NllbEngineIntegrationTest verifies tokenizer.glossbin binary cache creation, reuse, and cross-script encoding parity alongside multi-language phrase and single-word translations against real ONNX model files when -Dgloss.model.dir is supplied.",
       "evidence": [
         {
-          "resource": "repo://app/src/test/java/rocks/dearanayji/gloss/engine/NllbEngineIntegrationTest.kt#L12-L58",
-          "version": "repo-lines-v1:sha256:89eb12b41c7c738ac40fb2d01bcdae474479f7464297808cae50bfff35632caa:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyOThiN2U1ODU1NDFjMTM1ZGZhNTUyODgwZjAzYWVlYzViZjE4NWQxMzUwNmE4M2JjMGZmODc5MTc3ZWVlMGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjZhY2YxMWYwYWUxODk4OTJkZWM1Y2ZlNGM5MDQ2OGRlYjA2YTdiYzNhODQ3YjYxNzU5Y2Y1ZDJkYTMxYWI4YWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+          "resource": "repo://app/src/test/java/rocks/dearanayji/gloss/engine/NllbEngineIntegrationTest.kt#L13-L76",
+          "version": "repo-lines-v1:sha256:a9c24c2981fab8b1f567ba06e6b995bcf35828e5829d909985fcf1c6679104bd:eyJzZWxlY3RlZExpbmVDb3VudCI6NjQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjZjA5ZWIwYzU3NDRmYjk3MzMxYjk4ZmYzZmJmMDVhNjAyYmEzZjdmNjdlNWRhNWJlOTA5NTAzM2Y2MjU4MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlMGZjMjQwNTBkNTQ1NThhYzUzYjZjZDBkMTE5ZTU1MDhlZmJmZTg5ZTE5ZTQyNmJiNjhhZjFiMmM3NzJjMDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T09:50:05.804Z"
+    "at": "2026-11-23T17:33:47.960Z"
   }
 }

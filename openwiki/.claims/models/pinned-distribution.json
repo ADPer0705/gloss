@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:33fe12773143f76436ae91c8ce3a3a09a8833fad0082664f62d58ab4c0735d02",
+  "pageVersion": "sha256:3cdafc014b607a79620265bb8b785931a3fef905197efccf43e507a64d91b54d",
   "claims": [
     {
       "id": "claim_187868f1df2b4815926eb16e6e42f92f",
@@ -46,21 +46,21 @@
     },
     {
       "id": "claim_87d68d5b4aa84b5dbdd2954e13921785",
-      "statement": "DownloadCard and ModelManagerSheet expose model download progress, cancellation, App & GitHub Releases update controls and download stats, Hugging Face attribution links, and confirmation-guarded model deletion that closes active sessions via EngineRepository before removing files.",
+      "statement": "DownloadCard hides when ModelState is Ready or IdleDownloaded, and ModelManagerSheet exposes App & GitHub Releases update controls and download stats, standby/cold-start metrics, Hugging Face attribution links, and confirmation-guarded model deletion via EngineRepository.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/DownloadCard.kt#L45-L212",
-          "version": "repo-lines-v1:sha256:e890985a44c300b1f5ae465c48d773a438530223f153af2903461e2e752b1fc2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTY4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIzZjE2M2Y3Nzg2YzQyY2E4ODkyNzBmNzUzYTc4MDYyNjQyNmMwM2Y5NzNhMDVhZGVhZWRkNGZhNGQyNzBmMGQ1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJjNDZiMmM3NmE2NzE3MDVjOGZhNWJhZjZkNmViOTY0YzY4MjZmYTNhODVkMjVhMzkyYzRjYjE2OTBjMDJlNDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlNjZhYWNlMzk0MDUwZDhjYTg5ODI2MWY0NjQ1OGE2OWQzMWUzOTRhYzEzMGQxMmU5MmIzYjI2NjZjMjZkYjU5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIzMDEwYzcwMDcxMzQ2ZDczZTY1NmU3ZGNkYzExOWYyYjMxNGU4YmY0MDhjMDg1YmFiOTJhMjI2MDFjZDk5NTNiIn0"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/DownloadCard.kt#L45-L220",
+          "version": "repo-lines-v1:sha256:ce288005b808d971f26858f6662254a993686067719ab6a6b18ec9f1b98dc3b2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTc2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIzZjE2M2Y3Nzg2YzQyY2E4ODkyNzBmNzUzYTc4MDYyNjQyNmMwM2Y5NzNhMDVhZGVhZWRkNGZhNGQyNzBmMGQ1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlNjZhYWNlMzk0MDUwZDhjYTg5ODI2MWY0NjQ1OGE2OWQzMWUzOTRhYzEzMGQxMmU5MmIzYjI2NjZjMjZkYjU5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI1NTU3YzkxMTVhYWY1OGE2MjM5MTY1ZmQ4ZmVmZWJiZDQ2OGFjMjliOTkwZGM3NzJhMDkzNWI4NjRjZmZkY2FjIn0"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/ModelManagerSheet.kt#L100-L410",
-          "version": "repo-lines-v1:sha256:1d5420b546ea4f4cc4b8dffafa18ca01da895e0e5dc916ccdbb6db89991b8627:eyJzZWxlY3RlZExpbmVDb3VudCI6MzExLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4YWFkMTM5ZTM4MDdiM2FlNjcxNjUyYmEwMWIzYjE4MmQzNGVjYjA4MjVjNDJjMTQ3ODhkODVmM2I2NzU3N2Q3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1NTIyYzQyY2QxOWM2ZDAzZDgwOGM0NTI3MjA1NTI4MjViN2VhMWM1YjQ5MWIyMTg1MTFjYWM3NDE1Y2Y5ZDliIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzYTk3MGNhODJiNmNkZjA3OTlhMDlkNWVlNjdjMjJhYzNmNGE4NjRjOWU3Yjg5Nzg1Y2I1OTFlYTY1ZGJkYWQ4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0YTg0MzFlZGVlOTkzOTA4ZGY0NzA3ZDk3MDFiOGU2ZWQ2ZTJmZTA2ODhmYWNmYjUwZDExMzU0NmVkMThjNzFiIn0"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/ModelManagerSheet.kt#L100-L420",
+          "version": "repo-lines-v1:sha256:4354d1e669184204f01b5d64ef6f005708a081eb35641c94dbb63016eaeef319:eyJzZWxlY3RlZExpbmVDb3VudCI6MzIxLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIzM2U3OTQ1ZWZjOWM4YTAyMTBkMDY2YzhmNThjZDEwMTZlZjg0YzYzM2FhY2JkYzJhZjRhN2NhZDlmMzg5NGY3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1OTA5YTUzYTYxOGQwMjhlMWQzMDAwYzBhN2FiY2VlY2JlNWZiMzdmNGU1MTFlZmU0NjY0M2ZhZDZlNjY4NzJmIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxMWMzNTk3OTFiNTMyYWQ1N2YxNTQ4OTIzYmE4ODFkNjU5MGJkZTJmMWZlMDMwMjQ1Mzk5MWVlYmIyMDY3ZGIxIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIxOWU3NjM1NWNmMTE5OTQ4MGMzZjk5ODM2YjE0ODZjODQxZDg5MWZhYWQ5MDRjNjA4ZTA5MzAyMmQzNzU3YWVlIn0"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T14:57:27.550Z"
+    "at": "2026-11-23T17:33:47.960Z"
   }
 }

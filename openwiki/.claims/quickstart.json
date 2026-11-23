@@ -1,38 +1,38 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:176fcd72ba1b580dad9d5696b8f867f031a0d57a5bcc4c3b1dfc1106931a7945",
+  "pageVersion": "sha256:9f65aadb84d1d88a1a022d7260db8351a0080b242372d9507241d6a18280dead",
   "claims": [
     {
       "id": "claim_d53ca5705f5d4c6aa539dffb114434b8",
-      "statement": "Gloss targets Android 7.0+ (minSdk 24, targetSdk 36, arm64-v8a and armeabi-v7a) with in-app GitHub updates and README download badges, running 202-language offline translation with NLLB-200-distilled-600M INT8 ONNX after a one-time ~658 MB model download.",
+      "statement": "Gloss (rocks.dearanayji.gloss, v2.4.0) targets Android 7.0+ (minSdk 24, targetSdk 36, arm64-v8a and armeabi-v7a) with in-app GitHub updates and README download badges, running 202-language offline translation with NLLB-200-distilled-600M INT8 ONNX after a one-time ~658 MB model download.",
       "evidence": [
         {
           "resource": "repo://README.md#L1-L49",
           "version": "repo-lines-v1:sha256:25a84949bc568228600cd19597a7a0916a595541da787a1582d7caa7ad19fa82:eyJzZWxlY3RlZExpbmVDb3VudCI6NDksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyZWYxMzAzNjMxMjQ4Y2FhNmM2YTEyNjZjZWZiY2M5ZTk5NTY2NDBiOTdlMTkzYjEyNmJiNjQ4ZjBhMWMxNzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
         },
         {
-          "resource": "repo://app/build.gradle.kts#L14-L31",
-          "version": "repo-lines-v1:sha256:20ad43eb5dd2829b51930a15674759bab4470ba28ca36d8568c30f151ec3fb03:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1NTQyMjk1MGE3NjJjOTE3ZDcwMDc3NTJkY2MzMzRiOTM2NTNkNmVjNTViNzFkYzQ3MGZhODZkMGRhNzQ5OTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhZjRkYWY2ZjQ4ZGIwODE1ZDBmNmNhYzg3YzFjZTRjNGE5Zjc5ZGVjNThmZmE0M2JkYmUwNjRiYjRkYWNhMzMifQ"
+          "resource": "repo://app/build.gradle.kts",
+          "version": "repo-file-v1:sha256:6d7a21f9fc632a9358b7d04fd3ab797b41ca16bdf24b6ad37be8a7537f1136a6"
         }
       ]
     },
     {
       "id": "claim_f18bfda8415842199d92f2cc2f2bb07a",
-      "statement": "AndroidManifest launches singleTop MainActivity inside GlossApplication, exposes cacheDir/updates via FileProvider, and registers GlossQuickWidgetProvider and GlossPhrasesWidgetProvider, while MainActivity wires MainViewModel, widget intents, FileProvider APK updates, and TextToSpeech into MainScreen.",
+      "statement": "MainActivity uses singleTop launchMode, handles widget intents on launch and new intents, triggers foreground model warm-up in onStart and 90-second delayed session eviction in onStop, triggers FileProvider APK updates, and hosts MainScreen with TextToSpeech lifecycle hooks alongside GlossApplication onTrimMemory.",
       "evidence": [
         {
           "resource": "repo://app/src/main/AndroidManifest.xml#L8-L66",
           "version": "repo-lines-v1:sha256:599c6b8d32e9ba5a34174c3b8e32e6aa543e6e671bf77e3336d7371b9250969b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkNjAzN2U3NjgwOTFhNjY1NzE0YzA0NmIwNDA5OWEyYmFmYTlkMmVmYjk2YjE5Y2NkYzg2NTg3ZDM0ZjFkMjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzMDY4ZGU5MGFjYTc3NjhkNDAxMWY1ZTZhODY2NDdmZGVhMTQ1MzkwYjEwOGQ0YTRiYWE2Njc2MTM0ZDU2NGMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExMDk3MjJmYjg5YjgzMTlmOTA4M2E0NGY4MWVlN2JjYzU3OWFhNjMyNjRiMzIwMGJiNWI0MGZiNzI2NjE5MzkifQ"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L35-L95",
-          "version": "repo-lines-v1:sha256:057bab38c785d894a3a8f5560a3606d7d14909ed9ca5c9b16c218f6ea17490c2:eyJzZWxlY3RlZExpbmVDb3VudCI6NjEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzNjc4YTYzOTFjZjQyOGUzZDFjNzc2ZjEyYjJjMjQxY2Y5MmNmYjk1NTUzODM0ZTQwMzFmYTIzZDk2ZmU5MjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImJmMDliM2Q2NTY1YWUyMmE3MjkyYmFkZjEwNGI2NWJjZTcyODYwZjIzODQ4NzkxNTZmYTZiZmZmZGI4MjVhOTAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyNGU1YjEzYjg5ZDM4NzQwMjYwYmU4MTZlMjc3OTM1MTUyOTUyMmJlY2RlYTFiNTY0ZjZlNGUwNjFhMzNlZTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ3ODRhZjkzYzQxNTNhOGQ1NGE5NzhhNGM3ODdmZDRiYmFmMTdhODcyZDcyYzU1N2MzNDM5M2I3Yzc2MTZhMjEifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L35-L106",
+          "version": "repo-lines-v1:sha256:17e035a9faf9cf9f653914971c76e12dd506bde1c29181c41b69e262afcd25b4:eyJzZWxlY3RlZExpbmVDb3VudCI6NzIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMzNjc4YTYzOTFjZjQyOGUzZDFjNzc2ZjEyYjJjMjQxY2Y5MmNmYjk1NTUzODM0ZTQwMzFmYTIzZDk2ZmU5MjEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIxNmI3ZDg1ZDkzZGQ2NmI4YzQ4NTA1MTE2NmIzNWU1MGZhOWUxMjllNjhkMWYyYjMwMDI3ZTZmYTZjN2EzNTgiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImEyNGU1YjEzYjg5ZDM4NzQwMjYwYmU4MTZlMjc3OTM1MTUyOTUyMmJlY2RlYTFiNTY0ZjZlNGUwNjFhMzNlZTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijc5ZTI1YWY3YTQxZDAzYWQyZWI5ZWVlY2NmOWZhOTViMzU4NmU0YjZmNzA0ZjkxOWE2ZTE3ZDAzYjZhZDJiNzcifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T14:57:27.550Z"
+    "at": "2026-11-23T17:33:47.960Z"
   }
 }

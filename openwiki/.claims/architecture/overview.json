@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:a4a43dd3aeda2215186b67ce6056f454a75a03e0f7982c9dce228b3740b8f94d",
+  "pageVersion": "sha256:7517d7547dd4bfd7267635a24959bcacb76e8900f06fee19114e1067ad3ccdc1",
   "claims": [
     {
       "id": "claim_d74fad5ed185434398f754b38344b2fc",
@@ -11,36 +11,40 @@
           "version": "repo-lines-v1:sha256:59d46aaf869be9336cc050daa2ca54d77291a88f968d2d4700d6e2bca0c49f6b:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQzNWEwNWVkZmM0N2VjZmE5MTU2NmU1YjE4OGRjYzY4YmJlOGVhMWYwM2M1OTYwZThjMWM0MTY0ZTc3ZGQ5MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U0NjQ0NzNkMGFiMTM1ZjRhYTViYTQ0NGYwOTQ0ZDYyYTZhMmMwOTRjZWMzNDMxYmVjZWIwNDgzYmJlNDU2YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDEyNWE1ZDY5MmFkYWJmMGZjNWExMThmMmYwNDE5OWFmYmM4NTE3MGRlMzgxMTgyOTZkNDZkN2M1YjBlNjk0YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmJlMjJiNzRjMjc5NWRiMGE4MjgzZDQ4NGRmNDFlMTc5MTdjOTk4MDMzZDZhMzdlNWU4ZWQwZjUyNjdmNTYyYiJ9"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/GlossApplication.kt#L17-L24",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/GlossApplication.kt#L18-L25",
           "version": "repo-lines-v1:sha256:38f1a60d3307d98a55afdc768cc4d0925bcd1dba217a6e40f3d8147f67ed8b6e:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2E4ZmE5ZjZhZWRlZGUyNTE2MGExMTgwMjZkYTExNmU4YmIzOWZmZmViOTdkYTAxMzJmOTA5NjVkZGIxMTBiMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTY3NDFlMmM3MWI1OTZjMGU4MzQ4YjBiYWNjYmNmNmI5ZWNkMWZhYTY5NzRiZmViZWU2Nzk3NzZkMDI5NTJhMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTQzN2E0NjA4MTc2MDAwNzJkMmFjMTQ2ODRjZjY3YjEyMTg2MGQ0NmQwYzZlZjkwYjVjYTc1YmFhM2M0ZGRmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzc5NGQwMmE4MTIxOTQ0ZDE3NmQyNjVlOWJiOWNjNTlmNmFiODkwYmNhZGY4YWVmZGViZGJiYjRmMmVhODQ0NCJ9"
         }
       ]
     },
     {
       "id": "claim_f2fc2d0eb5a8486fa146899423cc6fa7",
-      "statement": "EngineRepository serializes model loading, phrase translation, word lookups, and model deletion behind a single Mutex and caches up to 256 word translations in an LruCache.",
+      "statement": "EngineRepository serializes loading, phrase/word translation, background idle eviction (90 seconds), and deletion behind a single Mutex, retains a warm NllbTokenizer across session evictions unless cleared on TRIM_MEMORY_COMPLETE or deletion, exposes lastLoadMetrics, and caches up to 256 word translations in an LruCache.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/EngineRepository.kt#L109-L182",
-          "version": "repo-lines-v1:sha256:d78b70ae55a24d4fabdaf27eca9a09a4918ab6cf84292deba7f8052ba3b2ee59:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZjRhMjhkNmZkNDNmNmRlZWE5M2VjZGU2ZjgwYmY0ZjI0NDg4ZGYxOWVkYTk1MzUyOTJjOGI2NmNlMjFiZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllZWFkYTU0ZmZhOWNlZWQ4NWFiMDk3YWU3MTA4NGU0ZjZjZDUxNGJkMzA2ZTc5NWY0NDA3ZDBjNGRkYTAyNmQifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/GlossApplication.kt#L19-L41",
+          "version": "repo-lines-v1:sha256:85a7431a10ea8709cfcd60b1506fdabda2ba113139d6e945b141e285014b30a1:eyJzZWxlY3RlZExpbmVDb3VudCI6MjMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQ4YTgwNzc0NDEyZTQyODY4YzkzNWFlYmQ0MmY0ZTNkY2JkYzQxNzA3NDMyZjRjOGY3NmY1ZjNmODI5ZjFhMDciLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/EngineRepository.kt#L36-L46",
-          "version": "repo-lines-v1:sha256:1f07107eaeb4534b5a55d9d0cf75336a04ba5713d6d2bee84e5628da76f87cc7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyNDQyNTg5ZjBjZjg1NGZjOTkzNGNkZDc1NmNlNzM1MzI1ZDI5MzQ5NzgyOWRhZWQ4NGFjNzU2NGRiYzJlOGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1OTlmZjU5N2QxMmVhNWY5MTQ0MmIzMjY5YzI2Mzk4N2E3YjNhZDVhYjJjNjc4ZWEyZTg0NzAyZWEyOTczODMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVmOWIyMmI5NTZlMmViMTMwYjgxNDcwZWJmMjIzNTE2YWJkYzU0OWE1ZWI1ZTg4ZjljODE0NjZjZjVhNmM1ZmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwMzlmZDk1MDE2ZjcyMzQwZTBiZmY2NDQzNGYxNjRiNGIwMjdjZTg1YThjZDgwZGNkNjY2YzY1ZDc3ZTIxMzIifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/EngineRepository.kt#L176-L263",
+          "version": "repo-lines-v1:sha256:9dca4b33692922cf5be4a1490c8cb4cf4ffc039414e8ba1758e30cd6b0eb1019:eyJzZWxlY3RlZExpbmVDb3VudCI6ODgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjhlNDAyYjA4ZDI2NDgyNTg0YWEyZmI1MjdhYmE3YjU0ODAxNGFjNDdjYmQzMjE2ZGI0ZTZkYzU2Njk5YzI2MzQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAyMjMxZTcwYjIyZGM5NTBjMmI4OGM4ZjYwNWM2NjJhZmNkOWY3ZTlhZjRhYjgxY2EzY2I0ZmY1NzYwNDU2MDMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjljZjcyNWU3NDE1ODNjNTUzYjgwMmYxMGEzMTdlM2I1ZTNkYjNjNmEyNWQ0ZjliMWNlNDFhNTkxYzE3MWRkZTgifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/EngineRepository.kt#L37-L120",
+          "version": "repo-lines-v1:sha256:ff3350723b1b82d3b71c871efa109e08cb3e8f798ecc9e2d4e6acec2d39970e5:eyJzZWxlY3RlZExpbmVDb3VudCI6ODQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5NDQxMGY0NWFlZGFlMzZiYzZiNWUyODkzMjdjZmJjNmMzZDg1MjE1ZjcwNGY0ZWE2NTYzZTkxODNmOTQ2NTIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjIwNGZkMWQ2M2UwOWZhZDk2YTU2MDQ4NTZmY2JlYjRiNzYxOGM2YzU0YTlkYjBkMDJjODRkMGM1ZDNhMWM1MTAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImZiMDRmMGI3ZmM0NzcxNGZmMzhmYzIyNDY5ZTg2MWZmZjU2NGQwN2Q1ZTM0M2E5MGQ3MmZmZTdlNTc2MTBhYmMifQ"
         }
       ]
     },
     {
       "id": "claim_7114688427a84e9b8b2e381aea97de1a",
-      "statement": "MainViewModel combines repository ModelState with DraftState into a StateFlow<GlossUiState>, debounces phrase translation by 380 ms, runs a 24-hour online silent update check on init, and discards stale translation results if inputs or languages changed mid-flight.",
+      "statement": "MainViewModel combines repository ModelState, lastLoadMetrics, and DraftState into StateFlow<GlossUiState>, debounces phrase translation by 380 ms across Ready/IdleDownloaded/Loading states, runs a 24-hour online silent update check on init, and discards stale translation results if inputs or languages changed mid-flight.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L128-L185",
-          "version": "repo-lines-v1:sha256:0d9d643b5b2167e0314d3dc1d74e2a326f79ccd446788bb9dca001099aed7666:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwM2UwNTM1YTlhODlmN2FjNDk0OWM1YjNlNmI4MDkyYzQwMzcxOGY2ZTMyZmI3OGU4NWQ4OWZmNDhkYTBjZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxY2QyNDA4ZjMwOTI0NWIyZjU2Mjk4ODcxNGNmNjYzZWQ1M2MwZjNjYzU4ZTIwYzUwMmNkNWM4MzJiYzNmMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkwOTU2MWU1MzFjMGU4OGIzMmYzNmI2MDM1OGEyOTgxYWNlNDJkODY1Y2E2MDFmNzM0NjJhYzVmMTU5YTAxYjMifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L130-L189",
+          "version": "repo-lines-v1:sha256:6a8c6242637b2099d8e72c8e37a773346b98a22bb91da020d21c04d90b923714:eyJzZWxlY3RlZExpbmVDb3VudCI6NjAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5NzQ3NzVhYmRiYjk4MGRhMGIwZjkzNTIyYWVkYmUxZDUzY2U2ZjIxYzBlY2UwNzU4MmJlZjdkOWRmMDUxZjMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxY2QyNDA4ZjMwOTI0NWIyZjU2Mjk4ODcxNGNmNjYzZWQ1M2MwZjNjYzU4ZTIwYzUwMmNkNWM4MzJiYzNmMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjVlODYwNmI0OWE3OTEyYjA1ZmJmMDhjNWI2ZTQzMjY2ZTcwMzViYmRhNzMxYzIxZjI0OWVmMDZkZWM1NDEzYjYifQ"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L547-L598",
-          "version": "repo-lines-v1:sha256:1051b6b5210a024c7b2a716d2debbd58e7b4e71ed26a56d3235c8957fc2f8c7b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3ODliMDM5ZWM5ZDg5YmE4ZWNkYmJlMzY3YjYzZTJkYTM4M2MwMWQ2YTkyMjMyMDU4NjBjZjNiNzc4NDUyYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L549-L604",
+          "version": "repo-lines-v1:sha256:e195f473d99dea2b82bba1cc41d4b04c9b98949303f0b2501f3aa23d5001146b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY4ZTg1ZDIzYTFkYTk4ZmNkMTIxM2RkNjkwYjM2NTFlMGQzNjRlYzJiYjA5ZDUzYjBjNjdjYWI1YTIwN2M5NWIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         }
       ]
     },
@@ -56,11 +60,11 @@
     },
     {
       "id": "claim_0dde77734b3548b3b92710defda03480",
-      "statement": "MainActivity hosts edge-to-edge Compose MainScreen inside GlossTheme, handles singleTop widget launch intents, syncs preferences on resume, manages REQUEST_INSTALL_PACKAGES/FileProvider APK installs, and manages Android TextToSpeech initialization, BCP-47 locale checking, and shutdown.",
+      "statement": "MainActivity hosts edge-to-edge Compose MainScreen inside GlossTheme, notifies EngineRepository on onStart/onStop, handles singleTop widget launch intents, syncs preferences on resume, manages REQUEST_INSTALL_PACKAGES/FileProvider APK installs, and manages Android TextToSpeech initialization, BCP-47 locale checking, and shutdown.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L35-L174",
-          "version": "repo-lines-v1:sha256:229bd9427a50d30655f612b22f5ed639b2ff60aefb4f22744ab9c0ea23f8f06a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMzY3OGE2MzkxY2Y0MjhlM2QxYzc3NmYxMmIyYzI0MWNmOTJjZmI5NTU1MzgzNGU0MDMxZmEyM2Q5NmZlOTIxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhMjRlNWIxM2I4OWQzODc0MDI2MGJlODE2ZTI3NzkzNTE1Mjk1MjJiZWNkZWExYjU2NGY2ZTRlMDYxYTMzZWUwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L35-L184",
+          "version": "repo-lines-v1:sha256:7b9ce1e0c2df26169b3b028e5552a28cc013c6716a5d05e2c91cd4a4d448b4b0:eyJzZWxlY3RlZExpbmVDb3VudCI6MTUwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMzY3OGE2MzkxY2Y0MjhlM2QxYzc3NmYxMmIyYzI0MWNmOTJjZmI5NTU1MzgzNGU0MDMxZmEyM2Q5NmZlOTIxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhMjRlNWIxM2I4OWQzODc0MDI2MGJlODE2ZTI3NzkzNTE1Mjk1MjJiZWNkZWExYjU2NGY2ZTRlMDYxYTMzZWUwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
         }
       ]
     },
@@ -69,7 +73,7 @@
       "statement": "GlossQuickWidgetProvider and GlossPhrasesWidgetProvider render 4x1 quick-translate and 4x2 recent-phrases home screen widgets supporting direct language swap broadcasts, clipboard paste launches, and phrase restoration.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L526-L543",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L531-L548",
           "version": "repo-lines-v1:sha256:544c90a2a4919c610c0ab1194ace0d44070ea460300b9cf7efa94d1e3bd54bb6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNWZiZDNkNTE4MGU2Mjc5ZmRmNDgxYzIxODIzN2YyNWY5YjRkN2U2ZmQxZjJlOWQ3ZWJlOGFlOTljODdmNmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1Y2RhYmQyN2U5NzNlNzJmNWVkM2NiMDVlYWQ2NDQ3N2E5MDNlOGRkMWZhOWE5ZWM0YWU4Y2E3NWMyNGQ5ZDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgifQ"
         },
         {
@@ -95,6 +99,6 @@
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T14:57:27.550Z"
+    "at": "2026-11-23T17:33:47.960Z"
   }
 }

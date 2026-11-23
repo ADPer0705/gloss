@@ -10,7 +10,7 @@ tags:
   - ui
 verified:
   - by: openwiki/0.9.0
-    at: 2026-11-23T09:50:05.804Z
+    at: 2026-11-23T17:33:47.960Z
 sources:
   - id: openwiki-source-9f93d70275f6dbd609d041f7
     resource: repo://app/src/main/java/rocks/dearanayji/gloss/data/LanguageCatalog.kt
@@ -28,7 +28,7 @@ sources:
     resource: repo://app/src/test/java/rocks/dearanayji/gloss/data/LanguageCatalogTest.kt
   - id: openwiki-source-1ba86d72147ba2632fda826b
     resource: repo://app/src/test/java/rocks/dearanayji/gloss/engine/WordSegmenterTest.kt
-generated: { by: "antigravity", at: "2026-11-23T09:50:05.804Z" }
+generated: { by: "antigravity", at: "2026-11-23T17:33:47.960Z" }
 ---
 
 # Word Segmentation, Tap-to-Gloss & 202-Language Catalog
@@ -48,7 +48,7 @@ A core learning workflow in Gloss is inspecting any individual word inside a sen
 ## Bidirectional Tap-to-Gloss (`InteractiveWordText` & `WordGlossCard`)
 
 - **Interactive sentence rendering**: `InteractiveWordText` splits `tokens` by newline (`splitTokensIntoLines`) and renders each line inside a Compose `FlowRow`. Tappable words display a subtle dashed underline (`PathEffect.dashPathEffect`) and highlight with `wordSelectedBg` and an accent border when selected.
-- **Bidirectional lookup**: `MainViewModel.onWordTapped(token, origin)` routes `WordOrigin.SOURCE` taps to `sourceCode -> targetCode` and `WordOrigin.TRANSLATION` taps to `targetCode -> sourceCode`. Tapping the currently selected word again dismisses the card.
+- **Bidirectional lookup**: `MainViewModel.onWordTapped(token, origin)` accepts taps across `Ready`, `IdleDownloaded`, and `Loading` model states (auto-reloading evicted ORT sessions if needed), routing `WordOrigin.SOURCE` taps to `sourceCode -> targetCode` and `WordOrigin.TRANSLATION` taps to `targetCode -> sourceCode`. Tapping the currently selected word again dismisses the card.
 - **Instant repeat taps**: Lookups call `EngineRepository.translateWord`, which checks a 256-entry `LruCache` before running ONNX inference.
 - **Inline `WordGlossCard`**: Animates open between the source and output cards, showing the direction badge (`From → To`), the selected word and translated meaning (or loading indicator), and quick **Speak** (TTS), **Copy**, and **Dismiss** actions.
 
