@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "pages": {
+    "/openwiki/architecture/overview.md": {
+      "pageVersion": "sha256:8b413a154a31637e92e6ca817513efc9467bb0c7ae03f73784ae1fe28790e28b",
+      "completedBy": "antigravity",
+      "completedRunId": "31a316c6-1af1-4a70-8792-76f7a7c4e15b",
+      "gitHead": "fdedb919f6752dd7f660caaa7244e28bc66f0ad3",
+      "sourceFingerprint": "sha256:413ee64dc68cd5509416b00cfca8c8ac12e4222ffd27e48ec900bed166d7b95d"
+    },
+    "/openwiki/models/pinned-distribution.md": {
+      "pageVersion": "sha256:46ce92d4b446982d19d814b435fbf105c50f46a121872ca4b9de775ccc7b3e5b",
+      "completedBy": "antigravity",
+      "completedRunId": "31a316c6-1af1-4a70-8792-76f7a7c4e15b",
+      "gitHead": "fdedb919f6752dd7f660caaa7244e28bc66f0ad3",
+      "sourceFingerprint": "sha256:413ee64dc68cd5509416b00cfca8c8ac12e4222ffd27e48ec900bed166d7b95d"
+    },
+    "/openwiki/operations/build-testing-release.md": {
+      "pageVersion": "sha256:779595923cebec2224429e56b7167326e5f43bf3f1d77fd6c5a75d631d877ca3",
+      "completedBy": "antigravity",
+      "completedRunId": "31a316c6-1af1-4a70-8792-76f7a7c4e15b",
+      "gitHead": "fdedb919f6752dd7f660caaa7244e28bc66f0ad3",
+      "sourceFingerprint": "sha256:413ee64dc68cd5509416b00cfca8c8ac12e4222ffd27e48ec900bed166d7b95d"
+    },
+    "/openwiki/quickstart.md": {
+      "pageVersion": "sha256:8fbc5f849b34d5ae8853921d1a5c256d2018bdb55cd3d000c59c68293673cf0a",
+      "completedBy": "antigravity",
+      "completedRunId": "31a316c6-1af1-4a70-8792-76f7a7c4e15b",
+      "gitHead": "fdedb919f6752dd7f660caaa7244e28bc66f0ad3",
+      "sourceFingerprint": "sha256:413ee64dc68cd5509416b00cfca8c8ac12e4222ffd27e48ec900bed166d7b95d"
+    },
+    "/openwiki/translation/nllb-engine.md": {
+      "pageVersion": "sha256:7c7d58fa21d5493f2e7b74c7282f2ce400d495802030f10ee52b2267d183ee8b",
+      "completedBy": "antigravity",
+      "completedRunId": "31a316c6-1af1-4a70-8792-76f7a7c4e15b",
+      "gitHead": "fdedb919f6752dd7f660caaa7244e28bc66f0ad3",
+      "sourceFingerprint": "sha256:413ee64dc68cd5509416b00cfca8c8ac12e4222ffd27e48ec900bed166d7b95d"
+    },
+    "/openwiki/translation/word-gloss-and-languages.md": {
+      "pageVersion": "sha256:ed70d2bdd6f6de3af06983ed79294f85cb74053c9bd2062908c0ad95cce81c26",
+      "completedBy": "antigravity",
+      "completedRunId": "31a316c6-1af1-4a70-8792-76f7a7c4e15b",
+      "gitHead": "fdedb919f6752dd7f660caaa7244e28bc66f0ad3",
+      "sourceFingerprint": "sha256:413ee64dc68cd5509416b00cfca8c8ac12e4222ffd27e48ec900bed166d7b95d"
+    }
+  }
+}

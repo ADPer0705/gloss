@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:ed70d2bdd6f6de3af06983ed79294f85cb74053c9bd2062908c0ad95cce81c26",
+  "claims": [
+    {
+      "id": "claim_535c9e58aedf48feadc08f7eccb7e0a3",
+      "statement": "WordSegmenter uses java.text.BreakIterator to split text across scripts into indexed TextToken.Word tokens (stripping surrounding punctuation while preserving combining marks) and newline-aware Separator tokens.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/engine/WordSegmenter.kt#L21-L82",
+          "version": "repo-lines-v1:sha256:3cebd3be8d7ded0e491200b9f21175861b7ce4232a3741c5100414974e27d9d6:eyJzZWxlY3RlZExpbmVDb3VudCI6NjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZiNzJlYTc3ZGEwOTFlMDMxODEyYjJkNzVmMDEyMTU5ZDE0OTg5YTcwMDlkMGJlN2IwMTEyNDZjM2YxYTk1OTAiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImFhYzk1YmI5NmQzZTUxYzRjMWJhNzU4Yjc3OTU5ZDEwMzQ4YjQxM2JjOGQxYTI4OWNiZDE5MDhkZWYwZDZhYzUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+        },
+        {
+          "resource": "repo://app/src/test/java/rocks/dearanayji/gloss/engine/WordSegmenterTest.kt#L9-L45",
+          "version": "repo-lines-v1:sha256:c843eb0d382982277acbdf108dead88dc8f0136a8988968afdc72a2b6ec213c0:eyJzZWxlY3RlZExpbmVDb3VudCI6MzcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjZjA5ZWIwYzU3NDRmYjk3MzMxYjk4ZmYzZmJmMDVhNjAyYmEzZjdmNjdlNWRhNWJlOTA5NTAzM2Y2MjU4MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjBlODZlN2FhZDdkM2ZiZGI2ZWYyZDIzYTJmZTZkMzM1OTYxNGRjY2QwOWIwZjI1NDM0ZGNlZmQ4NjMzZWIzOWQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_225a4459036b4e6d950ea875beedec71",
+      "statement": "InteractiveWordText renders tappable dashed-underline words in both input and translated cards, and MainViewModel routes taps bidirectionally (source-to-target or target-to-source) into the animated WordGlossCard.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L277-L332",
+          "version": "repo-lines-v1:sha256:12ee8a04b51811c27ba983853c56333010340dba6e087984bf18989e57e79dc9:eyJzZWxlY3RlZExpbmVDb3VudCI6NTYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4NzM2MTlkMThhZmExYTU4OTNlNDIyYTRiYzdhZTNkYTQ5NDc4NDhiYzU1NGE2NjhjZTM4M2M5NzZhYWNiOGIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjAzYjI4OGQ5NjVhYzdkNDJhZGY0YTYzYWU4MDNmZWJjNjAxYjQzNjQ5NTJiMTgwMGU1ZWU2NDdkMDMyNjgwYTQifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/InteractiveWordText.kt#L37-L120",
+          "version": "repo-lines-v1:sha256:0068da4c7e55156388608f5ba552a0796c1eecb4b9792fc7579ba0d24cc0486b:eyJzZWxlY3RlZExpbmVDb3VudCI6ODQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImMxNDNhYTM0NDk2ZDFmZTY2YmI0NjQ5MzRjYmQyZGY0OTlhYTRiZDNjMTg3OTZhYzgwZDMyMmE3Zjk3ZTgwMzMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBjNjQ3OWNjMjMwNDQwZmQ0MWU4MjI0MjE4Njc5Njk4NTU5ZDI4OTNiZDY3YjQzODBhZmFiODExYjM4YTU1YWEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1MmQzZDdiMTk4YzVlOGY5NGIxN2YwM2I1OTYyZTM3NTBiMmEzZmE1MmMxM2E1N2EwZTdmN2Y5MzFmNmYxM2UiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImJmM2UzN2Y2NzljZDY2NzAyYjcxZjNmOThkN2IyYjYyZTAwMGEzM2FkYjQ4OTE1NDdjNjZhOTJkNDEyNGIxNzkifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/WordGlossCard.kt#L40-L169",
+          "version": "repo-lines-v1:sha256:558898ab7205b0c818a14f35036935d6a05bec9fc1dc7c7a0ef08584022e8870:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJhZTFkOTMyYWVhYjg5Mjk5MzdlZjJiZTYzMzZmNDlkNzFmMGJmZjQ2OTI1MzZlMzhiN2YxMTAxM2Q4OGI0NzkwIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIwYzY0NzljYzIzMDQ0MGZkNDFlODIyNDIxODY3OTY5ODU1OWQyODkzYmQ2N2I0MzgwYWZhYjgxMWIzOGE1NWFhIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJkYjI4MzNmMmEwNjRiMzkzZDFlZGRmNzEwNzliNzE5N2IxOWNmYjExODNkZGU2NzMxZWVmZGY0MzkwNmVlOTllIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiZjNlMzdmNjc5Y2Q2NjcwMmI3MWYzZjk4ZDdiMmI2MmUwMDBhMzNhZGI0ODkxNTQ3YzY2YTkyZDQxMjRiMTc5In0"
+        }
+      ]
+    },
+    {
+      "id": "claim_3d90de1407f4405e872ab2d4d0a2f3c0",
+      "statement": "LanguageCatalog defines all 202 FLORES-200 languages with English names, native endonyms, script labels, optional BCP-47 TTS tags, and multi-field search, verified against tokenizer.json by LanguageCatalogTest.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/LanguageCatalog.kt#L34-L255",
+          "version": "repo-lines-v1:sha256:422943cf1b001ce04f6a4ac0b413a280e7e26f1f06ef9764a57e3daf9115228f:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIyLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJhM2ViOGIxMGU0ZWYzZmE1MGU0NjY1ODc0MTUwYThiNTMzZWQwZGY0NDZhOTE4NzRlMWU1Mjk1ZWI0ZWQ4MmVhIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJlNmIwNDQ5MTQ2OTcyMmU4MzYzYTk0ZTQwNDQ1MzhlMDEzYTJhMjE3ZTM2YjFlNTY4YmE2MGFjYjdiNGM4ZjJlIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIxZDllMjkwYjMyM2FiZTAxNmE4OWZlMGU4M2QyNTQ4NGQ5MWI4ODU5OTU3MzU5NTdhYjg5YmIwNTllNThhM2ZiIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MiwiZm9sbG93aW5nQ29udGV4dEhhc2giOiIzNzk0ZDAyYTgxMjE5NDRkMTc2ZDI2NWU5YmI5Y2M1OWY2YWI4OTBiY2FkZjhhZWZkZWJkYmJiNGYyZWE4NDQ0In0"
+        },
+        {
+          "resource": "repo://app/src/test/java/rocks/dearanayji/gloss/data/LanguageCatalogTest.kt#L13-L63",
+          "version": "repo-lines-v1:sha256:9b3168f60b119e97de0cad1bd0d33dba0652f818a2264f5c885b61683dd5c8ae:eyJzZWxlY3RlZExpbmVDb3VudCI6NTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYwMGIyOTk0NDFhZmE1MmRlMGQ5ZGVmMDMwNDZjYWFkZDY5ODQ5ZDY5N2I5N2Y3M2E2NWRiZGIyOWU3ZTE2YmEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjczOTBlZmE5ODdkZWUzNDAzZTYwY2QwNjI3ZDkxOGQ4NDAxMGFhZTZmMTE3OTZlZmI4OTgxM2I4MWIzYTk3YzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_3135c4e6a272467fa3b31ee2e5b5a8f1",
+      "statement": "LanguagePickerSheet provides live search across all 202 languages alongside Recent and Popular filter chips for fast pair selection.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/LanguagePickerSheet.kt#L51-L266",
+          "version": "repo-lines-v1:sha256:21b63228577a39ccc3de67cf6c887dcba6f6c9df5be01c897e3eb138275c2ec6:eyJzZWxlY3RlZExpbmVDb3VudCI6MjE2LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjODY5YzI3MTc3NDUyMTBjMmUzOTFmN2EyMWM4ODk0NGM2ZDRiMjI5MjE3MWJlYWEyN2NjNzYwOWQxYjhmZDA1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1NTIyYzQyY2QxOWM2ZDAzZDgwOGM0NTI3MjA1NTI4MjViN2VhMWM1YjQ5MWIyMTg1MTFjYWM3NDE1Y2Y5ZDliIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5MTIwOGE2N2ZkYmY1ZDZhZTBjMmRkMjJlZTdmYzFhMWQyYmVhMDM1ZmY5ZTIwNzNiMTRmNzk5ZTcxYzU4MWJkIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiJiNGEzNjVhOTBlYzExZTkwNDMyNzUyY2Y5Mzc2ZWM1ZWQzNmI4MGJhNWU4ZTY4NTRmY2Y5ODk3MGQzMDQ0NDY5In0"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-23T09:50:05.804Z"
+  }
+}

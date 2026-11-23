@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:779595923cebec2224429e56b7167326e5f43bf3f1d77fd6c5a75d631d877ca3",
+  "claims": [
+    {
+      "id": "claim_71aa84272c894af4a0591c0c4f751bd8",
+      "statement": "Gloss builds on AGP 9.2.1 with built-in Kotlin 2.2.10, Compose Compiler, composeBom 2026.02.01 compatible with compileSdk 36.1, minSdk 24 required by onnxruntime-android 1.32.0, and arm64-v8a plus armeabi-v7a ABI filtering.",
+      "evidence": [
+        {
+          "resource": "repo://app/build.gradle.kts#L1-L30",
+          "version": "repo-lines-v1:sha256:ae27ed6766a1ed6e190e7415c004f9c89828f889375af669459c0ee20e5223f0:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0MDQwMTAzMTViZGJiMGZlYTBmZDZmZjAyMTRkOGJjOTIxY2UyODM2ZDFjYzZiY2I4ODQ5ZjM1NzZjZjVhNjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhZjRkYWY2ZjQ4ZGIwODE1ZDBmNmNhYzg3YzFjZTRjNGE5Zjc5ZGVjNThmZmE0M2JkYmUwNjRiYjRkYWNhMzMifQ"
+        },
+        {
+          "resource": "repo://gradle/libs.versions.toml#L1-L39",
+          "version": "repo-lines-v1:sha256:901098535ab1093249ec632c9a2e9e05ae0cadfde53cd966585107c155f1cb34:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ5Y2ZhY2I4ZjFkYTQ4NWZlNzgwYzEwMmUzYmZmODI3NTU2NGJlMGNhODljY2UzOTY2NDhkZWM1YmU5YzdmNDEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZhMWVmMWJhMzkwMTFhY2M0YTdiMjRmMDQwMzkwYjllN2RhMGE2YzFmYTc1YjljMjBkNTc1Njg1N2FmZGZmN2IiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_9c5e91b696ed4409bbc66584642d04d3",
+      "statement": "Release builds read VERSION_CODE and VERSION_NAME from environment variables (defaulting to 2 and 2.0.0) and fall back to the debug signing config when KEYSTORE_PATH is unset.",
+      "evidence": [
+        {
+          "resource": "repo://app/build.gradle.kts#L18-L55",
+          "version": "repo-lines-v1:sha256:33ca89f2fb0febc997b2bb55f16d9bb78ec761366f0accb655cdb9c2dc28aff4:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg4YTAxYzE0OGVkZGY1MDU5OGJlNjE3N2NjM2RmYjNiZGViYzA4NTI0NTdkYWJmNmQzZjNiMzJkYTQxNmQwMGYiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2M2UyMWY0NzgwMjUxMjhjYjMzNmIyM2RmZTEyMWZkMGZhODQyZDZjNmRjNzdlZDIwMjliN2UwN2U3NjIwNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxZTcwZGQ4N2Y4ZDJlODM5MmUyOGU4Y2Q0NTc5MTZiNDA0YjAzMDczODk1MGZhZjA5NWM0NzY2ODQ1Y2VjODIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_cfe27cac496e4a748a7ebaabd9f7f339",
+      "statement": "Unit test configurations exclude onnxruntime-android in favor of desktop onnxruntime-jvm with a 3 GB heap and pass -Dgloss.model.dir so real ONNX translation tests execute directly on the host JVM.",
+      "evidence": [
+        {
+          "resource": "repo://app/build.gradle.kts#L63-L72",
+          "version": "repo-lines-v1:sha256:b99c5e30bf04b0a6067a75c34d632ffaf608c9da61b781b79b5b1f78834bab6b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwZjY5NzgzZTkyN2JkNGIzYTMyZTYwODAxM2FmNmYzNjA3OTNhYTUzMzhhNTMwZTg2MzJmODM2NmVlY2EyYWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmZmUzMzA3OTRlMWUwMWZmNDUyMGMwN2MxMTg5NWVmZTBjZjliYTg1Njc4N2U2NDRmZmMwZmVhNGRjNGJmZTIifQ"
+        },
+        {
+          "resource": "repo://app/build.gradle.kts#L93-L95",
+          "version": "repo-lines-v1:sha256:ba61c7b2d4efc98f4fa2677971852e009d2df7ae2bc1e3065a326231dbab3d81:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmU3M2VhNTMwYjFkNjIxNTQxYjRkYmE1ZGEyMmYwYWViN2Q4ZmRlMDg5OTcwMTFhZGUxMzIxMGJiNjI2N2ZiMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDM1NTU5MDIwYmE1ZWYzZmU1YjI0MDRlOTI5NWRlMTk4ZWMzOGFkYTUwYTNlNzc1MjgyNTM2ZDYzN2VhMzBlYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjVkN2IzYzhmZGRjNzJkZGYyYjJiNGY4ZTlhY2YyMzhhZDk1Njg4NTA4YzE0ZmZmOTdhMmMxNmM2NjUzNTE3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjI4ZTE3NTgwMWViMTgwZDZkMjM2ZmQ2ZjQxZWJhYjcxOGU1ZWE4MzRlNDE2OTBjZDUyMjEyMjc1ZWRjNzJiZSJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_b8504115378747efb548d147e8cabcd2",
+      "statement": "Pushing any v* tag triggers GitHub Actions to run ./gradlew assembleRelease on Temurin Java 21, rename the APK to gloss_<tag>.apk, and upload it to GitHub Releases.",
+      "evidence": [
+        {
+          "resource": "repo://.github/workflows/release.yml#L1-L38",
+          "version": "repo-lines-v1:sha256:2b2ec199fa7546c19deff4eff6a6d7357a042b347bf913bfa0f41a3a5f618f28:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyZWVmOTAzMGQwYzcwMjkwMTBjNDYzNTY4OWY1ODMyOGQxMDllNmE4NWVkMWE5MjQ1YjIwZjM5NTViN2RiMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1ZTFmZWQzZGFmMTE3ZTM0MzI4NzAzZTBkZjIwOTFiMzg3NDFjMGViMDhhZjY1OTA1MGZkMTcyYTIwYmY5YzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-23T09:50:05.804Z"
+  }
+}

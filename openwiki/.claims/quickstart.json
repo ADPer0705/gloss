@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:8fbc5f849b34d5ae8853921d1a5c256d2018bdb55cd3d000c59c68293673cf0a",
+  "claims": [
+    {
+      "id": "claim_d53ca5705f5d4c6aa539dffb114434b8",
+      "statement": "Gloss v2.0.0 targets Android 7.0+ (minSdk 24, targetSdk 36, arm64-v8a and armeabi-v7a) and runs 202-language offline translation with NLLB-200-distilled-600M INT8 ONNX after a one-time ~658 MB model download.",
+      "evidence": [
+        {
+          "resource": "repo://README.md#L1-L36",
+          "version": "repo-lines-v1:sha256:39cfd903b8b7bf0c0c05b85942112751a39f84307dc5a3ccda0f3bbf2d6b8192:eyJzZWxlY3RlZExpbmVDb3VudCI6MzYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjcyZWYxMzAzNjMxMjQ4Y2FhNmM2YTEyNjZjZWZiY2M5ZTk5NTY2NDBiOTdlMTkzYjEyNmJiNjQ4ZjBhMWMxNzgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ3YzA2YzU2MWQ1YzMyNzM0MzY4NTI2OGE0NmIzMzkxZjM5OThlZWU4OTBkMmJlNTFmMGQyMWNjNGE1M2FlNmQiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        },
+        {
+          "resource": "repo://app/build.gradle.kts#L14-L26",
+          "version": "repo-lines-v1:sha256:1363c88badb5f23ff780f35627168eb7f335bba0b9e8c2a5a7224c32fd5bfe4b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijk1NTQyMjk1MGE3NjJjOTE3ZDcwMDc3NTJkY2MzMzRiOTM2NTNkNmVjNTViNzFkYzQ3MGZhODZkMGRhNzQ5OTgiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk2ODZiZjI0Y2I4OWU2ZGFlODUxMjViODQ0MzM4NGI1MGM1NTJkODQ2MWJjYzIwNDM0YWYwZmQ3ODg1MGM2OWMifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_f18bfda8415842199d92f2cc2f2bb07a",
+      "statement": "AndroidManifest launches MainActivity inside GlossApplication, where MainActivity wires MainViewModel and TextToSpeech into the Compose MainScreen.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/AndroidManifest.xml#L8-L29",
+          "version": "repo-lines-v1:sha256:703251da6739f22a2b21461cf59f6c78674135762445602c02152e59d4827600:eyJzZWxlY3RlZExpbmVDb3VudCI6MjIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjI0MzVhMDVlZGZjNDdlY2ZhOTE1NjZlNWIxODhkY2M2OGJiZThlYTFmMDNjNTk2MGU4YzFjNDE2NGU3N2RkOTEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjNkNjAzN2U3NjgwOTFhNjY1NzE0YzA0NmIwNDA5OWEyYmFmYTlkMmVmYjk2YjE5Y2NkYzg2NTg3ZDM0ZjFkMjYiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjAxMjVhNWQ2OTJhZGFiZjBmYzVhMTE4ZjJmMDQxOTlhZmJjODUxNzBkZTM4MTE4Mjk2ZDQ2ZDdjNWIwZTY5NGIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjExMDk3MjJmYjg5YjgzMTlmOTA4M2E0NGY4MWVlN2JjYzU3OWFhNjMyNjRiMzIwMGJiNWI0MGZiNzI2NjE5MzkifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L19-L61",
+          "version": "repo-lines-v1:sha256:a66b677da24689a3229e2c46322a501d80007b3ee34f168292c7b62ce749041a:eyJzZWxlY3RlZExpbmVDb3VudCI6NDMsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg3OGVlMTYxMzc5Njk4YjkzZDdjZTg0MzlhNjI0ZTE2Y2E1OThlNjhhOTgyMjczY2IxNWYwZGI2ZWUyMjcwODkiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImZlNDc3MzU2NDI2OTVjY2E5M2FiZmExOGQ1NzUzYzgzMzY5MzY4MjA4MmY5YjdhYWJjZWRhY2EwZmE3MDY3N2EiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImQ2NTM5MzhlYzk4NjA0ZDU3MDFlOGY3NDFkOWZiZmE3MzMzNTVlYjZlZTRmODI1OTU2YmI0YzVkYTA2NjE1ODEifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-23T09:50:05.804Z"
+  }
+}

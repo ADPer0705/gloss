@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "pageVersion": "sha256:8b413a154a31637e92e6ca817513efc9467bb0c7ae03f73784ae1fe28790e28b",
+  "claims": [
+    {
+      "id": "claim_d74fad5ed185434398f754b38344b2fc",
+      "statement": "GlossApplication owns process-wide PreferencesStore, ModelManager, and EngineRepository singletons, refreshes initial model state on startup, and runs with android:largeHeap=\"true\".",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/AndroidManifest.xml#L8-L16",
+          "version": "repo-lines-v1:sha256:59d46aaf869be9336cc050daa2ca54d77291a88f968d2d4700d6e2bca0c49f6b:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQzNWEwNWVkZmM0N2VjZmE5MTU2NmU1YjE4OGRjYzY4YmJlOGVhMWYwM2M1OTYwZThjMWM0MTY0ZTc3ZGQ5MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U0NjQ0NzNkMGFiMTM1ZjRhYTViYTQ0NGYwOTQ0ZDYyYTZhMmMwOTRjZWMzNDMxYmVjZWIwNDgzYmJlNDU2YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDEyNWE1ZDY5MmFkYWJmMGZjNWExMThmMmYwNDE5OWFmYmM4NTE3MGRlMzgxMTgyOTZkNDZkN2M1YjBlNjk0YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmJlMjJiNzRjMjc5NWRiMGE4MjgzZDQ4NGRmNDFlMTc5MTdjOTk4MDMzZDZhMzdlNWU4ZWQwZjUyNjdmNTYyYiJ9"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/GlossApplication.kt#L17-L24",
+          "version": "repo-lines-v1:sha256:38f1a60d3307d98a55afdc768cc4d0925bcd1dba217a6e40f3d8147f67ed8b6e:eyJzZWxlY3RlZExpbmVDb3VudCI6OCwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiN2E4ZmE5ZjZhZWRlZGUyNTE2MGExMTgwMjZkYTExNmU4YmIzOWZmZmViOTdkYTAxMzJmOTA5NjVkZGIxMTBiMCIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiMTY3NDFlMmM3MWI1OTZjMGU4MzQ4YjBiYWNjYmNmNmI5ZWNkMWZhYTY5NzRiZmViZWU2Nzk3NzZkMDI5NTJhMCIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiYTQzN2E0NjA4MTc2MDAwNzJkMmFjMTQ2ODRjZjY3YjEyMTg2MGQ0NmQwYzZlZjkwYjVjYTc1YmFhM2M0ZGRmNCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjIsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMzc5NGQwMmE4MTIxOTQ0ZDE3NmQyNjVlOWJiOWNjNTlmNmFiODkwYmNhZGY4YWVmZGViZGJiYjRmMmVhODQ0NCJ9"
+        }
+      ]
+    },
+    {
+      "id": "claim_f2fc2d0eb5a8486fa146899423cc6fa7",
+      "statement": "EngineRepository serializes model loading, phrase translation, word lookups, and model deletion behind a single Mutex and caches up to 256 word translations in an LruCache.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/EngineRepository.kt#L109-L182",
+          "version": "repo-lines-v1:sha256:d78b70ae55a24d4fabdaf27eca9a09a4918ab6cf84292deba7f8052ba3b2ee59:eyJzZWxlY3RlZExpbmVDb3VudCI6NzQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjZlZjRhMjhkNmZkNDNmNmRlZWE5M2VjZGU2ZjgwYmY0ZjI0NDg4ZGYxOWVkYTk1MzUyOTJjOGI2NmNlMjFiZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjllZWFkYTU0ZmZhOWNlZWQ4NWFiMDk3YWU3MTA4NGU0ZjZjZDUxNGJkMzA2ZTc5NWY0NDA3ZDBjNGRkYTAyNmQifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/EngineRepository.kt#L36-L46",
+          "version": "repo-lines-v1:sha256:1f07107eaeb4534b5a55d9d0cf75336a04ba5713d6d2bee84e5628da76f87cc7:eyJzZWxlY3RlZExpbmVDb3VudCI6MTEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjkyNDQyNTg5ZjBjZjg1NGZjOTkzNGNkZDc1NmNlNzM1MzI1ZDI5MzQ5NzgyOWRhZWQ4NGFjNzU2NGRiYzJlOGMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6Ijg1OTlmZjU5N2QxMmVhNWY5MTQ0MmIzMjY5YzI2Mzk4N2E3YjNhZDVhYjJjNjc4ZWEyZTg0NzAyZWEyOTczODMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjVmOWIyMmI5NTZlMmViMTMwYjgxNDcwZWJmMjIzNTE2YWJkYzU0OWE1ZWI1ZTg4ZjljODE0NjZjZjVhNmM1ZmIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQwMzlmZDk1MDE2ZjcyMzQwZTBiZmY2NDQzNGYxNjRiNGIwMjdjZTg1YThjZDgwZGNkNjY2YzY1ZDc3ZTIxMzIifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_7114688427a84e9b8b2e381aea97de1a",
+      "statement": "MainViewModel combines repository ModelState with DraftState into a StateFlow<GlossUiState>, debounces phrase translation by 380 ms, and discards stale results if inputs or languages changed mid-flight.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L390-L433",
+          "version": "repo-lines-v1:sha256:ad48cd04476ac66a0fd75bad7d82c686abb49a6c9ff7391f4d46cb3b463f8636:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3ODliMDM5ZWM5ZDg5YmE4ZWNkYmJlMzY3YjYzZTJkYTM4M2MwMWQ2YTkyMjMyMDU4NjBjZjNiNzc4NDUyYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRiZTI1MjA1Zjk4NmY5MzUxZGY2ZmM3OTMxNjg0M2M2ZGY4NTY2OGE3MjlhMjU5YzE0ODJmZmNhODg4YjdmYzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzNmUxNmU0OTU4YTRkNmIxODU5NTJlMmM5OGQwYTBlYzU1YzNlNDQ4ZDVhMjUzZDEyNDdlMjljZTM0NGNlZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3NDYwZWJmNGNjMTc5MDM1NTI4YjU0MjQ4OTI5MDliNjQ3OWEzNzFjOTdhNTVmNzhiNDg2NDMwYzA1OTMxOTMifQ"
+        },
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L93-L136",
+          "version": "repo-lines-v1:sha256:93976a3708873151156379e934eea7a7e8e04eecd62e2dd24dda95efe636b49c:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwM2UwNTM1YTlhODlmN2FjNDk0OWM1YjNlNmI4MDkyYzQwMzcxOGY2ZTMyZmI3OGU4NWQ4OWZmNDhkYTBjZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxY2QyNDA4ZjMwOTI0NWIyZjU2Mjk4ODcxNGNmNjYzZWQ1M2MwZjNjYzU4ZTIwYzUwMmNkNWM4MzJiYzNmMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyNzNmOTA3ZWE0NTk5NDU3ODQ2YjJmMWFmMmRkYmNlNGU4NGFkN2E0YTNiMWNlM2EwOTIwZDFiNzczOTg1NmEifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_ef9fdb18950e4d7da454abbe367fd8d3",
+      "statement": "PreferencesStore persists language selections, theme mode, up to 8 recent languages, and up to 30 deduplicated phrase history items in SharedPreferences.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/PreferencesStore.kt#L56-L97",
+          "version": "repo-lines-v1:sha256:72663c4be6dc9ae40e196272afc59f54aa9778ed15ccf7f4531c92cdcfead7ae:eyJzZWxlY3RlZExpbmVDb3VudCI6NDIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjFkNjYyNWEyMmU4MDRjZGNlZjdkYmE5ZGViZGUyMDc0NWEzNTA1NTM2OWE1NWRiYjY5ODA2Yjk4ZjdkNGYxNGUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwOGM5NjA3NDQwY2Y2YzUxMzdjMjliYmZlYmQ0OTBkMDFjN2U4ZmU2OTg2Y2RkOTYwMTFmY2IyM2ExY2NkNjAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoyLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjM3OTRkMDJhODEyMTk0NGQxNzZkMjY1ZTliYjljYzU5ZjZhYjg5MGJjYWRmOGFlZmRlYmRiYmI0ZjJlYTg0NDQifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_0dde77734b3548b3b92710defda03480",
+      "statement": "MainActivity hosts edge-to-edge Compose MainScreen inside GlossTheme and manages Android TextToSpeech initialization, BCP-47 locale checking, and shutdown.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L24-L89",
+          "version": "repo-lines-v1:sha256:3396559dca49a9f7f2b4ce9f30de751855dff0da72f66afeb0c28cb3379ce996:eyJzZWxlY3RlZExpbmVDb3VudCI6NjYsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjY4YjUwMzJiNzIyZjM4N2I0ZjkwN2Y4NzllMzI0N2FlMjdmZjFiNmI2M2JlNmUyYzZmOTVkZTA5YWRmNjYxZmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImJhY2RkYTAzYTNkMjg2MmM4ZTJjNjc0OTIyMjA1ZTViM2M2OWZjYjBjNTg3NzgyYmRiMTI1Yzc5MTY0ZDViNzMiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+        }
+      ]
+    }
+  ],
+  "verification": {
+    "by": "openwiki/0.9.0",
+    "at": "2026-11-23T09:50:05.804Z"
+  }
+}
