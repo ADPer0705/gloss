@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:7964a4a2d3953bed9a797748a6b3f4f621ce69606f86b040640e60be38b8243f",
+  "pageVersion": "sha256:09131d9af47b262ca9afedaa4dfeac165da597b50a5db69f5bcff877bfb3b78b",
   "claims": [
     {
       "id": "claim_71aa84272c894af4a0591c0c4f751bd8",
-      "statement": "Gloss builds on AGP 9.2.1 with built-in Kotlin 2.2.10, Compose Compiler, composeBom 2026.02.01 compatible with compileSdk 36.1, minSdk 24 required by onnxruntime-android 1.32.0, and arm64-v8a plus armeabi-v7a ABI filtering.",
+      "statement": "Gloss builds on AGP 9.2.1 with built-in Kotlin 2.2.10, Compose Compiler, buildConfig enabled, composeBom 2026.02.01 compatible with compileSdk 36.1, minSdk 24 required by onnxruntime-android 1.32.0, and arm64-v8a plus armeabi-v7a ABI filtering.",
       "evidence": [
         {
-          "resource": "repo://app/build.gradle.kts#L1-L30",
-          "version": "repo-lines-v1:sha256:9da2d15bce6514fe2a6f96b44e69a27c6813e06546970ff2b92be10610bb8615:eyJzZWxlY3RlZExpbmVDb3VudCI6MzAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0MDQwMTAzMTViZGJiMGZlYTBmZDZmZjAyMTRkOGJjOTIxY2UyODM2ZDFjYzZiY2I4ODQ5ZjM1NzZjZjVhNjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhZjRkYWY2ZjQ4ZGIwODE1ZDBmNmNhYzg3YzFjZTRjNGE5Zjc5ZGVjNThmZmE0M2JkYmUwNjRiYjRkYWNhMzMifQ"
+          "resource": "repo://app/build.gradle.kts#L1-L31",
+          "version": "repo-lines-v1:sha256:6eca9a959c5213a3838dfceddc94dc5d3046db0ebcffc5479ed4e72cfca43148:eyJzZWxlY3RlZExpbmVDb3VudCI6MzEsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ0MDQwMTAzMTViZGJiMGZlYTBmZDZmZjAyMTRkOGJjOTIxY2UyODM2ZDFjYzZiY2I4ODQ5ZjM1NzZjZjVhNjciLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjJhZjRkYWY2ZjQ4ZGIwODE1ZDBmNmNhYzg3YzFjZTRjNGE5Zjc5ZGVjNThmZmE0M2JkYmUwNjRiYjRkYWNhMzMifQ"
         },
         {
           "resource": "repo://gradle/libs.versions.toml#L1-L39",
@@ -18,11 +18,11 @@
     },
     {
       "id": "claim_9c5e91b696ed4409bbc66584642d04d3",
-      "statement": "Release builds read VERSION_CODE and VERSION_NAME from environment variables (defaulting to 4 and 2.2.0) and fall back to the debug signing config when KEYSTORE_PATH is unset.",
+      "statement": "Release builds read VERSION_CODE and VERSION_NAME from environment variables (defaulting to 5 and 2.3.0) and fall back to the debug signing config when KEYSTORE_PATH is unset.",
       "evidence": [
         {
-          "resource": "repo://app/build.gradle.kts#L18-L55",
-          "version": "repo-lines-v1:sha256:6a6afa3e7050dbec10350342fcaefe953b60788a474ea4fe1d5c95bb4d492ce3:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImYwNmVhMTYxNmZkMTFjZDk1MDg4ZDliMGUyNmE4YWRlZDc4YzljNjcwNDE2YTcyNTU2NGU2YTI3ZWYwZTVmZWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2M2UyMWY0NzgwMjUxMjhjYjMzNmIyM2RmZTEyMWZkMGZhODQyZDZjNmRjNzdlZDIwMjliN2UwN2U3NjIwNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxZTcwZGQ4N2Y4ZDJlODM5MmUyOGU4Y2Q0NTc5MTZiNDA0YjAzMDczODk1MGZhZjA5NWM0NzY2ODQ1Y2VjODIifQ"
+          "resource": "repo://app/build.gradle.kts#L18-L56",
+          "version": "repo-lines-v1:sha256:2f675522d0fb17d51f4106a65bb64b08b613026dc558af5b91626d4d9c4fc006:eyJzZWxlY3RlZExpbmVDb3VudCI6MzksImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImM4M2U2MDVlOWJlNDdlYTEyOTM3MzZkMGI1YWUwOGI1YzhlNmFhZWQyNDEzNmY1MzVkMTc2ZDJmNTA0Mjg1OWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjY2M2UyMWY0NzgwMjUxMjhjYjMzNmIyM2RmZTEyMWZkMGZhODQyZDZjNmRjNzdlZDIwMjliN2UwN2U3NjIwNDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImMxZTcwZGQ4N2Y4ZDJlODM5MmUyOGU4Y2Q0NTc5MTZiNDA0YjAzMDczODk1MGZhZjA5NWM0NzY2ODQ1Y2VjODIifQ"
         }
       ]
     },
@@ -31,28 +31,38 @@
       "statement": "Unit test configurations exclude onnxruntime-android in favor of desktop onnxruntime-jvm with a 3 GB heap and pass -Dgloss.model.dir so real ONNX translation tests execute directly on the host JVM.",
       "evidence": [
         {
-          "resource": "repo://app/build.gradle.kts#L63-L72",
+          "resource": "repo://app/build.gradle.kts#L64-L73",
           "version": "repo-lines-v1:sha256:b99c5e30bf04b0a6067a75c34d632ffaf608c9da61b781b79b5b1f78834bab6b:eyJzZWxlY3RlZExpbmVDb3VudCI6MTAsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjIwZjY5NzgzZTkyN2JkNGIzYTMyZTYwODAxM2FmNmYzNjA3OTNhYTUzMzhhNTMwZTg2MzJmODM2NmVlY2EyYWEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjE5ZTc2MzU1Y2YxMTk5NDgwYzNmOTk4MzZiMTQ4NmM4NDFkODkxZmFhZDkwNGM2MDhlMDkzMDIyZDM3NTdhZWUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjhmZmUzMzA3OTRlMWUwMWZmNDUyMGMwN2MxMTg5NWVmZTBjZjliYTg1Njc4N2U2NDRmZmMwZmVhNGRjNGJmZTIifQ"
         },
         {
-          "resource": "repo://app/build.gradle.kts#L93-L95",
+          "resource": "repo://app/build.gradle.kts#L94-L96",
           "version": "repo-lines-v1:sha256:ba61c7b2d4efc98f4fa2677971852e009d2df7ae2bc1e3065a326231dbab3d81:eyJzZWxlY3RlZExpbmVDb3VudCI6MywiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMmU3M2VhNTMwYjFkNjIxNTQxYjRkYmE1ZGEyMmYwYWViN2Q4ZmRlMDg5OTcwMTFhZGUxMzIxMGJiNjI2N2ZiMiIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiZDM1NTU5MDIwYmE1ZWYzZmU1YjI0MDRlOTI5NWRlMTk4ZWMzOGFkYTUwYTNlNzc1MjgyNTM2ZDYzN2VhMzBlYiIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMjVkN2IzYzhmZGRjNzJkZGYyYjJiNGY4ZTlhY2YyMzhhZDk1Njg4NTA4YzE0ZmZmOTdhMmMxNmM2NjUzNTE3MCIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiMjI4ZTE3NTgwMWViMTgwZDZkMjM2ZmQ2ZjQxZWJhYjcxOGU1ZWE4MzRlNDE2OTBjZDUyMjEyMjc1ZWRjNzJiZSJ9"
         }
       ]
     },
     {
       "id": "claim_b8504115378747efb548d147e8cabcd2",
-      "statement": "Pushing any v* tag triggers GitHub Actions to run ./gradlew assembleRelease on Temurin Java 21, rename the APK to gloss_<tag>.apk, and upload it to GitHub Releases.",
+      "statement": "Pushing any v* tag triggers GitHub Actions to decode KEYSTORE_BASE64 into RUNNER_TEMP, run ./gradlew assembleRelease on Temurin Java 21 with release keystore secrets, clean up the temporary keystore, rename the APK to gloss_<tag>.apk, and upload it to GitHub Releases.",
       "evidence": [
         {
-          "resource": "repo://.github/workflows/release.yml#L1-L38",
-          "version": "repo-lines-v1:sha256:2b2ec199fa7546c19deff4eff6a6d7357a042b347bf913bfa0f41a3a5f618f28:eyJzZWxlY3RlZExpbmVDb3VudCI6MzgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyZWVmOTAzMGQwYzcwMjkwMTBjNDYzNTY4OWY1ODMyOGQxMDllNmE4NWVkMWE5MjQ1YjIwZjM5NTViN2RiMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1ZTFmZWQzZGFmMTE3ZTM0MzI4NzAzZTBkZjIwOTFiMzg3NDFjMGViMDhhZjY1OTA1MGZkMTcyYTIwYmY5YzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+          "resource": "repo://.github/workflows/release.yml#L1-L54",
+          "version": "repo-lines-v1:sha256:77f79c55123c69a823990ae105a4cd3280ed7d654dfe264db28a366e8ef010e3:eyJzZWxlY3RlZExpbmVDb3VudCI6NTQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjEyZWVmOTAzMGQwYzcwMjkwMTBjNDYzNTY4OWY1ODMyOGQxMDllNmE4NWVkMWE5MjQ1YjIwZjM5NTViN2RiMzkiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImI1ZTFmZWQzZGFmMTE3ZTM0MzI4NzAzZTBkZjIwOTFiMzg3NDFjMGViMDhhZjY1OTA1MGZkMTcyYTIwYmY5YzEiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjowLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjowLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImUzYjBjNDQyOThmYzFjMTQ5YWZiZjRjODk5NmZiOTI0MjdhZTQxZTQ2NDliOTM0Y2E0OTU5OTFiNzg1MmI4NTUifQ"
+        }
+      ]
+    },
+    {
+      "id": "claim_8d77ea1a99b948fa8483deeed4027487",
+      "statement": "AppUpdateManagerTest verifies semantic version comparisons and GitHub Releases JSON parsing plus download_count summation across releases on the host JVM.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/test/java/rocks/dearanayji/gloss/update/AppUpdateManagerTest.kt#L11-L78",
+          "version": "repo-lines-v1:sha256:f4ff3a950d607973a46d42d5d3bde8b629ec6b851e1b8f343f3f2c03edc61c89:eyJzZWxlY3RlZExpbmVDb3VudCI6NjgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRjZjA5ZWIwYzU3NDRmYjk3MzMxYjk4ZmYzZmJmMDVhNjAyYmEzZjdmNjdlNWRhNWJlOTA5NTAzM2Y2MjU4MjUiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjBiYWYzZTZlMDlkNTM5NGRlZmU4ODkwODdhMTU1YWQ3YmIxYjAwZWRhOGE1NGQ4NzA1OWQ3MTk0YWMyNzU0MzIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImM5YzQxMWEzMDhjYWY3MDc4MGVhOGQ2YWQyYWJmN2M3N2QyZjViZTY4MzJhZWU4YzI1MjM4MjM3MzlmYTJiZTUiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjFhMWI0ZjQwNzZhZDY0NGQwYzRkZDg3ZTRiZDFiOTVkODE5NGUxZTJjMzcyMTRiYWYyOWYyMzFhYjNlZWYwNDAifQ"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T10:30:12.505Z"
+    "at": "2026-11-23T14:57:27.550Z"
   }
 }

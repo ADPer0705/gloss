@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:85b6e4ac735c8c011b4c28d36e0d7286cdecba9da23e470ef7b33f4d669111ec",
+  "pageVersion": "sha256:a4a43dd3aeda2215186b67ce6056f454a75a03e0f7982c9dce228b3740b8f94d",
   "claims": [
     {
       "id": "claim_d74fad5ed185434398f754b38344b2fc",
       "statement": "GlossApplication owns process-wide PreferencesStore, ModelManager, and EngineRepository singletons, refreshes initial model state on startup, and runs with android:largeHeap=\"true\".",
       "evidence": [
         {
-          "resource": "repo://app/src/main/AndroidManifest.xml#L8-L16",
+          "resource": "repo://app/src/main/AndroidManifest.xml#L9-L17",
           "version": "repo-lines-v1:sha256:59d46aaf869be9336cc050daa2ca54d77291a88f968d2d4700d6e2bca0c49f6b:eyJzZWxlY3RlZExpbmVDb3VudCI6OSwiZmlyc3RTZWxlY3RlZExpbmVIYXNoIjoiMjQzNWEwNWVkZmM0N2VjZmE5MTU2NmU1YjE4OGRjYzY4YmJlOGVhMWYwM2M1OTYwZThjMWM0MTY0ZTc3ZGQ5MSIsImxhc3RTZWxlY3RlZExpbmVIYXNoIjoiY2U0NjQ0NzNkMGFiMTM1ZjRhYTViYTQ0NGYwOTQ0ZDYyYTZhMmMwOTRjZWMzNDMxYmVjZWIwNDgzYmJlNDU2YSIsInByZWNlZGluZ0NvbnRleHRMaW5lQ291bnQiOjMsInByZWNlZGluZ0NvbnRleHRIYXNoIjoiMDEyNWE1ZDY5MmFkYWJmMGZjNWExMThmMmYwNDE5OWFmYmM4NTE3MGRlMzgxMTgyOTZkNDZkN2M1YjBlNjk0YiIsImZvbGxvd2luZ0NvbnRleHRMaW5lQ291bnQiOjMsImZvbGxvd2luZ0NvbnRleHRIYXNoIjoiYmJlMjJiNzRjMjc5NWRiMGE4MjgzZDQ4NGRmNDFlMTc5MTdjOTk4MDMzZDZhMzdlNWU4ZWQwZjUyNjdmNTYyYiJ9"
         },
         {
@@ -32,35 +32,35 @@
     },
     {
       "id": "claim_7114688427a84e9b8b2e381aea97de1a",
-      "statement": "MainViewModel combines repository ModelState with DraftState into a StateFlow<GlossUiState>, debounces phrase translation by 380 ms, and discards stale results if inputs or languages changed mid-flight.",
+      "statement": "MainViewModel combines repository ModelState with DraftState into a StateFlow<GlossUiState>, debounces phrase translation by 380 ms, runs a 24-hour online silent update check on init, and discards stale translation results if inputs or languages changed mid-flight.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L410-L453",
-          "version": "repo-lines-v1:sha256:ad48cd04476ac66a0fd75bad7d82c686abb49a6c9ff7391f4d46cb3b463f8636:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3ODliMDM5ZWM5ZDg5YmE4ZWNkYmJlMzY3YjYzZTJkYTM4M2MwMWQ2YTkyMjMyMDU4NjBjZjNiNzc4NDUyYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjRiZTI1MjA1Zjk4NmY5MzUxZGY2ZmM3OTMxNjg0M2M2ZGY4NTY2OGE3MjlhMjU5YzE0ODJmZmNhODg4YjdmYzAiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImQzNmUxNmU0OTU4YTRkNmIxODU5NTJlMmM5OGQwYTBlYzU1YzNlNDQ4ZDVhMjUzZDEyNDdlMjljZTM0NGNlZTIiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijg3NDYwZWJmNGNjMTc5MDM1NTI4YjU0MjQ4OTI5MDliNjQ3OWEzNzFjOTdhNTVmNzhiNDg2NDMwYzA1OTMxOTMifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L128-L185",
+          "version": "repo-lines-v1:sha256:0d9d643b5b2167e0314d3dc1d74e2a326f79ccd446788bb9dca001099aed7666:eyJzZWxlY3RlZExpbmVDb3VudCI6NTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwM2UwNTM1YTlhODlmN2FjNDk0OWM1YjNlNmI4MDkyYzQwMzcxOGY2ZTMyZmI3OGU4NWQ4OWZmNDhkYTBjZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxY2QyNDA4ZjMwOTI0NWIyZjU2Mjk4ODcxNGNmNjYzZWQ1M2MwZjNjYzU4ZTIwYzUwMmNkNWM4MzJiYzNmMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjkwOTU2MWU1MzFjMGU4OGIzMmYzNmI2MDM1OGEyOTgxYWNlNDJkODY1Y2E2MDFmNzM0NjJhYzVmMTU5YTAxYjMifQ"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L93-L136",
-          "version": "repo-lines-v1:sha256:93976a3708873151156379e934eea7a7e8e04eecd62e2dd24dda95efe636b49c:eyJzZWxlY3RlZExpbmVDb3VudCI6NDQsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImEwM2UwNTM1YTlhODlmN2FjNDk0OWM1YjNlNmI4MDkyYzQwMzcxOGY2ZTMyZmI3OGU4NWQ4OWZmNDhkYTBjZGEiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImU2YjA0NDkxNDY5NzIyZTgzNjNhOTRlNDA0NDUzOGUwMTNhMmEyMTdlMzZiMWU1NjhiYTYwYWNiN2I0YzhmMmUiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjQxY2QyNDA4ZjMwOTI0NWIyZjU2Mjk4ODcxNGNmNjYzZWQ1M2MwZjNjYzU4ZTIwYzUwMmNkNWM4MzJiYzNmMDQiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6ImIyNzNmOTA3ZWE0NTk5NDU3ODQ2YjJmMWFmMmRkYmNlNGU4NGFkN2E0YTNiMWNlM2EwOTIwZDFiNzczOTg1NmEifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L547-L598",
+          "version": "repo-lines-v1:sha256:1051b6b5210a024c7b2a716d2debbd58e7b4e71ed26a56d3235c8957fc2f8c7b:eyJzZWxlY3RlZExpbmVDb3VudCI6NTIsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImY3ODliMDM5ZWM5ZDg5YmE4ZWNkYmJlMzY3YjYzZTJkYTM4M2MwMWQ2YTkyMjMyMDU4NjBjZjNiNzc4NDUyYWMiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         }
       ]
     },
     {
       "id": "claim_ef9fdb18950e4d7da454abbe367fd8d3",
-      "statement": "PreferencesStore persists language selections, theme mode, up to 8 recent languages, and up to 30 deduplicated phrase history items in SharedPreferences, triggering GlossWidgetUpdater on language or history updates.",
+      "statement": "PreferencesStore persists language selections, theme mode, up to 8 recent languages, up to 30 deduplicated phrase history items, and cached GitHub update/download counts in SharedPreferences, triggering GlossWidgetUpdater on language or history updates.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/PreferencesStore.kt#L68-L114",
-          "version": "repo-lines-v1:sha256:0140aac1b0139c9740efb89432065f26be4fe4b7387595749b7bb9f3873ac978:eyJzZWxlY3RlZExpbmVDb3VudCI6NDcsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3ZGE1MjE4MzhjNTNhMDJjMTgwNzM2Y2ZkZmFhMGMxMDcwNGYwMGY0ZjAzYTI1NjQwZDFjMmM2MTUxNjY2MWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwODg4ZTdiN2M5MGNlZDdlMDM2OTdmZTUwMDg5OGFhYjc2MzRhOWExZWJhMTg3ZWVhYjhkNDYxNjJkODJkM2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/data/PreferencesStore.kt#L68-L142",
+          "version": "repo-lines-v1:sha256:d2a61df466db2f41dcb7673c54d12ef8e8328f68453366767c404e2cf5055714:eyJzZWxlY3RlZExpbmVDb3VudCI6NzUsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6ImQ3ZGE1MjE4MzhjNTNhMDJjMTgwNzM2Y2ZkZmFhMGMxMDcwNGYwMGY0ZjAzYTI1NjQwZDFjMmM2MTUxNjY2MWQiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6IjQ4OTNmNDBlMzc4MWViODk2YzgyZDA0NmEwODA2N2ExMWUzNWNkZjJmMWRmYWYyNmZlYTkwYjhkYjY2NzY0MTMiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6ImIwODg4ZTdiN2M5MGNlZDdlMDM2OTdmZTUwMDg5OGFhYjc2MzRhOWExZWJhMTg3ZWVhYjhkNDYxNjJkODJkM2MiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjoxLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6IjQxMmNhMzQ1Y2NmNzViZjljMDgwNmJjZTY5NWJlOGRlODA4Yjc5OTg0MjUxYTdhNTRkMjAyY2Y2MTAxZGQ0NTEifQ"
         }
       ]
     },
     {
       "id": "claim_0dde77734b3548b3b92710defda03480",
-      "statement": "MainActivity hosts edge-to-edge Compose MainScreen inside GlossTheme, handles singleTop widget launch intents, syncs preferences on resume, and manages Android TextToSpeech initialization, BCP-47 locale checking, and shutdown.",
+      "statement": "MainActivity hosts edge-to-edge Compose MainScreen inside GlossTheme, handles singleTop widget launch intents, syncs preferences on resume, manages REQUEST_INSTALL_PACKAGES/FileProvider APK installs, and manages Android TextToSpeech initialization, BCP-47 locale checking, and shutdown.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L31-L148",
-          "version": "repo-lines-v1:sha256:97048d7ca71ecbc32d2a1f163170186b9743b2af4708ed7379d1a2e70e306282:eyJzZWxlY3RlZExpbmVDb3VudCI6MTE4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIwMWJhNDcxOWM4MGI2ZmU5MTFiMDkxYTdjMDUxMjRiNjRlZWVjZTk2NGUwOWMwNThlZjhmOTgwNWRhY2E1NDZiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiI5MjMzMjFhYWNlYjdhOWQxNzFlNmExNmFhYzBkY2M2NWE1MTYxNDkxYTkzOGQyNjQyOTQ2Y2NmYTI0ZDM0MzA5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/MainActivity.kt#L35-L174",
+          "version": "repo-lines-v1:sha256:229bd9427a50d30655f612b22f5ed639b2ff60aefb4f22744ab9c0ea23f8f06a:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQwLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJjMzY3OGE2MzkxY2Y0MjhlM2QxYzc3NmYxMmIyYzI0MWNmOTJjZmI5NTU1MzgzNGU0MDMxZmEyM2Q5NmZlOTIxIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJhMjRlNWIxM2I4OWQzODc0MDI2MGJlODE2ZTI3NzkzNTE1Mjk1MjJiZWNkZWExYjU2NGY2ZTRlMDYxYTMzZWUwIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
         }
       ]
     },
@@ -69,7 +69,7 @@
       "statement": "GlossQuickWidgetProvider and GlossPhrasesWidgetProvider render 4x1 quick-translate and 4x2 recent-phrases home screen widgets supporting direct language swap broadcasts, clipboard paste launches, and phrase restoration.",
       "evidence": [
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L389-L406",
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/MainViewModel.kt#L526-L543",
           "version": "repo-lines-v1:sha256:544c90a2a4919c610c0ab1194ace0d44070ea460300b9cf7efa94d1e3bd54bb6:eyJzZWxlY3RlZExpbmVDb3VudCI6MTgsImZpcnN0U2VsZWN0ZWRMaW5lSGFzaCI6IjAxYmE0NzE5YzgwYjZmZTkxMWIwOTFhN2MwNTEyNGI2NGVlZWNlOTY0ZTA5YzA1OGVmOGY5ODA1ZGFjYTU0NmIiLCJsYXN0U2VsZWN0ZWRMaW5lSGFzaCI6ImZjNWZiZDNkNTE4MGU2Mjc5ZmRmNDgxYzIxODIzN2YyNWY5YjRkN2U2ZmQxZjJlOWQ3ZWJlOGFlOTljODdmNmIiLCJwcmVjZWRpbmdDb250ZXh0TGluZUNvdW50IjozLCJwcmVjZWRpbmdDb250ZXh0SGFzaCI6IjU1Y2RhYmQyN2U5NzNlNzJmNWVkM2NiMDVlYWQ2NDQ3N2E5MDNlOGRkMWZhOWE5ZWM0YWU4Y2E3NWMyNGQ5ZDAiLCJmb2xsb3dpbmdDb250ZXh0TGluZUNvdW50IjozLCJmb2xsb3dpbmdDb250ZXh0SGFzaCI6Ijk5OWJkZWZlZWFjYTYzNDBlMDI5MGRjODZlODg5Yzg5ZDVlMTg5YWE1YmE0NGI1ODViM2I3MDczNGY0YTYyZDgifQ"
         },
         {
@@ -81,10 +81,20 @@
           "version": "repo-lines-v1:sha256:39da710d85e20813f898079d707609c0c8ba531a098a6a44903f50aa34efbbbf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTc0LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJhOGJkMzliN2U2M2Q4ZTYwNjY0OTA5YjNiMDMzMDcwOWVkNmQzMmVjOTk5ZDliMTRjNzZkMDZkMjA2ZjU3YTE2IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIyMzNmNTg5MGQ0NjE0ZTc3MGQ4OWMzMWY1ODQ5NjAyZTRkMTNiN2E5ZTBlZmY5ODlhODI1ZmUwZWM0OGRjNTVlIiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
         }
       ]
+    },
+    {
+      "id": "claim_e27656ac448640a38739d192f1268f6c",
+      "statement": "AppUpdateManager queries GitHub Releases API to detect newer semantic-version APKs, sums download_count across all non-draft APK assets, streams update APKs into cacheDir/updates/, and builds FileProvider install intents.",
+      "evidence": [
+        {
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/update/AppUpdateManager.kt#L62-L240",
+          "version": "repo-lines-v1:sha256:159d9627778c4b09ade61c9b2a90f31f2ecf46a62712605caacb3d474de7a249:eyJzZWxlY3RlZExpbmVDb3VudCI6MTc5LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI5MThmNTFkOWRlMWJhY2M2Yzk5NzIyMDY4YWM3NTI1MGNiYTRjYzA0YmM2MjY3OGQ5OTFmNjlmNmI3MDkxNmQyIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI0ODkzZjQwZTM3ODFlYjg5NmM4MmQwNDZhMDgwNjdhMTFlMzVjZGYyZjFkZmFmMjZmZWE5MGI4ZGI2Njc2NDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzNzkyOWU5MWUwZjk5YzNlODI1ZGU2OWI0MzVmYjY0ODRkMWIwYTFkZjJmNDY1NjFhYmYxYTI5ZjA0MTg4Yjg4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MSwiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0MTJjYTM0NWNjZjc1YmY5YzA4MDZiY2U2OTViZThkZTgwOGI3OTk4NDI1MWE3YTU0ZDIwMmNmNjEwMWRkNDUxIn0"
+        }
+      ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T10:30:12.505Z"
+    "at": "2026-11-23T14:57:27.550Z"
   }
 }

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "pageVersion": "sha256:577077e31e799e2f0ad06fba9e57f56cf676658cc68b83c32c08d1e93d99a425",
+  "pageVersion": "sha256:33fe12773143f76436ae91c8ce3a3a09a8833fad0082664f62d58ab4c0735d02",
   "claims": [
     {
       "id": "claim_187868f1df2b4815926eb16e6e42f92f",
@@ -46,21 +46,21 @@
     },
     {
       "id": "claim_87d68d5b4aa84b5dbdd2954e13921785",
-      "statement": "DownloadCard and ModelManagerSheet expose download progress, cancellation, Hugging Face attribution links, and confirmation-guarded model deletion that closes active sessions via EngineRepository before removing files.",
+      "statement": "DownloadCard and ModelManagerSheet expose model download progress, cancellation, App & GitHub Releases update controls and download stats, Hugging Face attribution links, and confirmation-guarded model deletion that closes active sessions via EngineRepository before removing files.",
       "evidence": [
         {
           "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/DownloadCard.kt#L45-L212",
           "version": "repo-lines-v1:sha256:e890985a44c300b1f5ae465c48d773a438530223f153af2903461e2e752b1fc2:eyJzZWxlY3RlZExpbmVDb3VudCI6MTY4LCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiIzZjE2M2Y3Nzg2YzQyY2E4ODkyNzBmNzUzYTc4MDYyNjQyNmMwM2Y5NzNhMDVhZGVhZWRkNGZhNGQyNzBmMGQ1IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiJjNDZiMmM3NmE2NzE3MDVjOGZhNWJhZjZkNmViOTY0YzY4MjZmYTNhODVkMjVhMzkyYzRjYjE2OTBjMDJlNDEzIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiJlNjZhYWNlMzk0MDUwZDhjYTg5ODI2MWY0NjQ1OGE2OWQzMWUzOTRhYzEzMGQxMmU5MmIzYjI2NjZjMjZkYjU5IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIzMDEwYzcwMDcxMzQ2ZDczZTY1NmU3ZGNkYzExOWYyYjMxNGU4YmY0MDhjMDg1YmFiOTJhMjI2MDFjZDk5NTNiIn0"
         },
         {
-          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/ModelManagerSheet.kt#L92-L234",
-          "version": "repo-lines-v1:sha256:8b4bf5b4bd8b55567e14cb116934071119c5b78ed7fd1264faaf13a3921a4edf:eyJzZWxlY3RlZExpbmVDb3VudCI6MTQzLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiJhNzQ5ZmY2YjdjNjA3ZWUwNGMxZDdmYWU4NDhiZTI4Yzc0NzE2NWU4NDE3ZGI5NmU4NDJmZDUwNDU1NmNhYjJiIiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiIyZThkOTc5YTNiYjY1ODNmMjliYWJmZWZiZTRjOGI1MDBjMTA3MTliYzk3ODg4MDc2MjE5YWFmNzU1M2QwMzhiIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIyZmFhZWM2YTFhNjljY2JjNmI5NTk3YmJkMTNhZDc1OGUwNzY4NzU1MDk1NjAzZTk1MDc5NmIwMzY0OTg1YTA3IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiIxZDZlNmU2MzFlMzg0OWRmZGZjNWNkNDY1NDNlM2YyYTMyMGMxMDljZDE1OWVhOGUzZTFiZjdlODdkMmQxYTU2In0"
+          "resource": "repo://app/src/main/java/rocks/dearanayji/gloss/ui/components/ModelManagerSheet.kt#L100-L410",
+          "version": "repo-lines-v1:sha256:1d5420b546ea4f4cc4b8dffafa18ca01da895e0e5dc916ccdbb6db89991b8627:eyJzZWxlY3RlZExpbmVDb3VudCI6MzExLCJmaXJzdFNlbGVjdGVkTGluZUhhc2giOiI4YWFkMTM5ZTM4MDdiM2FlNjcxNjUyYmEwMWIzYjE4MmQzNGVjYjA4MjVjNDJjMTQ3ODhkODVmM2I2NzU3N2Q3IiwibGFzdFNlbGVjdGVkTGluZUhhc2giOiI1NTIyYzQyY2QxOWM2ZDAzZDgwOGM0NTI3MjA1NTI4MjViN2VhMWM1YjQ5MWIyMTg1MTFjYWM3NDE1Y2Y5ZDliIiwicHJlY2VkaW5nQ29udGV4dExpbmVDb3VudCI6MywicHJlY2VkaW5nQ29udGV4dEhhc2giOiIzYTk3MGNhODJiNmNkZjA3OTlhMDlkNWVlNjdjMjJhYzNmNGE4NjRjOWU3Yjg5Nzg1Y2I1OTFlYTY1ZGJkYWQ4IiwiZm9sbG93aW5nQ29udGV4dExpbmVDb3VudCI6MywiZm9sbG93aW5nQ29udGV4dEhhc2giOiI0YTg0MzFlZGVlOTkzOTA4ZGY0NzA3ZDk3MDFiOGU2ZWQ2ZTJmZTA2ODhmYWNmYjUwZDExMzU0NmVkMThjNzFiIn0"
         }
       ]
     }
   ],
   "verification": {
     "by": "openwiki/0.9.0",
-    "at": "2026-11-23T10:30:12.505Z"
+    "at": "2026-11-23T14:57:27.550Z"
   }
 }
