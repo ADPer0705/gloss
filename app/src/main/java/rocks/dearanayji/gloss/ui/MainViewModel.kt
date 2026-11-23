@@ -1,0 +1,442 @@
+package rocks.dearanayji.gloss.ui
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import rocks.dearanayji.gloss.GlossApplication
+import rocks.dearanayji.gloss.data.HistoryItem
+import rocks.dearanayji.gloss.data.LanguageCatalog
+import rocks.dearanayji.gloss.data.ModelState
+import rocks.dearanayji.gloss.data.ThemeMode
+import rocks.dearanayji.gloss.engine.WordSegmenter
+
+enum class WordOrigin {
+    SOURCE,
+    TRANSLATION
+}
+
+data class SelectedWordGloss(
+    val wordIndex: Int,
+    val origin: WordOrigin,
+    val word: String,
+    val fromLangCode: String,
+    val toLangCode: String,
+    val meaning: String? = null,
+    val isLoading: Boolean = true,
+    val error: String? = null
+)
+
+data class GlossUiState(
+    val modelState: ModelState = ModelState.NotDownloaded,
+    val sourceCode: String = LanguageCatalog.DEFAULT_SOURCE_CODE,
+    val targetCode: String = LanguageCatalog.DEFAULT_TARGET_CODE,
+    val inputText: String = "",
+    val translatedText: String = "",
+    val isTranslating: Boolean = false,
+    val translationError: String? = null,
+    val sourceTokens: List<WordSegmenter.TextToken> = emptyList(),
+    val translatedTokens: List<WordSegmenter.TextToken> = emptyList(),
+    val selectedWord: SelectedWordGloss? = null,
+    val themeMode: ThemeMode = ThemeMode.DARK,
+    val recentLangCodes: List<String> = emptyList(),
+    val history: List<HistoryItem> = emptyList(),
+    val installedSizeBytes: Long = 0L
+)
+
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val app = application as GlossApplication
+    private val prefs = app.preferencesStore
+    private val repo = app.engineRepository
+
+    private data class DraftState(
+        val sourceCode: String,
+        val targetCode: String,
+        val inputText: String,
+        val translatedText: String,
+        val isTranslating: Boolean,
+        val translationError: String?,
+        val sourceTokens: List<WordSegmenter.TextToken>,
+        val translatedTokens: List<WordSegmenter.TextToken>,
+        val selectedWord: SelectedWordGloss?,
+        val themeMode: ThemeMode,
+        val recentLangCodes: List<String>,
+        val history: List<HistoryItem>
+    )
+
+    private val draft = MutableStateFlow(
+        DraftState(
+            sourceCode = prefs.sourceLangCode,
+            targetCode = prefs.targetLangCode,
+            inputText = "",
+            translatedText = "",
+            isTranslating = false,
+            translationError = null,
+            sourceTokens = emptyList(),
+            translatedTokens = emptyList(),
+            selectedWord = null,
+            themeMode = prefs.themeMode,
+            recentLangCodes = prefs.getRecentLanguageCodes(),
+            history = prefs.getHistory()
+        )
+    )
+
+    val uiState: StateFlow<GlossUiState> = combine(repo.modelState, draft) { modelState, d ->
+        GlossUiState(
+            modelState = modelState,
+            sourceCode = d.sourceCode,
+            targetCode = d.targetCode,
+            inputText = d.inputText,
+            translatedText = d.translatedText,
+            isTranslating = d.isTranslating,
+            translationError = d.translationError,
+            sourceTokens = d.sourceTokens,
+            translatedTokens = d.translatedTokens,
+            selectedWord = d.selectedWord,
+            themeMode = d.themeMode,
+            recentLangCodes = d.recentLangCodes,
+            history = d.history,
+            installedSizeBytes = repo.installedSizeBytes()
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = GlossUiState(
+            modelState = repo.modelState.value,
+            sourceCode = draft.value.sourceCode,
+            targetCode = draft.value.targetCode,
+            themeMode = draft.value.themeMode,
+            recentLangCodes = draft.value.recentLangCodes,
+            history = draft.value.history,
+            installedSizeBytes = repo.installedSizeBytes()
+        )
+    )
+
+    private var phraseJob: Job? = null
+    private var wordJob: Job? = null
+
+    init {
+        viewModelScope.launch {
+            repo.modelState.collect { state ->
+                if (state is ModelState.Ready && draft.value.inputText.isNotBlank() &&
+                    draft.value.translatedText.isBlank()
+                ) {
+                    scheduleTranslation(immediate = true)
+                }
+            }
+        }
+    }
+
+    fun startDownload() {
+        repo.startDownload()
+    }
+
+    fun cancelDownload() {
+        repo.cancelDownload()
+    }
+
+    fun retryLoad() {
+        repo.ensureLoadedAsync()
+    }
+
+    fun deleteModel() {
+        viewModelScope.launch {
+            repo.deleteModel()
+            draft.update {
+                it.copy(
+                    translatedText = "",
+                    translatedTokens = emptyList(),
+                    isTranslating = false,
+                    selectedWord = null
+                )
+            }
+        }
+    }
+
+    fun onInputChanged(newText: String) {
+        val tokens = WordSegmenter.tokenize(newText)
+        draft.update {
+            it.copy(
+                inputText = newText,
+                sourceTokens = tokens,
+                selectedWord = null,
+                translationError = null
+            )
+        }
+        if (newText.isBlank()) {
+            phraseJob?.cancel()
+            draft.update {
+                it.copy(
+                    translatedText = "",
+                    translatedTokens = emptyList(),
+                    isTranslating = false
+                )
+            }
+        } else {
+            scheduleTranslation(immediate = false)
+        }
+    }
+
+    fun setStarterPhrase(text: String) {
+        onInputChanged(text)
+    }
+
+    fun clearInput() {
+        phraseJob?.cancel()
+        wordJob?.cancel()
+        draft.update {
+            it.copy(
+                inputText = "",
+                translatedText = "",
+                sourceTokens = emptyList(),
+                translatedTokens = emptyList(),
+                selectedWord = null,
+                isTranslating = false,
+                translationError = null
+            )
+        }
+    }
+
+    fun selectSourceLanguage(code: String) {
+        if (code == draft.value.sourceCode) return
+        if (code == draft.value.targetCode) {
+            swapLanguages()
+            return
+        }
+        prefs.sourceLangCode = code
+        draft.update {
+            it.copy(
+                sourceCode = code,
+                recentLangCodes = prefs.getRecentLanguageCodes(),
+                selectedWord = null,
+                translationError = null
+            )
+        }
+        if (draft.value.inputText.isNotBlank()) {
+            scheduleTranslation(immediate = true)
+        }
+    }
+
+    fun selectTargetLanguage(code: String) {
+        if (code == draft.value.targetCode) return
+        if (code == draft.value.sourceCode) {
+            swapLanguages()
+            return
+        }
+        prefs.targetLangCode = code
+        draft.update {
+            it.copy(
+                targetCode = code,
+                recentLangCodes = prefs.getRecentLanguageCodes(),
+                selectedWord = null,
+                translationError = null
+            )
+        }
+        if (draft.value.inputText.isNotBlank()) {
+            scheduleTranslation(immediate = true)
+        }
+    }
+
+    fun swapLanguages() {
+        val cur = draft.value
+        val newSource = cur.targetCode
+        val newTarget = cur.sourceCode
+        prefs.sourceLangCode = newSource
+        prefs.targetLangCode = newTarget
+
+        val nextInput = if (cur.translatedText.isNotBlank()) cur.translatedText else cur.inputText
+        val nextTokens = WordSegmenter.tokenize(nextInput)
+
+        draft.update {
+            it.copy(
+                sourceCode = newSource,
+                targetCode = newTarget,
+                inputText = nextInput,
+                sourceTokens = nextTokens,
+                translatedText = "",
+                translatedTokens = emptyList(),
+                selectedWord = null,
+                translationError = null,
+                recentLangCodes = prefs.getRecentLanguageCodes()
+            )
+        }
+        if (nextInput.isNotBlank()) {
+            scheduleTranslation(immediate = true)
+        }
+    }
+
+    fun onWordTapped(token: WordSegmenter.TextToken.Word, origin: WordOrigin) {
+        if (repo.modelState.value !is ModelState.Ready) return
+
+        val cur = draft.value
+        if (cur.selectedWord?.wordIndex == token.index && cur.selectedWord.origin == origin) {
+            dismissWordGloss()
+            return
+        }
+
+        val (fromCode, toCode) = when (origin) {
+            WordOrigin.SOURCE -> cur.sourceCode to cur.targetCode
+            WordOrigin.TRANSLATION -> cur.targetCode to cur.sourceCode
+        }
+
+        wordJob?.cancel()
+        draft.update {
+            it.copy(
+                selectedWord = SelectedWordGloss(
+                    wordIndex = token.index,
+                    origin = origin,
+                    word = token.lookup,
+                    fromLangCode = fromCode,
+                    toLangCode = toCode,
+                    isLoading = true
+                )
+            )
+        }
+
+        wordJob = viewModelScope.launch {
+            try {
+                val meaning = repo.translateWord(token.lookup, fromCode, toCode)
+                draft.update { state ->
+                    val sel = state.selectedWord
+                    if (sel != null && sel.wordIndex == token.index && sel.origin == origin) {
+                        state.copy(selectedWord = sel.copy(meaning = meaning, isLoading = false))
+                    } else {
+                        state
+                    }
+                }
+            } catch (t: Throwable) {
+                draft.update { state ->
+                    val sel = state.selectedWord
+                    if (sel != null && sel.wordIndex == token.index && sel.origin == origin) {
+                        state.copy(
+                            selectedWord = sel.copy(
+                                isLoading = false,
+                                error = t.localizedMessage ?: "Lookup failed"
+                            )
+                        )
+                    } else {
+                        state
+                    }
+                }
+            }
+        }
+    }
+
+    fun dismissWordGloss() {
+        wordJob?.cancel()
+        draft.update { it.copy(selectedWord = null) }
+    }
+
+    fun toggleTheme() {
+        val next = when (draft.value.themeMode) {
+            ThemeMode.DARK -> ThemeMode.LIGHT
+            ThemeMode.LIGHT -> ThemeMode.DARK
+            ThemeMode.SYSTEM -> ThemeMode.DARK
+        }
+        prefs.themeMode = next
+        draft.update { it.copy(themeMode = next) }
+    }
+
+    fun saveCurrentToHistory() {
+        val cur = draft.value
+        if (cur.inputText.isBlank() || cur.translatedText.isBlank()) return
+        val updated = prefs.addHistoryItem(
+            HistoryItem(
+                sourceText = cur.inputText.trim(),
+                translatedText = cur.translatedText.trim(),
+                sourceCode = cur.sourceCode,
+                targetCode = cur.targetCode,
+                timestampMillis = System.currentTimeMillis()
+            )
+        )
+        draft.update { it.copy(history = updated) }
+    }
+
+    fun restoreHistoryItem(item: HistoryItem) {
+        prefs.sourceLangCode = item.sourceCode
+        prefs.targetLangCode = item.targetCode
+        draft.update {
+            it.copy(
+                sourceCode = item.sourceCode,
+                targetCode = item.targetCode,
+                inputText = item.sourceText,
+                translatedText = item.translatedText,
+                sourceTokens = WordSegmenter.tokenize(item.sourceText),
+                translatedTokens = WordSegmenter.tokenize(item.translatedText),
+                selectedWord = null,
+                translationError = null,
+                recentLangCodes = prefs.getRecentLanguageCodes()
+            )
+        }
+        if (repo.modelState.value is ModelState.Ready) {
+            scheduleTranslation(immediate = true, recordHistory = false)
+        }
+    }
+
+    fun clearHistory() {
+        prefs.clearHistory()
+        draft.update { it.copy(history = emptyList()) }
+    }
+
+    private fun scheduleTranslation(immediate: Boolean, recordHistory: Boolean = true) {
+        phraseJob?.cancel()
+        if (repo.modelState.value !is ModelState.Ready) return
+
+        val snapshot = draft.value
+        val text = snapshot.inputText
+        if (text.isBlank()) return
+
+        phraseJob = viewModelScope.launch {
+            if (!immediate) delay(380L)
+            draft.update { it.copy(isTranslating = true, translationError = null) }
+            try {
+                val translated = repo.translatePhrase(text, snapshot.sourceCode, snapshot.targetCode)
+                val outTokens = WordSegmenter.tokenize(translated)
+                draft.update { current ->
+                    if (current.inputText == text &&
+                        current.sourceCode == snapshot.sourceCode &&
+                        current.targetCode == snapshot.targetCode
+                    ) {
+                        val nextHistory = if (recordHistory && text.trim().length >= 3 && translated.isNotBlank()) {
+                            prefs.addHistoryItem(
+                                HistoryItem(
+                                    sourceText = text.trim(),
+                                    translatedText = translated.trim(),
+                                    sourceCode = snapshot.sourceCode,
+                                    targetCode = snapshot.targetCode,
+                                    timestampMillis = System.currentTimeMillis()
+                                )
+                            )
+                        } else {
+                            current.history
+                        }
+                        current.copy(
+                            translatedText = translated,
+                            translatedTokens = outTokens,
+                            isTranslating = false,
+                            history = nextHistory
+                        )
+                    } else {
+                        current
+                    }
+                }
+            } catch (t: Throwable) {
+                draft.update {
+                    it.copy(
+                        isTranslating = false,
+                        translationError = t.localizedMessage ?: "Translation failed"
+                    )
+                }
+            }
+        }
+    }
+}
