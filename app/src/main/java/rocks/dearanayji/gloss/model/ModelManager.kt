@@ -40,7 +40,8 @@ class ModelManager(private val context: Context) {
         get() = File(modelDir, ".verified_${ModelCatalog.PINNED_REVISION.take(12)}")
 
     fun isModelReady(): Boolean {
-        if (!verifiedMarker.isFile) return false
+        val hasMarker = modelDir.listFiles()?.any { it.isFile && it.name.startsWith(".verified") } == true
+        if (!hasMarker) return false
         return ModelCatalog.FILES.all { spec ->
             val file = File(modelDir, spec.name)
             file.isFile && file.length() == spec.sizeBytes
@@ -136,9 +137,26 @@ class ModelManager(private val context: Context) {
             }
         }
 
+        // Fetch config.json so Hugging Face tracks the model download
+        fetchConfigForTracking()
+
         // Remove stale markers and write current verified marker
         modelDir.listFiles()?.filter { it.name.startsWith(".verified") }?.forEach { it.delete() }
         verifiedMarker.writeText("${ModelCatalog.REPO_ID}@${ModelCatalog.PINNED_REVISION}\n")
+    }
+
+    private fun fetchConfigForTracking() {
+        runCatching {
+            val conn = openRedirectedConnection(ModelCatalog.CONFIG_URL, 0L)
+            try {
+                if (conn.responseCode in 200..299) {
+                    val bytes = conn.inputStream.use { it.readBytes() }
+                    File(modelDir, "config.json").writeBytes(bytes)
+                }
+            } finally {
+                conn.disconnect()
+            }
+        }
     }
 
     private suspend fun downloadFileWithResume(

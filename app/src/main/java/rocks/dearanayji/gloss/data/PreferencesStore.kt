@@ -3,6 +3,7 @@ package rocks.dearanayji.gloss.data
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import rocks.dearanayji.gloss.widget.GlossWidgetUpdater
 
 enum class ThemeMode {
     DARK,
@@ -20,7 +21,8 @@ data class HistoryItem(
 
 class PreferencesStore(context: Context) {
 
-    private val prefs = context.getSharedPreferences("gloss_prefs", Context.MODE_PRIVATE)
+    private val appContext = context.applicationContext
+    private val prefs = appContext.getSharedPreferences("gloss_prefs", Context.MODE_PRIVATE)
     private val gson = Gson()
 
     var sourceLangCode: String
@@ -29,6 +31,7 @@ class PreferencesStore(context: Context) {
         set(value) {
             prefs.edit().putString(KEY_SOURCE_LANG, value).apply()
             recordRecentLanguage(value)
+            GlossWidgetUpdater.updateAll(appContext)
         }
 
     var targetLangCode: String
@@ -37,7 +40,18 @@ class PreferencesStore(context: Context) {
         set(value) {
             prefs.edit().putString(KEY_TARGET_LANG, value).apply()
             recordRecentLanguage(value)
+            GlossWidgetUpdater.updateAll(appContext)
         }
+
+    fun setLanguagePair(sourceCode: String, targetCode: String) {
+        prefs.edit()
+            .putString(KEY_SOURCE_LANG, sourceCode)
+            .putString(KEY_TARGET_LANG, targetCode)
+            .apply()
+        recordRecentLanguage(sourceCode)
+        recordRecentLanguage(targetCode)
+        GlossWidgetUpdater.updateAll(appContext)
+    }
 
     var themeMode: ThemeMode
         get() {
@@ -80,11 +94,13 @@ class PreferencesStore(context: Context) {
         }
         val updated = (listOf(item) + deduped).take(MAX_HISTORY_ITEMS)
         prefs.edit().putString(KEY_HISTORY, gson.toJson(updated)).apply()
+        GlossWidgetUpdater.updateAll(appContext)
         return updated
     }
 
     fun clearHistory() {
         prefs.edit().remove(KEY_HISTORY).apply()
+        GlossWidgetUpdater.updateAll(appContext)
     }
 
     companion object {

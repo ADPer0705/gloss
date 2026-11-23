@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_widget_card"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="gloss"
+            android:textColor="#7C73FF"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/widget_lang_pair"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="English  →  Spanish"
+            android:textColor="#94A0B8"
+            android:textSize="12sp" />
+
+        <ImageButton
+            android:id="@+id/widget_btn_swap"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_widget_pill"
+            android:contentDescription="Swap languages"
+            android:padding="6dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_widget_swap" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/widget_btn_translate"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_widget_pill"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:text="Tap to translate offline…"
+            android:textColor="#94A0B8"
+            android:textSize="14sp" />
+
+        <ImageButton
+            android:id="@+id/widget_btn_paste"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_widget_pill"
+            android:contentDescription="Paste and translate"
+            android:padding="9dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_widget_paste" />
+
+        <ImageButton
+            android:id="@+id/widget_btn_history"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/bg_widget_pill"
+            android:contentDescription="Recent phrases"
+            android:padding="9dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_widget_history" />
+    </LinearLayout>
+
+</LinearLayout>

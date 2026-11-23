@@ -12,9 +12,10 @@ data class ModelFileSpec(
  */
 object ModelCatalog {
     const val REPO_ID = "ADPer/nllb-200-distilled-600M-mobile"
-    const val PINNED_REVISION = "7339939c0b80d2228236f9111c0de1bd22d03b11"
+    const val PINNED_REVISION = "c998583de40ac4331dce8e8d7254d4456696133a"
     const val REPO_URL = "https://huggingface.co/$REPO_ID"
     const val RESOLVE_BASE_URL = "https://huggingface.co/$REPO_ID/resolve/$PINNED_REVISION"
+    const val CONFIG_URL = "$RESOLVE_BASE_URL/config.json"
 
     const val MODEL_DISPLAY_NAME = "NLLB-200 distilled 600M (INT8 Mobile)"
     const val LICENSE_NAME = "CC-BY-NC-4.0"

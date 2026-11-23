@@ -1,5 +1,8 @@
 package rocks.dearanayji.gloss
 
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.widget.Toast
@@ -8,11 +11,15 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import rocks.dearanayji.gloss.data.HistoryItem
 import rocks.dearanayji.gloss.data.LanguageCatalog
 import rocks.dearanayji.gloss.ui.MainScreen
 import rocks.dearanayji.gloss.ui.MainViewModel
 import rocks.dearanayji.gloss.ui.theme.GlossTheme
+import rocks.dearanayji.gloss.widget.GlossWidgetActions
 import java.util.Locale
 
 class MainActivity : ComponentActivity() {
@@ -20,6 +27,7 @@ class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels()
     private var tts: TextToSpeech? = null
     private var ttsReady = false
+    private var openHistoryNonce by mutableIntStateOf(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
@@ -28,6 +36,8 @@ class MainActivity : ComponentActivity() {
         tts = TextToSpeech(this) { status ->
             ttsReady = (status == TextToSpeech.SUCCESS)
         }
+
+        handleWidgetIntent(intent)
 
         setContent {
             val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -50,8 +60,57 @@ class MainActivity : ComponentActivity() {
                     onSelectHistoryItem = viewModel::restoreHistoryItem,
                     onClearHistory = viewModel::clearHistory,
                     onSaveToHistory = viewModel::saveCurrentToHistory,
-                    onSpeakText = ::speak
+                    onSpeakText = ::speak,
+                    openHistoryNonce = openHistoryNonce
                 )
+            }
+        }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        setIntent(intent)
+        handleWidgetIntent(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.syncFromPreferences()
+    }
+
+    private fun handleWidgetIntent(intent: Intent?) {
+        val action = intent?.getStringExtra(GlossWidgetActions.EXTRA_WIDGET_ACTION) ?: return
+        intent.removeExtra(GlossWidgetActions.EXTRA_WIDGET_ACTION)
+
+        when (action) {
+            GlossWidgetActions.WIDGET_ACTION_PASTE -> {
+                val cm = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clipText = cm.primaryClip?.getItemAt(0)?.coerceToText(this)?.toString()
+                if (!clipText.isNullOrBlank()) {
+                    viewModel.onInputChanged(clipText)
+                } else {
+                    Toast.makeText(this, "Clipboard is empty", Toast.LENGTH_SHORT).show()
+                }
+            }
+            GlossWidgetActions.WIDGET_ACTION_HISTORY -> {
+                openHistoryNonce++
+            }
+            GlossWidgetActions.WIDGET_ACTION_RESTORE -> {
+                val srcText = intent.getStringExtra(GlossWidgetActions.EXTRA_RESTORE_SOURCE_TEXT)
+                val tgtText = intent.getStringExtra(GlossWidgetActions.EXTRA_RESTORE_TRANSLATED_TEXT)
+                val srcCode = intent.getStringExtra(GlossWidgetActions.EXTRA_RESTORE_SOURCE_CODE)
+                val tgtCode = intent.getStringExtra(GlossWidgetActions.EXTRA_RESTORE_TARGET_CODE)
+                if (!srcText.isNullOrBlank() && tgtText != null && !srcCode.isNullOrBlank() && !tgtCode.isNullOrBlank()) {
+                    viewModel.restoreHistoryItem(
+                        HistoryItem(
+                            sourceText = srcText,
+                            translatedText = tgtText,
+                            sourceCode = srcCode,
+                            targetCode = tgtCode,
+                            timestampMillis = System.currentTimeMillis()
+                        )
+                    )
+                }
             }
         }
     }

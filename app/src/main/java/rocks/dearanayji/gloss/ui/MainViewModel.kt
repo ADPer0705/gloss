@@ -387,6 +387,26 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         draft.update { it.copy(history = emptyList()) }
     }
 
+    fun syncFromPreferences() {
+        val prefSrc = prefs.sourceLangCode
+        val prefTgt = prefs.targetLangCode
+        val prefHistory = prefs.getHistory()
+        val prefRecent = prefs.getRecentLanguageCodes()
+        val cur = draft.value
+        val pairChanged = cur.sourceCode != prefSrc || cur.targetCode != prefTgt
+        draft.update {
+            it.copy(
+                sourceCode = prefSrc,
+                targetCode = prefTgt,
+                history = prefHistory,
+                recentLangCodes = prefRecent
+            )
+        }
+        if (pairChanged && cur.inputText.isNotBlank()) {
+            scheduleTranslation(immediate = true)
+        }
+    }
+
     private fun scheduleTranslation(immediate: Boolean, recordHistory: Boolean = true) {
         phraseJob?.cancel()
         if (repo.modelState.value !is ModelState.Ready) return

@@ -43,6 +43,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -113,7 +114,8 @@ fun MainScreen(
     onSelectHistoryItem: (rocks.dearanayji.gloss.data.HistoryItem) -> Unit,
     onClearHistory: () -> Unit,
     onSaveToHistory: () -> Unit,
-    onSpeakText: (String, String) -> Unit
+    onSpeakText: (String, String) -> Unit,
+    openHistoryNonce: Int = 0
 ) {
     val colors = LocalGlossColors.current
     val clipboard = LocalClipboardManager.current
@@ -123,6 +125,12 @@ fun MainScreen(
     var pickerTarget by remember { mutableStateOf<PickerTarget?>(null) }
     var showModelSheet by remember { mutableStateOf(false) }
     var showHistorySheet by remember { mutableStateOf(false) }
+
+    LaunchedEffect(openHistoryNonce) {
+        if (openHistoryNonce > 0) {
+            showHistorySheet = true
+        }
+    }
 
     val sourceLang = remember(state.sourceCode) { LanguageCatalog.byCode(state.sourceCode) }
     val targetLang = remember(state.targetCode) { LanguageCatalog.byCode(state.targetCode) }
